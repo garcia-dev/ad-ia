@@ -16,18 +16,23 @@ public class Main {
 		booleanSet.add("True");
 		booleanSet.add("False");
 
-		// Colors
+		/* Colors */
 
 		Variable roofColor = new Variable("couleur_toit", colorSet);
 		Variable hoodColor = new Variable("couleur_capot", colorSet);
-		Variable tailgate = new Variable("couleur_hayon", colorSet);
+        Variable tailgate = new Variable("couleur_hayon", colorSet);
 
 		Variable leftSide = new Variable("couleur_gauche", colorSet);
 		Variable rightSide = new Variable("couleur_droit", colorSet);
 
-		// Options
+        /* Options */
 
 		Variable openingRoof = new Variable("toit_ouvrant", booleanSet);
 		Variable sono = new Variable("sono", booleanSet);
+
+		/* Rules */
+
+
+
 	}
 }
