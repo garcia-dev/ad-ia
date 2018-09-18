@@ -3,9 +3,7 @@ package examples;
 import representations.AllEqualConstraint;
 import representations.Variable;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 public class Main {
