@@ -10,8 +10,6 @@ import java.util.Set;
  */
 
 public class AllEqualConstraint implements Constraint {
-	public AllEqualConstraint() {
-	}
 
 	@Override
 	public Set<Variable> getScope() {
