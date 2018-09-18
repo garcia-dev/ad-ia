@@ -3,11 +3,12 @@ package representations;
 import java.util.Set;
 
 /**
- * @version 2018-09-11
  * @author Romain Garcia
+ * @version 2018-09-11
  */
 
 public class Variable {
+
 	private String name;
 	private Set<String> domain;
 
@@ -23,4 +24,5 @@ public class Variable {
 	public Set<String> getDomain() {
 		return domain;
 	}
+
 }

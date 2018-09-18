@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class Main {
+
 	public static void main(String[] args) {
 		Set<String> colorSet = new HashSet<>();
 		colorSet.add("black");
@@ -29,7 +30,7 @@ public class Main {
 		Variable leftSide = new Variable("couleur_gauche", colorSet);
 		Variable rightSide = new Variable("couleur_droit", colorSet);
 
-        /* Options */
+		/* Options */
 
 		Variable openingRoof = new Variable("toit_ouvrant", booleanSet);
 		Variable sono = new Variable("sono", booleanSet);
@@ -45,7 +46,10 @@ public class Main {
 		notAllEqualColor.put(tailgateColor, "blue");
 
 		AllEqualConstraint allEqualConstraint = new AllEqualConstraint();
+
+
 		System.out.println(allEqualConstraint.isSatisfiedBy(allEqualColors));
 		System.out.println(!allEqualConstraint.isSatisfiedBy(notAllEqualColor));
 	}
+
 }

@@ -9,6 +9,7 @@ import java.util.Set;
  */
 
 public class IncompatibilityConstraint implements Constraint {
+
 	private Map<Variable, String> variables;
 
 	public IncompatibilityConstraint(Map<Variable, String> variables) {
@@ -32,4 +33,5 @@ public class IncompatibilityConstraint implements Constraint {
 
 		return true;
 	}
+	
 }

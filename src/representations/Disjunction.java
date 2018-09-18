@@ -13,6 +13,7 @@ import java.util.Set;
  */
 
 public class Disjunction implements Constraint {
+
 	private Map<Variable, String> variables;
 
 	public Disjunction(Map<Variable, String> variables) {
@@ -36,4 +37,5 @@ public class Disjunction implements Constraint {
 
 		return false;
 	}
+
 }
