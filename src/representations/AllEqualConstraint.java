@@ -11,21 +11,21 @@ import java.util.Set;
 
 public class AllEqualConstraint implements Constraint {
 
-    private Map<Variable, String> variables;
+	private Map<Variable, String> variables;
 
-    public AllEqualConstraint(Map<Variable, String> variables) {
-        this.variables = variables;
-    }
+	public AllEqualConstraint(Map<Variable, String> variables) {
+		this.variables = variables;
+	}
 
-    @Override
-    public Set<Variable> getScope() {
-        return variables.keySet();
-    }
+	@Override
+	public Set<Variable> getScope() {
+		return variables.keySet();
+	}
 
-    @Override
-    public boolean isSatisfiedBy(Map<Variable, String> allocation) {
-        Set<String> values = new HashSet<>(allocation.values());
-        return values.size() == 1;
-    }
+	@Override
+	public boolean isSatisfiedBy(Map<Variable, String> allocation) {
+		Set<String> values = new HashSet<>(allocation.values());
+		return values.size() == 1;
+	}
 
 }
