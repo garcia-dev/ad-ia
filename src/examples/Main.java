@@ -34,22 +34,9 @@ public class Main {
 
 		Variable openingRoof = new Variable("toit_ouvrant", booleanSet);
 		Variable sono = new Variable("sono", booleanSet);
-
-		Map<Variable, String> allEqualColors = new HashMap<>();
-		allEqualColors.put(roofColor, "black");
-		allEqualColors.put(hoodColor, "black");
-		allEqualColors.put(tailgateColor, "black");
-
-		Map<Variable, String> notAllEqualColor = new HashMap<>();
-		notAllEqualColor.put(roofColor, "black");
-		notAllEqualColor.put(hoodColor, "red");
-		notAllEqualColor.put(tailgateColor, "blue");
-
-		AllEqualConstraint allEqualConstraint = new AllEqualConstraint();
-
-
-		System.out.println(allEqualConstraint.isSatisfiedBy(allEqualColors));
-		System.out.println(!allEqualConstraint.isSatisfiedBy(notAllEqualColor));
+<<<<<<< HEAD
+=======
+>>>>>>> c518a1c29e8f60a57586b4d587367510885fd52a
 	}
 
 }

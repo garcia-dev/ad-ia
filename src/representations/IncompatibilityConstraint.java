@@ -18,7 +18,7 @@ public class IncompatibilityConstraint implements Constraint {
 
 	@Override
 	public Set<Variable> getScope() {
-		return null;
+		return variables.keySet();
 	}
 
 	@Override

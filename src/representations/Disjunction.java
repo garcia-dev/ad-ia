@@ -22,7 +22,7 @@ public class Disjunction implements Constraint {
 
 	@Override
 	public Set<Variable> getScope() {
-		return null;
+		return variables.keySet();
 	}
 
 	@Override
