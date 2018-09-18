@@ -10,15 +10,29 @@ import java.util.Set;
  */
 
 public class AllEqualConstraint implements Constraint {
+	Set<Variable> variables;
+
+	public AllEqualConstraint(Set<Variable> variables) {
+		this.variables = variables;
+	}
 
 	@Override
 	public Set<Variable> getScope() {
-		return null;
+		return variables;
 	}
 
 	@Override
 	public boolean isSatisfiedBy(Map<Variable, String> allocation) {
-		Set<String> values = new HashSet<>(allocation.values());
-		return values.size() == 1;
+		String value = null;
+
+		for (Variable key : variables) {
+			if (value == null)
+				value = allocation.get(key);
+
+			if (!allocation.get(key).equals(value))
+				return false;
+		}
+
+		return true;
 	}
 }
