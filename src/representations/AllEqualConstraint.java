@@ -1,5 +1,6 @@
 package representations;
 
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -9,19 +10,17 @@ import java.util.Set;
  */
 
 public class AllEqualConstraint implements Constraint {
-	private Map<Variable, String> variables;
-
-	public AllEqualConstraint(Map<Variable, String> variables) {
-		this.variables = variables;
+	public AllEqualConstraint() {
 	}
 
 	@Override
 	public Set<Variable> getScope() {
-		return variables.keySet();
+		return null;
 	}
 
 	@Override
-	public boolean isSatisfiedBy(Map<Variable, String> map) {
-		return false;
+	public boolean isSatisfiedBy(Map<Variable, String> allocation) {
+		Set<String> values = new HashSet<>(allocation.values());
+		return values.size() == 1;
 	}
 }
