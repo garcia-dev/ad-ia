@@ -10,6 +10,11 @@ import java.util.Set;
  */
 
 public class AllEqualConstraint implements Constraint {
+	Set<Variable> variables;
+
+	public AllEqualConstraint(Set<Variable> variables) {
+		this.variables = variables;
+	}
 
 	Set<Variable> variables;
 
