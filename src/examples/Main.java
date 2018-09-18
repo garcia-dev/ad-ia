@@ -29,5 +29,7 @@ public class Main {
 
 		Variable openingRoof = new Variable("toit_ouvrant", booleanSet);
 		Variable sono = new Variable("sono", booleanSet);
+
+		Map<Variable, String> car1 = new HashMap<>();
 	}
 }
