@@ -9,7 +9,9 @@ import java.util.Set;
  * @author Romain Garcia
  */
 
-public abstract class AllEqualConstraint implements Constraint {
+public class AllEqualConstraint implements Constraint {
+	public AllEqualConstraint() {
+	}
 
 	@Override
 	public Set<Variable> getScope() {

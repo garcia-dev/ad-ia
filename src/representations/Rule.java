@@ -8,7 +8,7 @@ import java.util.Set;
  * @author Romain Garcia
  */
 
-class Rule implements Constraint {
+public class Rule implements Constraint {
 	private Map<Variable, String> premise;
 	private Map<Variable, String> conclusion;
 
