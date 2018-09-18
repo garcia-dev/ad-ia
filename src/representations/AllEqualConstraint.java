@@ -11,15 +11,12 @@ import java.util.Set;
 
 public class AllEqualConstraint implements Constraint {
 
-	private Map<Variable, String> variables;
-
-	public AllEqualConstraint(Map<Variable, String> variables) {
-		this.variables = variables;
+	public AllEqualConstraint() {
 	}
 
 	@Override
 	public Set<Variable> getScope() {
-		return variables.keySet();
+		return null;
 	}
 
 	@Override

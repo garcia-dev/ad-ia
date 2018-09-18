@@ -4,32 +4,36 @@ import java.util.Map;
 import java.util.Set;
 
 /**
+<<<<<<< HEAD
+=======
+ * @version 2018-09-18
+>>>>>>> origin
  * @author Romain Garcia
  * @version 2018-09-11
  */
 
-class Rule implements Constraint {
+public class Rule implements Constraint {
+	private Map<Variable, String> premise;
+	private Map<Variable, String> conclusion;
 
-    private Map<Variable, String> premise;
-    private Map<Variable, String> conclusion;
+	Rule(Map<Variable, String> premise, Map<Variable, String> conclusion) {
+		this.premise = premise;
+		this.conclusion = conclusion;
+	}
 
-    public Rule(Map<Variable, String> premise, Map<Variable, String> conclusion) {
-        this.premise = premise;
-        this.conclusion = conclusion;
-    }
+	@Override
+	public Set<Variable> getScope() {
+		return null;
+	}
 
-    public Rule(Map<Variable, String> premise) {
-        this(premise, null);
-    }
+	@Override
+	public boolean isSatisfiedBy(Map<Variable, String> allocation) {
+		IncompatibilityConstraint incompatibilityConstraint = new IncompatibilityConstraint(premise);
+		incompatibilityConstraint.isSatisfiedBy(allocation);
 
-    @Override
-    public Set<Variable> getScope() {
-        return null;
-    }
+		Disjunction disjunction = new Disjunction(conclusion);
+		disjunction.isSatisfiedBy(allocation);
 
-    @Override
-    public boolean isSatisfiedBy(Map<Variable, String> allocation) {
-        for ()
-    }
-
+		return true;
+	}
 }

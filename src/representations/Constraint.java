@@ -4,13 +4,13 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @version 2018-09-11
  * @author Romain Garcia
+ * @version 2018-09-11
  */
 
 public interface Constraint {
 
 	Set<Variable> getScope();
-	boolean isSatisfiedBy(Map<Variable, String> map);
 
+	boolean isSatisfiedBy(Map<Variable, String> allocation);
 }
