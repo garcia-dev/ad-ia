@@ -12,12 +12,12 @@ import java.util.Set;
  * @version 2018-09-11
  */
 
-public class Disjunction extends Rule {
-    private Map<Variable, String> variables;
+public class Disjunction implements Constraint {
+	private Map<Variable, String> variables;
 
-    public Disjunction(Map<Variable, String> allocation) {
-        super(allocation);
-    }
+	public Disjunction(Map<Variable, String> variables) {
+		this.variables = variables;
+	}
 
 	@Override
 	public Set<Variable> getScope() {

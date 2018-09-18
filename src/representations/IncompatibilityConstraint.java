@@ -4,17 +4,16 @@ import java.util.Map;
 import java.util.Set;
 
 /**
-<<<<<<< HEAD
-=======
- * @version 2018-09-19
->>>>>>> origin
  * @author Romain Garcia
  * @version 2018-09-11
  */
 
-public class IncompatibilityConstraint extends Rule {
+public class IncompatibilityConstraint implements Constraint {
+	private Map<Variable, String> variables;
 
-    private Map<Variable, String> variables;
+	public IncompatibilityConstraint(Map<Variable, String> variables) {
+		this.variables = variables;
+	}
 
 	@Override
 	public Set<Variable> getScope() {
