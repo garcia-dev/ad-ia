@@ -10,19 +10,12 @@ import java.util.Set;
  */
 
 public class AllEqualConstraint implements Constraint {
-<<<<<<< HEAD
+
 	Set<Variable> variables;
 
 	public AllEqualConstraint(Set<Variable> variables) {
 		this.variables = variables;
 	}
-=======
-	Set<Variable> variables;
-
-	public AllEqualConstraint(Set<Variable> variables) {
-		this.variables = variables;
-	}
->>>>>>> c518a1c29e8f60a57586b4d587367510885fd52a
 
 	@Override
 	public Set<Variable> getScope() {

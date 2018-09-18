@@ -34,9 +34,6 @@ public class Main {
 
 		Variable openingRoof = new Variable("toit_ouvrant", booleanSet);
 		Variable sono = new Variable("sono", booleanSet);
-<<<<<<< HEAD
-=======
->>>>>>> c518a1c29e8f60a57586b4d587367510885fd52a
 	}
 
 }
