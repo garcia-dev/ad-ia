@@ -1,8 +1,12 @@
 package examples;
 
+import representations.AllEqualConstraint;
+import representations.Rule;
 import representations.Variable;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class Main {
@@ -31,6 +35,39 @@ public class Main {
 
 		Variable openingRoof = new Variable("openingRoof", booleanSet);
 		Variable sono = new Variable("sono", booleanSet);
+
+		/* Cars */
+
+		Set<Variable> sameColorElements = new HashSet<>();
+		sameColorElements.add(roofColor);
+		sameColorElements.add(hoodColor);
+		sameColorElements.add(tailgateColor);
+
+		AllEqualConstraint allEqualConstraint = new AllEqualConstraint(sameColorElements);
+
+
+		Map<Variable, String> roofRule1 = new HashMap<>();
+		roofRule1.put(roofColor, "black");
+
+		Map<Variable, String> sidesRule1 = new HashMap<>();
+		sidesRule1.put(leftSide, roofRule1.get(roofColor));
+		sidesRule1.put(rightSide, roofRule1.get(roofColor));
+
+		Rule roofLikeOneSide = new Rule(roofRule1, sidesRule1);
+
+
+		Map<Variable, String> car1 = new HashMap<>();
+		car1.put(roofColor, "black");
+		car1.put(hoodColor, "black");
+		car1.put(tailgateColor, "black");
+
+		Map<Variable, String> car2 = new HashMap<>();
+		car2.put(roofColor, "black");
+		car2.put(hoodColor, "blue");
+		car2.put(tailgateColor, "black");
+
+		System.out.println(allEqualConstraint.isSatisfiedBy(car1));
+		System.out.println(!allEqualConstraint.isSatisfiedBy(car2));
 	}
 
 }

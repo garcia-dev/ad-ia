@@ -10,24 +10,28 @@ import java.util.Set;
 
 public class IncompatibilityConstraint implements Constraint {
 
-	private Map<Variable, String> variables;
+	private Set<Variable> scope;
 
-	public IncompatibilityConstraint(Map<Variable, String> variables) {
-		this.variables = variables;
+	public IncompatibilityConstraint(Set<Variable> scope) {
+		this.scope = scope;
 	}
 
 	@Override
 	public Set<Variable> getScope() {
-		return variables.keySet();
+		return scope;
 	}
 
 	@Override
 	public boolean isSatisfiedBy(Map<Variable, String> allocation) {
-		for (Map.Entry<Variable, String> entry : variables.entrySet()) {
-			Variable key = entry.getKey();
-			String value = entry.getValue();
+		String value = "";
 
-			if (!value.equals(allocation.get(key)))
+		for (Variable variable : scope) {
+			if (value.equals("")) {
+				value = allocation.get(variable);
+				continue;
+			}
+
+			if (allocation.get(variable).equals(value))
 				return false;
 		}
 

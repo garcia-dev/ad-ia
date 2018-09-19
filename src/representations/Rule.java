@@ -1,13 +1,11 @@
 package representations;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 /**
- * <<<<<<< HEAD
- * =======
- *
  * @author Romain Garcia
  * @version 2018-09-11
  */
@@ -24,14 +22,15 @@ public class Rule implements Constraint {
 
 	@Override
 	public Set<Variable> getScope() {
-		Map<Variable, String> variables = new HashMap<>();
-		variables.entrySet().add(premise.keySet());
-		return premise.keySet();
+		Set<Variable> scope = new HashSet<>();
+		scope.addAll(premise.keySet());
+		scope.addAll(conclusion.keySet());
+		return scope;
 	}
 
 	@Override
 	public boolean isSatisfiedBy(Map<Variable, String> allocation) {
-		boolean incompatibilityConstraint = new IncompatibilityConstraint(premise).isSatisfiedBy(allocation);
+		boolean incompatibilityConstraint = new IncompatibilityConstraint(premise.keySet()).isSatisfiedBy(allocation);
 		boolean disjunction = new Disjunction(conclusion).isSatisfiedBy(allocation);
 
 		return !incompatibilityConstraint || disjunction;
