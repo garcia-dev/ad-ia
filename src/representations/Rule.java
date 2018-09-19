@@ -29,7 +29,7 @@ public class Rule implements Constraint {
 
 	@Override
 	public boolean isSatisfiedBy(Map<Variable, String> allocation) {
-		boolean incompatibilityConstraint = new IncompatibilityConstraint(premise).isSatisfiedBy(allocation);
+		boolean incompatibilityConstraint = new IncompatibilityConstraint(premise.keySet()).isSatisfiedBy(allocation);
 		boolean disjunction = new Disjunction(conclusion).isSatisfiedBy(allocation);
 
 		return (!incompatibilityConstraint) || disjunction;

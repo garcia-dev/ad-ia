@@ -1,6 +1,5 @@
 package representations;
 
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -10,7 +9,7 @@ import java.util.Set;
  */
 
 public class AllEqualConstraint implements Constraint {
-	Set<Variable> variables;
+	private Set<Variable> variables;
 
 	public AllEqualConstraint(Set<Variable> variables) {
 		this.variables = variables;
@@ -32,8 +31,10 @@ public class AllEqualConstraint implements Constraint {
 		String value = null;
 
 		for (Variable key : variables) {
-			if (value == null)
+			if (value == null) {
 				value = allocation.get(key);
+				continue;
+			}
 
 			if (!allocation.get(key).equals(value))
 				return false;
