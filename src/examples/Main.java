@@ -2,6 +2,8 @@ package examples;
 
 import representations.AllEqualConstraint;
 import representations.Variable;
+import representations.Constraint;
+import ppc.BackTracking;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -19,7 +21,9 @@ public class Main {
 		Set<String> booleanSet = new HashSet<>();
 		booleanSet.add("True");
 		booleanSet.add("False");
-
+		
+		Set<Variable> allVariable=new HashSet();
+		Set<Constraint> allConstraint=new HashSet();
 		// Colors
 
 		Variable roofColor = new Variable("couleur_toit", colorSet);
@@ -33,7 +37,15 @@ public class Main {
 
 		Variable openingRoof = new Variable("toit_ouvrant", booleanSet);
 		Variable sono = new Variable("sono", booleanSet);
-
+		// add to the set allVariable all the variable
+		allVariable.add(roofColor);
+		allVariable.add(hoodColor);
+		allVariable.add(tailgateColor);
+		allVariable.add(leftSide);
+		allVariable.add(rightSide);
+		allVariable.add(openingRoof);
+		allVariable.add(sono);
+		
 		Map<Variable, String> allEqualColors = new HashMap<>();
 		allEqualColors.put(roofColor, "black");
 		allEqualColors.put(hoodColor, "black");
@@ -47,5 +59,14 @@ public class Main {
 		AllEqualConstraint allEqualConstraint = new AllEqualConstraint();
 		System.out.println(allEqualConstraint.isSatisfiedBy(allEqualColors));
 		System.out.println(!allEqualConstraint.isSatisfiedBy(notAllEqualColor));
+		
+		BackTracking ppcBC=new BackTracking(allConstraint,allVariable);
+		HashMap<Variable,String> car=ppcBC.solution(new HashMap());
+		for (Map.Entry<Variable, String> entry : car.entrySet()) {
+			Variable key = entry.getKey();
+			String value = entry.getValue();
+			System.out.println(key.getName()+" = "+value); 
+		}
+		System.out.println();
 	}
 }
