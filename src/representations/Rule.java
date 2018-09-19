@@ -1,5 +1,6 @@
 package representations;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -23,7 +24,9 @@ public class Rule implements Constraint {
 
 	@Override
 	public Set<Variable> getScope() {
-		return null;
+		Map<Variable, String> variables = new HashMap<>();
+		variables.entrySet().add(premise.keySet());
+		return premise.keySet();
 	}
 
 	@Override

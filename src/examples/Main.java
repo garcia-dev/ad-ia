@@ -1,6 +1,5 @@
 package examples;
 
-import representations.AllEqualConstraint;
 import representations.Variable;
 
 import java.util.HashSet;
@@ -21,16 +20,16 @@ public class Main {
 
 		/* Colors */
 
-		Variable roofColor = new Variable("couleur_toit", colorSet);
-		Variable hoodColor = new Variable("couleur_capot", colorSet);
-		Variable tailgateColor = new Variable("couleur_hayon", colorSet);
+		Variable roofColor = new Variable("roofColor", colorSet);
+		Variable hoodColor = new Variable("hoodColor", colorSet);
+		Variable tailgateColor = new Variable("tailgateColor", colorSet);
 
-		Variable leftSide = new Variable("couleur_gauche", colorSet);
-		Variable rightSide = new Variable("couleur_droit", colorSet);
+		Variable leftSide = new Variable("leftSide", colorSet);
+		Variable rightSide = new Variable("rightSide", colorSet);
 
 		/* Options */
 
-		Variable openingRoof = new Variable("toit_ouvrant", booleanSet);
+		Variable openingRoof = new Variable("openingRoof", booleanSet);
 		Variable sono = new Variable("sono", booleanSet);
 	}
 
