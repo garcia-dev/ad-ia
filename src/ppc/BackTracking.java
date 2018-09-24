@@ -51,7 +51,7 @@ public class BackTracking{
 			
 		}
 		
-		public String getValue(String current,Variable variable){
+		private String getValue(String current,Variable variable){
 			List<String> domain=new ArrayList(variable.getDomain());
 			if(domain.indexOf(current)<domain.size()){
 				return domain.get(0);
@@ -61,12 +61,16 @@ public class BackTracking{
 			}
 		}
 		
-		public boolean doTest(HashMap<Variable,String> car){
+		private boolean doTest(HashMap<Variable,String> car){
 			List<Variable> variables=new ArrayList(car.keySet());
 			for(Constraint c:this.allConstraint){
-				if(car.keySet().containsAll(c.getScope())){
-					if(!c.isSatisfiedBy(car)){
-						return false;
+				if(car!=null){
+					System.out.println(car);
+					System.out.println(c.getScope());
+					if(car.keySet().containsAll(c.getScope())){
+						if(!c.isSatisfiedBy(car)){
+							return false;
+						}
 					}
 				}
 			}
