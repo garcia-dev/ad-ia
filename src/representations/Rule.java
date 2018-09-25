@@ -2,11 +2,9 @@ package representations;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.HashSet;
 
-/**
- * <<<<<<< HEAD
- * =======
- *
+/*
  * @author Romain Garcia
  * @version 2018-09-11
  */
@@ -23,7 +21,10 @@ public class Rule implements Constraint {
 
 	@Override
 	public Set<Variable> getScope() {
-		return null;
+		Set<Variable> scope = new HashSet<>();
+		scope.addAll(premise.keySet());
+		scope.addAll(conclusion.keySet());
+		return scope;
 	}
 
 	@Override

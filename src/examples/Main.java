@@ -5,6 +5,7 @@ import ppc.*;
 
 import java.util.HashSet;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 public class Main {
@@ -60,12 +61,27 @@ public class Main {
 		conclusion.put(sono, "True");
 		Constraint rule=new Rule(premise,conclusion);
 		
+		HashMap<Variable,String> varIC=new HashMap();
+		varIC.put(sono,"True");
+		varIC.put(openingRoof,"True");
+		Constraint incomConstraint=new IncompatibilityConstraint(varIC);
+		
 		allConstraint.add(rule);
 		allConstraint.add(allEq);
+		allConstraint.add(incomConstraint);
 		
 		BackTracking ppc=new BackTracking(allConstraint,allVariable);
-		
-		System.out.println("solution: "+ppc.solution(new HashMap()));
-	}
+		HashMap<Variable,String> car=ppc.solution(new HashMap(),0);
+		System.out.println("solution: ");
+		printCar(car);
+		System.out.println("car is valid: "+ppc.doTest(car));
 
+	}
+	public static void printCar(Map<Variable,String> car){
+		for (Map.Entry<Variable, String> entry : car.entrySet()) {
+				Variable key = entry.getKey();
+				String value = entry.getValue();
+				System.out.println(key.getName()+" = "+value);
+		}
+	}
 }

@@ -2,6 +2,7 @@ package ppc;
 
 import representations.Variable;
 import representations.Constraint;
+import examples.Main;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,61 +13,59 @@ public class BackTracking{
 		private Set<Constraint> allConstraint;
 		private Set<Variable> allVariable;
 		private List<Variable> notUsed;
+		
 		public BackTracking(Set<Constraint> allConstraint,Set<Variable> allVariable){
 			this.allConstraint=allConstraint;
 			this.allVariable=allVariable;
 			
 			this.notUsed=new ArrayList(allVariable);
 			
+			
 		}
 		
-		public HashMap<Variable,String> solution(HashMap<Variable,String> car){
-			if(!notUsed.isEmpty()){
-				if(car != null){
-					//assign the next value (use notUsed)
-					car.put(notUsed.get(0),getValue(car.get(notUsed.get(0)),notUsed.get(0)));
-					if(doTest(car)){
-						this.notUsed.remove(0);
-						return solution(car);
+		public HashMap<Variable,String> solution(HashMap<Variable,String> car,int index){
+			System.out.println(index);
+			if(index<notUsed.size() && index>=0){
+					String nextValue=getValue(car.get(notUsed.get(index)),notUsed.get(index));  //compute the next value return "" if there is no more value
+					if(nextValue==""){
+						Main.printCar(car);
+						car.remove(notUsed.get(index));
+						return solution(car,index-1);	//no other value in the domain so go back
 					}
 					else{
-						return null;
+						car.put(notUsed.get(index),nextValue);
+						if(doTest(car)){
+							return solution(car,index+1); // the test is currently succesful so go ahead to add an other variable
+						}
+						else{
+							return solution(car,index); //there is other value in the domain so try to test another one
+						}
 					}
-				}
-				else{
-					//go back and use all variable (use allVariable) 
-					this.notUsed=new ArrayList(allVariable);
-					car=new HashMap();
-					car.put(notUsed.get(0),getValue(car.get(notUsed.get(0)),notUsed.get(0)));
-					if(doTest(car)){
-						this.notUsed.remove(0);
-						return solution(car);
-					}
-					else{
-						return null;
-					}
-				}
+				
 			}
 			else {return car;}
 			
 		}
 		
+		
 		private String getValue(String current,Variable variable){
 			List<String> domain=new ArrayList(variable.getDomain());
-			if(domain.indexOf(current)<domain.size()){
-				return domain.get(0);
+			int index=domain.indexOf(current);
+			if(index<domain.size() && index!=-1){
+				return ""; //if we have seen all possible value of the domain of the variable.
+			}
+			else if(index!=-1){
+				return domain.get(domain.indexOf(current)+1);
 			}
 			else{
-				return domain.get(domain.indexOf(current)+1);
+				return domain.get(0);
 			}
 		}
 		
-		private boolean doTest(HashMap<Variable,String> car){
+		public boolean doTest(HashMap<Variable,String> car){
 			List<Variable> variables=new ArrayList(car.keySet());
 			for(Constraint c:this.allConstraint){
 				if(car!=null){
-					System.out.println(car);
-					System.out.println(c.getScope());
 					if(car.keySet().containsAll(c.getScope())){
 						if(!c.isSatisfiedBy(car)){
 							return false;
