@@ -1,14 +1,8 @@
 package representations;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
-/**
- * @author Romain Garcia
- * @version 2018-09-11
- */
 
 public class Rule implements Constraint {
 

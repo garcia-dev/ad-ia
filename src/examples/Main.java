@@ -12,32 +12,33 @@ import java.util.Set;
 public class Main {
 
 	public static void main(String[] args) {
+
+		/* Values that a color variable can take */
 		Set<String> colorSet = new HashSet<>();
 		colorSet.add("black");
 		colorSet.add("blue");
 		colorSet.add("green");
 		colorSet.add("red");
 
+		/* Values that a boolean variable can take */
 		Set<String> booleanSet = new HashSet<>();
 		booleanSet.add("True");
 		booleanSet.add("False");
 
-		/* Colors */
-
+		/* Color variables */
 		Variable roofColor = new Variable("roofColor", colorSet);
 		Variable hoodColor = new Variable("hoodColor", colorSet);
 		Variable tailgateColor = new Variable("tailgateColor", colorSet);
-
 		Variable leftSide = new Variable("leftSide", colorSet);
 		Variable rightSide = new Variable("rightSide", colorSet);
 
-		/* Options */
-
+		/* Boolean variables */
 		Variable openingRoof = new Variable("openingRoof", booleanSet);
 		Variable sono = new Variable("sono", booleanSet);
 
 		/* Cars */
 
+		/* Roof, hood and tailgate must have the same color */
 		Set<Variable> sameColorElements = new HashSet<>();
 		sameColorElements.add(roofColor);
 		sameColorElements.add(hoodColor);
