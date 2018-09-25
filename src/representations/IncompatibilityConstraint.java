@@ -10,32 +10,28 @@ import java.util.Set;
 
 public class IncompatibilityConstraint implements Constraint {
 
-	private Set<Variable> scope;
+	private Map<Variable, String> variables;
 
-	public IncompatibilityConstraint(Set<Variable> scope) {
-		this.scope = scope;
+	public IncompatibilityConstraint(Map<Variable, String> variables) {
+		this.variables = variables;
 	}
 
 	@Override
 	public Set<Variable> getScope() {
-		return scope;
+		return variables.keySet();
 	}
 
 	@Override
 	public boolean isSatisfiedBy(Map<Variable, String> allocation) {
-		String value = "";
+		boolean compatible = true;
+		for (Map.Entry<Variable, String> entry : variables.entrySet()) {
+			Variable key = entry.getKey();
+			String value = entry.getValue();
 
-		for (Variable variable : scope) {
-			if (value.equals("")) {
-				value = allocation.get(variable);
-				continue;
-			}
-
-			if (allocation.get(variable).equals(value))
-				return false;
+			compatible &= value.equals(allocation.get(key));
 		}
 
-		return true;
+		return !compatible;
 	}
-	
+
 }

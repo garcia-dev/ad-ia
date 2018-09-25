@@ -3,11 +3,6 @@ package representations;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * @author Romain Garcia
- * @version 2018-09-11
- */
-
 public class AllEqualConstraint implements Constraint {
 
 	private Set<Variable> scope;

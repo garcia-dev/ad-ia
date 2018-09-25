@@ -20,8 +20,8 @@ public class Main {
 
 		/* Values that a boolean variable can take */
 		Set<String> booleanSet = new HashSet<>();
-		booleanSet.add("True");
-		booleanSet.add("False");
+		booleanSet.add("true");
+		booleanSet.add("false");
 
 		/* Color variables */
 		Variable roofColor = new Variable("roofColor", colorSet);
@@ -30,40 +30,53 @@ public class Main {
 		Variable leftSide = new Variable("leftSide", colorSet);
 		Variable rightSide = new Variable("rightSide", colorSet);
 
-		Variable openingRoof = new Variable("toit_ouvrant", booleanSet);
+		Variable openingRoof = new Variable("openingRoof", booleanSet);
 		Variable sono = new Variable("sono", booleanSet);
+		Variable aerial = new Variable("aerial", booleanSet);
 
-		HashSet<Constraint> allConstraint = new HashSet<>();
-		HashSet<Variable> allVariable = new HashSet<>();
+		HashSet<Constraint> constraints = new HashSet<>();
+		HashSet<Variable> variables = new HashSet<>();
+
+		HashMap<Variable, String> openingRoofAndSonoAndAerial = new HashMap<>();
+		openingRoofAndSonoAndAerial.put(openingRoof, "true");
+		openingRoofAndSonoAndAerial.put(sono, "true");
+		openingRoofAndSonoAndAerial.put(aerial, "true");
+		HashMap<Variable, String> antiOpeningRoofAndSonoAndAerial = new HashMap<>();
+		antiOpeningRoofAndSonoAndAerial.put(openingRoof, "true");
+		antiOpeningRoofAndSonoAndAerial.put(sono, "true");
+		antiOpeningRoofAndSonoAndAerial.put(aerial, "false");
+		System.out.println("Opening roof and sono and aerial are satisfied: "
+				+ new IncompatibilityConstraint(openingRoofAndSonoAndAerial).isSatisfiedBy(antiOpeningRoofAndSonoAndAerial));
 
 		HashSet<Variable> allEqualVariable = new HashSet<>();
 		allEqualVariable.add(leftSide);
 		allEqualVariable.add(rightSide);
 		allEqualVariable.add(roofColor);
 
+		variables.add(roofColor);
+		variables.add(hoodColor);
+		variables.add(tailgateColor);
+		variables.add(leftSide);
+		variables.add(rightSide);
+		variables.add(openingRoof);
+		variables.add(sono);
 
-		allVariable.add(roofColor);
-		allVariable.add(hoodColor);
-		allVariable.add(tailgateColor);
-		allVariable.add(leftSide);
-		allVariable.add(rightSide);
-		allVariable.add(openingRoof);
-		allVariable.add(sono);
-
-		Constraint allEq = new AllEqualConstraint(allEqualVariable);
+		Constraint allEqualConstraint = new AllEqualConstraint(allEqualVariable);
 
 		HashMap<Variable, String> premise = new HashMap<>();
 		premise.put(roofColor, "red");
+
 		HashMap<Variable, String> conclusion = new HashMap<>();
 		conclusion.put(sono, "True");
+
 		Constraint rule = new Rule(premise, conclusion);
 
-		allConstraint.add(rule);
-		allConstraint.add(allEq);
+		constraints.add(rule);
+		constraints.add(allEqualConstraint);
 
-		Backtracking ppc = new Backtracking(allConstraint, allVariable);
+		Backtracking ppc = new Backtracking(constraints, variables);
 
-		System.out.println("solution: " + ppc.solution(new HashMap<>()));
+		System.out.println("Solution: " + ppc.solution());
 	}
 
 }
