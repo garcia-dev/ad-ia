@@ -4,11 +4,12 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @version 2018-09-18
  * @author Romain Garcia
+ * @version 2018-09-11
  */
 
 public class Disjunction implements Constraint {
+
 	private Map<Variable, String> variables;
 
 	public Disjunction(Map<Variable, String> variables) {
@@ -17,7 +18,7 @@ public class Disjunction implements Constraint {
 
 	@Override
 	public Set<Variable> getScope() {
-		return this.variables.keySet();
+		return variables.keySet();
 	}
 
 	@Override
@@ -32,4 +33,5 @@ public class Disjunction implements Constraint {
 
 		return false;
 	}
+
 }
