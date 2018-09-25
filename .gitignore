@@ -6,4 +6,6 @@
 
 # Compiled files
 bin/
+build/
+*.class
 
