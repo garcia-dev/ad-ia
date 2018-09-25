@@ -4,10 +4,6 @@ import java.util.Map;
 import java.util.Set;
 
 /**
-<<<<<<< HEAD
-=======
- * @version 2018-09-18
->>>>>>> origin
  * @author Romain Garcia
  * @version 2018-09-11
  */

@@ -10,19 +10,19 @@ import java.util.Set;
 public class Variable {
 
 	private String name;
-	private Set<String> domain;
+	private Set<String> scope;
 
-	public Variable(String name, Set<String> domain) {
+	public Variable(String name, Set<String> scope) {
 		this.name = name;
-		this.domain = domain;
+		this.scope = scope;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public Set<String> getDomain() {
-		return domain;
+	public Set<String> getScope() {
+		return scope;
 	}
 
 }

@@ -1,12 +1,10 @@
 package examples;
 
-import representations.AllEqualConstraint;
-import representations.Rule;
-import representations.Variable;
+import representations.*;
+import ppc.*;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 public class Main {
@@ -32,43 +30,40 @@ public class Main {
 		Variable leftSide = new Variable("leftSide", colorSet);
 		Variable rightSide = new Variable("rightSide", colorSet);
 
-		/* Boolean variables */
-		Variable openingRoof = new Variable("openingRoof", booleanSet);
+		Variable openingRoof = new Variable("toit_ouvrant", booleanSet);
 		Variable sono = new Variable("sono", booleanSet);
 
-		/* Cars */
+		HashSet<Constraint> allConstraint = new HashSet<>();
+		HashSet<Variable> allVariable = new HashSet<>();
 
-		/* Roof, hood and tailgate must have the same color */
-		Set<Variable> sameColorElements = new HashSet<>();
-		sameColorElements.add(roofColor);
-		sameColorElements.add(hoodColor);
-		sameColorElements.add(tailgateColor);
-
-		AllEqualConstraint allEqualConstraint = new AllEqualConstraint(sameColorElements);
+		HashSet<Variable> allEqualVariable = new HashSet<>();
+		allEqualVariable.add(leftSide);
+		allEqualVariable.add(rightSide);
+		allEqualVariable.add(roofColor);
 
 
-		Map<Variable, String> roofRule1 = new HashMap<>();
-		roofRule1.put(roofColor, "black");
+		allVariable.add(roofColor);
+		allVariable.add(hoodColor);
+		allVariable.add(tailgateColor);
+		allVariable.add(leftSide);
+		allVariable.add(rightSide);
+		allVariable.add(openingRoof);
+		allVariable.add(sono);
 
-		Map<Variable, String> sidesRule1 = new HashMap<>();
-		sidesRule1.put(leftSide, roofRule1.get(roofColor));
-		sidesRule1.put(rightSide, roofRule1.get(roofColor));
+		Constraint allEq = new AllEqualConstraint(allEqualVariable);
 
-		Rule roofLikeOneSide = new Rule(roofRule1, sidesRule1);
+		HashMap<Variable, String> premise = new HashMap<>();
+		premise.put(roofColor, "red");
+		HashMap<Variable, String> conclusion = new HashMap<>();
+		conclusion.put(sono, "True");
+		Constraint rule = new Rule(premise, conclusion);
 
+		allConstraint.add(rule);
+		allConstraint.add(allEq);
 
-		Map<Variable, String> car1 = new HashMap<>();
-		car1.put(roofColor, "black");
-		car1.put(hoodColor, "black");
-		car1.put(tailgateColor, "black");
+		Backtracking ppc = new Backtracking(allConstraint, allVariable);
 
-		Map<Variable, String> car2 = new HashMap<>();
-		car2.put(roofColor, "black");
-		car2.put(hoodColor, "blue");
-		car2.put(tailgateColor, "black");
-
-		System.out.println(allEqualConstraint.isSatisfiedBy(car1));
-		System.out.println(!allEqualConstraint.isSatisfiedBy(car2));
+		System.out.println("solution: " + ppc.solution(new HashMap<>()));
 	}
 
 }
