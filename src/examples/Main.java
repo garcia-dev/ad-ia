@@ -74,7 +74,7 @@ public class Main {
 		HashMap<Variable,String> car=ppc.solution(new HashMap(),0);
 		System.out.println("solution: ");
 		printCar(car);
-		System.out.println("car is valid: "+ppc.doTest(car));
+		System.out.println("car is valid: "+incomConstraint.isSatisfiedBy(car));
 
 	}
 	public static void printCar(Map<Variable,String> car){

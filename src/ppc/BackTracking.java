@@ -24,11 +24,9 @@ public class BackTracking{
 		}
 		
 		public HashMap<Variable,String> solution(HashMap<Variable,String> car,int index){
-			System.out.println(index);
 			if(index<notUsed.size() && index>=0){
 					String nextValue=getValue(car.get(notUsed.get(index)),notUsed.get(index));  //compute the next value return "" if there is no more value
 					if(nextValue==""){
-						Main.printCar(car);
 						car.remove(notUsed.get(index));
 						return solution(car,index-1);	//no other value in the domain so go back
 					}
@@ -51,14 +49,20 @@ public class BackTracking{
 		private String getValue(String current,Variable variable){
 			List<String> domain=new ArrayList(variable.getDomain());
 			int index=domain.indexOf(current);
-			if(index<domain.size() && index!=-1){
+			System.out.println("index value: "+index);
+			if(index==0){
+				System.out.println("test0");
 				return ""; //if we have seen all possible value of the domain of the variable.
 			}
-			else if(index!=-1){
-				return domain.get(domain.indexOf(current)+1);
-			}
-			else{
-				return domain.get(0);
+			else {
+				if(index>-1){
+				System.out.println("test");
+				return domain.get(index+1);
+				}
+				else{
+					System.out.println("test2");
+					return domain.get(0);
+				}
 			}
 		}
 		
