@@ -21,11 +21,10 @@ public class Disjunction implements Constraint {
 		for (Map.Entry<Variable, String> entry : variables.entrySet()) {
 			Variable key = entry.getKey();
 			String value = entry.getValue();
-
-			if (value.equals(allocation.get(key)))
+			if (value.equals(allocation.get(key))) {
 				return true;
+			}
 		}
-
 		return false;
 	}
 

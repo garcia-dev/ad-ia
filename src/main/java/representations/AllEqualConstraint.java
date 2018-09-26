@@ -25,7 +25,6 @@ public class AllEqualConstraint implements Constraint {
 				value = allocation.get(variable);
 				continue;
 			}
-
 			if (!allocation.get(variable).equals(value)) {
 				return false;
 			}
