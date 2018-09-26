@@ -33,9 +33,6 @@ public class BackTracking{
 		}
 		
 		public HashMap<Variable,String> solution(HashMap<Variable,String> car,int index){
-					System.out.println(car);
-			/*System.out.println(this.variableDomain);
-			System.out.println();*/
 			if(index<notUsed.size() && index>=0){
 				String nextValue=getValue(notUsed.get(index));  //compute the next value return "" if there is no more value
 				if(nextValue==""){
@@ -60,7 +57,7 @@ public class BackTracking{
 				else{
 					if(alreadyGive(car)){
 						car.remove(notUsed.get(index-1));
-						return solution(car,index-3);	//no other value in the domain so go back
+						return solution(car,index-2);	//no other value in the domain so go back
 					}
 					else{
 						this.precCar.add(new HashMap(car));
@@ -77,6 +74,7 @@ public class BackTracking{
 		private String getValue(Variable variable){
 			List<String> possibleValue=this.variableDomain.get(variable);
 			if(possibleValue.isEmpty()){
+				this.variableDomain.put(variable,new ArrayList(variable.getDomain()));
 				return "";
 			}
 			else{
@@ -101,7 +99,7 @@ public class BackTracking{
 		}
 		private boolean alreadyGive(HashMap<Variable,String> car){// test if the car make in solution has already been make ^^
 			if(this.precCar.contains(car)){
-				System.out.println("already give"); 
+				System.out.println("already give");
 				return true;
 			}
 			return false;
