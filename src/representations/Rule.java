@@ -32,7 +32,7 @@ public class Rule implements Constraint {
 		boolean incompatibilityConstraint = new IncompatibilityConstraint(premise).isSatisfiedBy(allocation);
 		boolean disjunction = new Disjunction(conclusion).isSatisfiedBy(allocation);
 
-		return !incompatibilityConstraint || disjunction;
+		return (!incompatibilityConstraint) || disjunction;
 	}
 
 }

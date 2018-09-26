@@ -44,13 +44,16 @@ public class Main {
 		allVariable.add(openingRoof);
 		allVariable.add(sono);
 		
-
+		Set<Variable> allEqualVariable=new HashSet();
+		allEqualVariable.add(roofColor);
+		allEqualVariable.add(hoodColor);
+		
 		Constraint allEq=new AllEqualConstraint(allEqualVariable);
 		
 		HashMap<Variable,String> premise=new HashMap();
 		premise.put(roofColor, "red");
 		HashMap<Variable,String> conclusion=new HashMap();
-		conclusion.put(sono, "True");
+		conclusion.put(hoodColor, "blue");
 		Constraint rule=new Rule(premise,conclusion);
 		
 		HashMap<Variable,String> varIC=new HashMap();
