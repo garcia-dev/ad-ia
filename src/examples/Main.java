@@ -3,10 +3,7 @@ package examples;
 import ppc.BackTracking;
 import representations.*;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Main {
 	public static void main(String[] args) {
@@ -69,11 +66,9 @@ public class Main {
 
 		System.out.println("solution: ");
 		printCar(car);
-		System.out.println("car is valid: " + incompatibilityConstraint.isSatisfiedBy(car));
 	}
 
-	public static void printCar(Map<Variable, String> car) {
-		for (Map.Entry<Variable, String> entry : car.entrySet())
-			System.out.println(entry.getKey().getName() + " = " + entry.getValue());
+	private static void printCar(Map<Variable, String> car) {
+		car.forEach((key, value) -> System.out.println(key.getName() + " : " + value));
 	}
 }

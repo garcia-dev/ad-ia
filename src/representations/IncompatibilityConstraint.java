@@ -1,6 +1,5 @@
 package representations;
 
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 
@@ -25,16 +24,9 @@ public class IncompatibilityConstraint implements Constraint {
 	public boolean isSatisfiedBy(Map<Variable, String> allocation) {
 		boolean test = true;
 
-		ArrayList<Variable> keySet = new ArrayList<>(this.variables.keySet());
-
-		for (Variable var : keySet) {
-			if (allocation.containsKey(var))
-				test &= (this.variables.get(var).equals(allocation.get(var)));
-			else
-				return false;
-		}
+		for (Variable var : variables.keySet())
+			test &= variables.get(var).equals(allocation.get(var));
 
 		return !test;
 	}
-
 }
