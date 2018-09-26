@@ -15,12 +15,6 @@ public class AllEqualConstraint implements Constraint {
 		this.variables = variables;
 	}
 
-	Set<Variable> variables;
-
-	public AllEqualConstraint(Set<Variable> variables) {
-		this.variables = variables;
-	}
-
 	@Override
 	public Set<Variable> getScope() {
 		return variables;

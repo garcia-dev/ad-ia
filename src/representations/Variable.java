@@ -24,5 +24,4 @@ public class Variable {
 	public Set<String> getDomain() {
 		return domain;
 	}
-
 }

@@ -1,15 +1,14 @@
 package examples;
 
+import ppc.BackTracking;
 import representations.*;
-import ppc.*;
 
-import java.util.HashSet;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 public class Main {
-
 	public static void main(String[] args) {
 		Set<String> colorSet = new HashSet<>();
 		colorSet.add("black");
@@ -20,9 +19,9 @@ public class Main {
 		Set<String> booleanSet = new HashSet<>();
 		booleanSet.add("True");
 		booleanSet.add("False");
-		
-		Set<Variable> allVariable=new HashSet();
-		Set<Constraint> allConstraint=new HashSet();
+
+		Set<Variable> allVariable = new HashSet<>();
+		Set<Constraint> allConstraint = new HashSet<>();
 		// Colors
 
 		Variable roofColor = new Variable("couleur_toit", colorSet);
@@ -43,40 +42,38 @@ public class Main {
 		allVariable.add(rightSide);
 		allVariable.add(openingRoof);
 		allVariable.add(sono);
-		
-		Set<Variable> allEqualVariable=new HashSet();
+
+		Set<Variable> allEqualVariable = new HashSet<>();
 		allEqualVariable.add(roofColor);
 		allEqualVariable.add(hoodColor);
-		
-		Constraint allEq=new AllEqualConstraint(allEqualVariable);
-		
-		HashMap<Variable,String> premise=new HashMap();
+
+		Constraint allEq = new AllEqualConstraint(allEqualVariable);
+
+		HashMap<Variable, String> premise = new HashMap<>();
 		premise.put(roofColor, "red");
-		HashMap<Variable,String> conclusion=new HashMap();
+		HashMap<Variable, String> conclusion = new HashMap<>();
 		conclusion.put(hoodColor, "blue");
-		Constraint rule=new Rule(premise,conclusion);
-		
-		HashMap<Variable,String> varIC=new HashMap();
-		varIC.put(sono,"True");
-		varIC.put(openingRoof,"True");
-		Constraint incomConstraint=new IncompatibilityConstraint(varIC);
-		
+		Constraint rule = new Rule(premise, conclusion);
+
+		HashMap<Variable, String> varIC = new HashMap<>();
+		varIC.put(sono, "True");
+		varIC.put(openingRoof, "True");
+		Constraint incompatibilityConstraint = new IncompatibilityConstraint(varIC);
+
 		allConstraint.add(rule);
 		allConstraint.add(allEq);
-		allConstraint.add(incomConstraint);
-		
-		BackTracking ppc=new BackTracking(allConstraint,allVariable);
-		HashMap<Variable,String> car=ppc.solution(new HashMap(),0);
+		allConstraint.add(incompatibilityConstraint);
+
+		BackTracking ppc = new BackTracking(allConstraint, allVariable);
+		HashMap<Variable, String> car = ppc.solution(new HashMap<>(), 0);
+
 		System.out.println("solution: ");
 		printCar(car);
-		System.out.println("car is valid: "+incomConstraint.isSatisfiedBy(car));
-
+		System.out.println("car is valid: " + incompatibilityConstraint.isSatisfiedBy(car));
 	}
-	public static void printCar(Map<Variable,String> car){
-		for (Map.Entry<Variable, String> entry : car.entrySet()) {
-				Variable key = entry.getKey();
-				String value = entry.getValue();
-				System.out.println(key.getName()+" = "+value);
-		}
+
+	public static void printCar(Map<Variable, String> car) {
+		for (Map.Entry<Variable, String> entry : car.entrySet())
+			System.out.println(entry.getKey().getName() + " = " + entry.getValue());
 	}
 }
