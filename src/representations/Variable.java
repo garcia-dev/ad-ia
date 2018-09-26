@@ -24,5 +24,8 @@ public class Variable {
 	public Set<String> getDomain() {
 		return domain;
 	}
-
+	@Override
+	public String toString(){
+		return name;
+	}
 }

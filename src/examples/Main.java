@@ -67,9 +67,13 @@ public class Main {
 		
 		BackTracking ppc=new BackTracking(allConstraint,allVariable);
 		HashMap<Variable,String> car=ppc.solution(new HashMap(),0);
-		System.out.println("solution: ");
-		printCar(car);
-		System.out.println("car is valid: "+incomConstraint.isSatisfiedBy(car));
+		while(car!=null){
+			System.out.println("solution: ");
+			printCar(car);
+			car=ppc.solution(car,car.size()-1);
+			System.out.println();
+		}
+		//System.out.println("car is valid: "+incomConstraint.isSatisfiedBy(car));
 
 	}
 	public static void printCar(Map<Variable,String> car){
