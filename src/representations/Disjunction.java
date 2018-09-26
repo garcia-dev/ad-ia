@@ -28,5 +28,4 @@ public class Disjunction implements Constraint {
 
 		return false;
 	}
-
 }
