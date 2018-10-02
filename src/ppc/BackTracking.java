@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 public class BackTracking{
@@ -15,6 +16,7 @@ public class BackTracking{
 		private Set<Constraint> allConstraint;
 		private Set<Variable> allVariable;
 		private List<Variable> notUsed;
+		
 		private HashMap<Variable,List<String>> variableDomain;
 		private List<HashMap<Variable,String>> precCar;
 		
@@ -42,6 +44,7 @@ public class BackTracking{
 				else{
 					car.put(notUsed.get(index),nextValue);
 					if(doTest(car)){
+						filterDomain(car,this.variableDomain);
 						return solution(car,index+1); // the test is currently succesful so go ahead to add an other variable
 					}
 					else{
@@ -99,9 +102,29 @@ public class BackTracking{
 		}
 		private boolean alreadyGive(HashMap<Variable,String> car){// test if the car make in solution has already been make ^^
 			if(this.precCar.contains(car)){
-				System.out.println("already give");
 				return true;
 			}
 			return false;
+		}
+		
+		private void filterDomain(Map<Variable,String> car,Map<Variable,List<String>> domainVariable){
+			
+			for(Constraint c:this.allConstraint){
+				boolean b=c.filter(car,varDomain);
+				
+			}
+		}
+		private Map<Variable,Set<String>> convert2Set(HashMap<Variable,List<String>> mapList){
+			Map<Variable,Set<String>> varDomain=new HashMap();
+			for (Map.Entry<Variable, List<String>> entry : mapList.entrySet()) {
+				Variable key = entry.getKey();
+				List<String> value = entry.getValue();
+				varDomain.put(key,new HashSet(value));
+			}
+			return varDomain;
+		}
+		
+		private Map<Variable,List<String>> convert2List(HashMap<Variable,Set<String>> mapSet){
+			Map<Variable,List<String>> varDomain=new HashMap();
 		}
 }

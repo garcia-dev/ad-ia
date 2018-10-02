@@ -3,6 +3,8 @@ package representations;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * @author Romain Garcia
@@ -11,7 +13,7 @@ import java.util.Set;
 
 public class AllEqualConstraint implements Constraint {
 
-	Set<Variable> variables;
+	private Set<Variable> variables;
 
 	public AllEqualConstraint(Set<Variable> variables) {
 		this.variables = variables;
@@ -37,4 +39,23 @@ public class AllEqualConstraint implements Constraint {
 		return true;
 	}
 
+	@Override
+	public boolean filter(Map<Variable, String> car, Map<Variable, Set<String>> variableDomain){
+		Variable varPrev=null;
+		for(Variable var:this.variables){
+			if(car.containsKey(var)){
+				varPrev=var;
+				break;
+			}
+		}
+		if(varPrev!=null){
+			Set<String> valueDomain=new HashSet();
+			valueDomain.add(car.get(varPrev));
+			for(Variable var:this.variables){
+				variableDomain.put(var,valueDomain);
+			}
+			return true;
+		}
+		return false;
+	}
 }

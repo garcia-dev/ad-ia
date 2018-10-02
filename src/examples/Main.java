@@ -12,8 +12,8 @@ public class Main {
 
 	public static void main(String[] args) {
 		Set<String> colorSet = new HashSet<>();
-		colorSet.add("black");
-		colorSet.add("blue");
+		/*colorSet.add("black");
+		colorSet.add("blue");*/
 		colorSet.add("green");
 		colorSet.add("red");
 
@@ -47,13 +47,16 @@ public class Main {
 		Set<Variable> allEqualVariable=new HashSet();
 		allEqualVariable.add(roofColor);
 		allEqualVariable.add(hoodColor);
+		allEqualVariable.add(tailgateColor);
+		allEqualVariable.add(leftSide);
+		allEqualVariable.add(rightSide);
 		
 		Constraint allEq=new AllEqualConstraint(allEqualVariable);
 		
 		HashMap<Variable,String> premise=new HashMap();
 		premise.put(roofColor, "red");
 		HashMap<Variable,String> conclusion=new HashMap();
-		conclusion.put(hoodColor, "blue");
+		conclusion.put(hoodColor, "green");
 		Constraint rule=new Rule(premise,conclusion);
 		
 		HashMap<Variable,String> varIC=new HashMap();
@@ -61,9 +64,9 @@ public class Main {
 		varIC.put(openingRoof,"True");
 		Constraint incomConstraint=new IncompatibilityConstraint(varIC);
 		
-		allConstraint.add(rule);
+		//allConstraint.add(rule);
 		allConstraint.add(allEq);
-		allConstraint.add(incomConstraint);
+		//allConstraint.add(incomConstraint);
 		
 		BackTracking ppc=new BackTracking(allConstraint,allVariable);
 		HashMap<Variable,String> car=ppc.solution(new HashMap(),0);

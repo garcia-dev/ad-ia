@@ -39,4 +39,8 @@ public class IncompatibilityConstraint implements Constraint {
 		return !test;
 	}
 	
+	@Override
+	public boolean filter(Map<Variable, String> car, Map<Variable, Set<String>> variableDomain){
+		return false;
+	}
 }
