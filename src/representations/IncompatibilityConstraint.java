@@ -2,7 +2,6 @@ package representations;
 
 import java.util.Map;
 import java.util.Set;
-import java.util.ArrayList;
 
 /**
  * @author Romain Garcia
@@ -10,7 +9,6 @@ import java.util.ArrayList;
  */
 
 public class IncompatibilityConstraint implements Constraint {
-
 	private Map<Variable, String> variables;
 
 	public IncompatibilityConstraint(Map<Variable, String> variables) {
@@ -19,26 +17,18 @@ public class IncompatibilityConstraint implements Constraint {
 
 	@Override
 	public Set<Variable> getScope() {
-
 		return variables.keySet();
 	}
 
 	@Override
 	public boolean isSatisfiedBy(Map<Variable, String> allocation) {
-		boolean test=true;
-		ArrayList<Variable> keySet=new ArrayList(this.variables.keySet());
-		for(Variable var: keySet){
-			if(allocation.containsKey(var)){
-				test&=(this.variables.get(var)==allocation.get(var));
-			}
-			else{
-				return false;
-			}
-		}
-		
+		boolean test = true;
+
+		for (Variable var : variables.keySet())
+			test &= variables.get(var).equals(allocation.get(var));
+
 		return !test;
 	}
-	
 	@Override
 	public boolean filter(Map<Variable, String> car, Map<Variable, Set<String>> variableDomain){
 		return false;

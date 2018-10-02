@@ -9,7 +9,6 @@ import java.util.Set;
  */
 
 public class Disjunction implements Constraint {
-
 	private Map<Variable, String> variables;
 
 	public Disjunction(Map<Variable, String> variables) {
@@ -23,13 +22,9 @@ public class Disjunction implements Constraint {
 
 	@Override
 	public boolean isSatisfiedBy(Map<Variable, String> allocation) {
-		for (Map.Entry<Variable, String> entry : variables.entrySet()) {
-			Variable key = entry.getKey();
-			String value = entry.getValue();
-
-			if (value.equals(allocation.get(key)))
+		for (Map.Entry<Variable, String> entry : variables.entrySet())
+			if (entry.getValue().equals(allocation.get(entry.getKey())))
 				return true;
-		}
 
 		return false;
 	}

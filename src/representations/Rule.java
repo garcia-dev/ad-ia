@@ -2,11 +2,12 @@ package representations;
 
 import java.util.Map;
 import java.util.Set;
-import java.util.HashSet;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /*
  * @author Romain Garcia
- * @version 2018-09-11
+ * @version 2018-09-26
  */
 
 public class Rule implements Constraint {
@@ -21,10 +22,7 @@ public class Rule implements Constraint {
 
 	@Override
 	public Set<Variable> getScope() {
-		Set<Variable> scope = new HashSet<>();
-		scope.addAll(premise.keySet());
-		scope.addAll(conclusion.keySet());
-		return scope;
+		return Stream.concat(premise.keySet().stream(), conclusion.keySet().stream()).collect(Collectors.toSet());
 	}
 
 	@Override
@@ -32,9 +30,9 @@ public class Rule implements Constraint {
 		boolean incompatibilityConstraint = new IncompatibilityConstraint(premise).isSatisfiedBy(allocation);
 		boolean disjunction = new Disjunction(conclusion).isSatisfiedBy(allocation);
 
-		return (incompatibilityConstraint) || disjunction;
+		return incompatibilityConstraint || disjunction;
 	}
-
+	
 	@Override
 	public boolean filter(Map<Variable, String> car, Map<Variable, Set<String>> variableDomain){
 		return false;

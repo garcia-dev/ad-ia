@@ -1,15 +1,14 @@
 package examples;
 
+import ppc.BackTracking;
 import representations.*;
-import ppc.*;
 
-import java.util.HashSet;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 public class Main {
-
 	public static void main(String[] args) {
 		Set<String> colorSet = new HashSet<>();
 		/*colorSet.add("black");
@@ -20,9 +19,7 @@ public class Main {
 		Set<String> booleanSet = new HashSet<>();
 		booleanSet.add("True");
 		booleanSet.add("False");
-		
-		Set<Variable> allVariable=new HashSet();
-		Set<Constraint> allConstraint=new HashSet();
+
 		// Colors
 
 		Variable roofColor = new Variable("couleur_toit", colorSet);
@@ -32,58 +29,49 @@ public class Main {
 		Variable leftSide = new Variable("couleur_gauche", colorSet);
 		Variable rightSide = new Variable("couleur_droit", colorSet);
 
-		/* Options */
+		// Options
 
 		Variable openingRoof = new Variable("toit_ouvrant", booleanSet);
 		Variable sono = new Variable("sono", booleanSet);
-		allVariable.add(roofColor);
-		allVariable.add(hoodColor);
-		allVariable.add(tailgateColor);
-		allVariable.add(leftSide);
-		allVariable.add(rightSide);
-		allVariable.add(openingRoof);
-		allVariable.add(sono);
-		
-		Set<Variable> allEqualVariable=new HashSet();
-		allEqualVariable.add(roofColor);
-		allEqualVariable.add(hoodColor);
-		allEqualVariable.add(tailgateColor);
-		allEqualVariable.add(leftSide);
-		allEqualVariable.add(rightSide);
-		
-		Constraint allEq=new AllEqualConstraint(allEqualVariable);
-		
-		HashMap<Variable,String> premise=new HashMap();
-		premise.put(roofColor, "red");
-		HashMap<Variable,String> conclusion=new HashMap();
-		conclusion.put(hoodColor, "green");
-		Constraint rule=new Rule(premise,conclusion);
-		
-		HashMap<Variable,String> varIC=new HashMap();
-		varIC.put(sono,"True");
-		varIC.put(openingRoof,"True");
-		Constraint incomConstraint=new IncompatibilityConstraint(varIC);
-		
-		//allConstraint.add(rule);
-		allConstraint.add(allEq);
-		//allConstraint.add(incomConstraint);
-		
-		BackTracking ppc=new BackTracking(allConstraint,allVariable);
-		HashMap<Variable,String> car=ppc.solution(new HashMap(),0);
-		while(car!=null){
-			System.out.println("solution: ");
-			printCar(car);
-			car=ppc.solution(car,car.size()-1);
-			System.out.println();
-		}
-		//System.out.println("car is valid: "+incomConstraint.isSatisfiedBy(car));
 
+		// Putting every variables into a Set
+		Set<Variable> variableSet = new HashSet<>();
+		variableSet.add(roofColor);
+		variableSet.add(hoodColor);
+		variableSet.add(tailgateColor);
+		variableSet.add(leftSide);
+		variableSet.add(rightSide);
+		variableSet.add(openingRoof);
+		variableSet.add(sono);
+
+		Set<Variable> equalVariableSet = new HashSet<>();
+		equalVariableSet.add(roofColor);
+		equalVariableSet.add(hoodColor);
+		equalVariableSet.add(tailgateColor);
+
+		Constraint allEq = new AllEqualConstraint(equalVariableSet);
+
+		HashMap<Variable, String> premise = new HashMap<>();
+		premise.put(roofColor, "red");
+		HashMap<Variable, String> conclusion = new HashMap<>();
+		conclusion.put(hoodColor, "blue");
+		Constraint rule = new Rule(premise, conclusion);
+
+		HashMap<Variable, String> varIC = new HashMap<>();
+		varIC.put(sono, "True");
+		varIC.put(openingRoof, "True");
+		Constraint incompatibilityConstraint = new IncompatibilityConstraint(varIC);
+
+		Set<Constraint> constraintSet = new HashSet<>();
+		constraintSet.add(rule);
+		constraintSet.add(allEq);
+		constraintSet.add(incompatibilityConstraint);
+
+		BackTracking ppc = new BackTracking(constraintSet, variableSet);
+		HashMap<Variable, String> car = ppc.solution(new HashMap<>(), 0);
 	}
-	public static void printCar(Map<Variable,String> car){
-		for (Map.Entry<Variable, String> entry : car.entrySet()) {
-				Variable key = entry.getKey();
-				String value = entry.getValue();
-				System.out.println(key.getName()+" = "+value);
-		}
+
+	private static void printCar(Map<Variable, String> car) {
+		car.forEach((key, value) -> System.out.println(key.getName() + " : " + value));
 	}
 }
