@@ -24,6 +24,7 @@ public class Backtracking {
 		if (unusedVariables.isEmpty()) {
 			return car;
 		} else {
+
 			/* Assign the next value (use unusedVariables) */
 			car.put(unusedVariables.get(0), getValue(car.get(unusedVariables.get(0)), unusedVariables.get(0)));
 			if (isValid(car)) {
@@ -36,6 +37,7 @@ public class Backtracking {
 	}
 
 	public HashMap<Variable, String> solution() {
+
 		/* Go back and use all variables (use variables) */
 		this.unusedVariables = new ArrayList<>(variables);
 		HashMap<Variable, String> car = new HashMap<>();

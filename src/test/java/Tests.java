@@ -1,13 +1,11 @@
-package examples;
-
+import ppc.Backtracking;
 import representations.*;
-import ppc.*;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Main {
+public class Tests {
 
 	public static void main(String[] args) {
 
@@ -77,6 +75,7 @@ public class Main {
 		Backtracking ppc = new Backtracking(constraints, variables);
 
 		System.out.println("Solution: " + ppc.solution());
+
 	}
 
 }
