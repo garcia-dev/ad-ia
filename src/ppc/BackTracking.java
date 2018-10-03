@@ -60,7 +60,6 @@ public class BackTracking {
 			}
 
 		}
-
 	}
 
 	private String getValue(Variable variable) {

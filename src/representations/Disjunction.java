@@ -28,9 +28,9 @@ public class Disjunction implements Constraint {
 
 		return false;
 	}
-	
+
 	@Override
-	public boolean filter(Map<Variable, String> car, Map<Variable, Set<String>> variableDomain){
+	public boolean filter(Map<Variable, String> allocation, Map<Variable, Set<String>> variableDomain) {
 		return false;
 	}
 }

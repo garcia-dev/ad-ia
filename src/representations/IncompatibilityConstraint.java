@@ -5,7 +5,7 @@ import java.util.Set;
 
 /**
  * @author Romain Garcia
- * @version 2018-09-11
+ * @version 2018-10-02
  */
 
 public class IncompatibilityConstraint implements Constraint {
@@ -29,8 +29,19 @@ public class IncompatibilityConstraint implements Constraint {
 
 		return !test;
 	}
+
+
 	@Override
-	public boolean filter(Map<Variable, String> car, Map<Variable, Set<String>> variableDomain){
+	public boolean filter(Map<Variable, String> allocation, Map<Variable, Set<String>> variableDomain) {
+		for (Map.Entry<Variable, String> allocationEntry : allocation.entrySet())
+			if (!variables.get(allocationEntry.getKey()).isEmpty()) {
+				variableDomain.forEach((key, value) -> {
+					if (!variables.get(key).isEmpty())
+						value.remove(variables.get(key));
+				});
+
+				return true;
+			}
 		return false;
 	}
 }
