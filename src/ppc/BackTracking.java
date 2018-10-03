@@ -55,13 +55,12 @@ public class BackTracking {
 			}
 
 		}
-
 	}
 
 	private String getValue(Variable variable) {
 		Set<String> possibleValue = variableDomain.get(variable);
 
-		if (possibleValue.isEmpty()) {
+		if (possibleValue.iterator().hasNext()) {
 			variableDomain.put(variable, new HashSet<>(variable.getDomain()));
 			return "";
 		} else {

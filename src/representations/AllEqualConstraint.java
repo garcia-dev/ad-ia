@@ -41,11 +41,12 @@ public class AllEqualConstraint implements Constraint {
 
 	@Override
 	public boolean filter(Map<Variable, String> allocation, Map<Variable, Set<String>> variableDomain) {
-		for (Map.Entry<Variable, String> entryAllocation : allocation.entrySet())
-			if (getScope().contains(entryAllocation.getKey())) {
-				for (Map.Entry<Variable, Set<String>> entryVariableDomain : variableDomain.entrySet())
-					if (getScope().contains(entryVariableDomain.getKey()))
-						variableDomain.put(entryVariableDomain.getKey(), new HashSet<>(Collections.singletonList(entryAllocation.getValue())));
+		for (Map.Entry<Variable, String> allocationEntry : allocation.entrySet())
+			if (getScope().contains(allocationEntry.getKey())) {
+				variableDomain.forEach((key, value) -> {
+					if (getScope().contains(key))
+						variableDomain.put(key, new HashSet<>(Collections.singletonList(allocationEntry.getValue())));
+				});
 
 				return true;
 			}
