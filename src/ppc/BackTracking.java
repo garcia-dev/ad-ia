@@ -27,6 +27,11 @@ public class BackTracking {
 	}
 
 	public HashMap<Variable, String> solution(HashMap<Variable, String> car, int index) {
+		if(!filterDomain(car,domainVariable)){
+			
+			car.remove(notUsed.get(index - 1));
+			return solution(car, index - 2);    //no other value in the domain so go back
+		}
 		if (index < notUsed.size() && index >= 0) {
 			String nextValue = getValue(notUsed.get(index));  //compute the next value return "" if there is no more value
 			if (nextValue.equals("")) {
@@ -35,7 +40,6 @@ public class BackTracking {
 			} else {
 				car.put(notUsed.get(index), nextValue);
 				if (doTest(car)) {
-					filterDomain(car,variableDomain);
 					return solution(car, index + 1); // the test is currently succesful so go ahead to add an other variable
 				} else {
 					return solution(car, index); //there is other value in the domain so try to test another one
@@ -43,7 +47,7 @@ public class BackTracking {
 			}
 
 		} else {
-			if (index == -1) {
+			if (index <0) {
 				return null;
 			} else {
 				if (alreadyGive(car)) {
@@ -60,6 +64,7 @@ public class BackTracking {
 	}
 
 	private String getValue(Variable variable) {
+		//Map<Variable,Set<String>> variableDomain=new HashMap(this.variableDomain);
 		Set<String> possibleValue = variableDomain.get(variable);
 
 		if (!possibleValue.iterator().hasNext()) {
@@ -84,15 +89,27 @@ public class BackTracking {
 
 	private boolean alreadyGive(HashMap<Variable, String> car) {// test if the car make in solution has already been make ^^
 		if (this.precCar.contains(car)) {
-			System.out.println("already give");
+			//System.out.println("already give");
 			return true;
 		}
 		return false;
 	}
-	private void filterDomain(Map<Variable,String> car,Map<Variable,Set<String>> domainVariable){
+	private boolean filterDomain(Map<Variable,String> car,Map<Variable,Set<String>> domainVariable){
+		boolean t=true;
 			for(Constraint c:this.allConstraint){
-				//boolean b=c.filter(car,domainVariable);
-				System.out.println(c);
+				boolean b=c.filter(car,domainVariable);
+				for(Variable var:domainVariable.keySet()){
+					if(domainVariable.get(var).size()==0 ){
+						domainVariable.put(var,var.getDomain());
+						t=false;
+					}
+					else if(domainVariable.get(var).size()==1){
+						Iterator<String> i=domainVariable.get(var).iterator();
+						car.put(var,i.next());
+					}
+				}
+				System.out.println(b);
 			}
+			return t;
 		}
 }

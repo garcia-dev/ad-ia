@@ -70,7 +70,7 @@ public class Main {
 		BackTracking ppc = new BackTracking(constraintSet, variableSet);
 		HashMap<Variable, String> car = ppc.solution(new HashMap<>(), 0);
 		while(car!=null){
-			//printCar(car);
+			printCar(car);
 			car=ppc.solution(car,car.size()-1);
 		}
 	}
