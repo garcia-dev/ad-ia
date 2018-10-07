@@ -17,13 +17,13 @@ public class IncompatibilityConstraint implements Constraint {
 	}
 
 	@Override
-	public boolean isSatisfiedBy(Map<Variable, String> allocation) {
+	public boolean isSatisfiedBy(Map<Variable, String> assignment) {
 		boolean compatible = true;
 
-		for (Map.Entry<Variable, String> entry : variables.entrySet()) {
-			Variable key = entry.getKey();
-			String value = entry.getValue();
-			compatible &= value.equals(allocation.get(key));
+		for (Map.Entry<Variable, String> variable : variables.entrySet()) {
+			Variable name = variable.getKey();
+			String value = variable.getValue();
+			compatible &= value.equals(assignment.get(name));
 		}
 
 		return !compatible;

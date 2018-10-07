@@ -17,11 +17,11 @@ public class Disjunction implements Constraint {
 	}
 
 	@Override
-	public boolean isSatisfiedBy(Map<Variable, String> allocation) {
-		for (Map.Entry<Variable, String> entry : variables.entrySet()) {
-			Variable key = entry.getKey();
-			String value = entry.getValue();
-			if (value.equals(allocation.get(key))) {
+	public boolean isSatisfiedBy(Map<Variable, String> assignment) {
+		for (Map.Entry<Variable, String> variable : variables.entrySet()) {
+			Variable name = variable.getKey();
+			String value = variable.getValue();
+			if (value.equals(assignment.get(name))) {
 				return true;
 			}
 		}

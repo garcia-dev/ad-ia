@@ -23,9 +23,9 @@ public class Rule implements Constraint {
 	}
 
 	@Override
-	public boolean isSatisfiedBy(Map<Variable, String> allocation) {
-		boolean incompatibilityConstraint = new IncompatibilityConstraint(premise).isSatisfiedBy(allocation);
-		boolean disjunction = new Disjunction(conclusion).isSatisfiedBy(allocation);
+	public boolean isSatisfiedBy(Map<Variable, String> assignment) {
+		boolean incompatibilityConstraint = new IncompatibilityConstraint(premise).isSatisfiedBy(assignment);
+		boolean disjunction = new Disjunction(conclusion).isSatisfiedBy(assignment);
 
 		return !incompatibilityConstraint || disjunction;
 	}
