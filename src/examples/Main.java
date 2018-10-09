@@ -11,8 +11,8 @@ import java.util.Set;
 public class Main {
 	public static void main(String[] args) {
 		Set<String> colorSet = new HashSet<>();
-		/*colorSet.add("black");
-		colorSet.add("blue");*/
+		colorSet.add("black");
+		colorSet.add("blue");
 		colorSet.add("green");
 		colorSet.add("red");
 
@@ -68,10 +68,10 @@ public class Main {
 		//constraintSet.add(incompatibilityConstraint);
 
 		BackTracking ppc = new BackTracking(constraintSet, variableSet);
-		HashMap<Variable, String> car = ppc.solution(new HashMap<>(), 0);
+		HashMap<Variable, String> car = ppc.solution(new HashMap<>());
 		while(car!=null){
 			printCar(car);
-			car=ppc.solution(car,car.size()-1);
+			car=ppc.solution(car);
 		}
 	}
 

@@ -42,7 +42,7 @@ public class AllEqualConstraint implements Constraint {
 		return true;
 	}
 
-	@Override
+	/*@Override
 	public boolean filter(Map<Variable, String> allocation, Map<Variable, Set<String>> variableDomain) {
 		for (Map.Entry<Variable, String> allocationEntry : allocation.entrySet())
 			if (getScope().contains(allocationEntry.getKey())) {
@@ -55,5 +55,27 @@ public class AllEqualConstraint implements Constraint {
 			}
 
 		return false;
-	}
+	}*/
+	@Override 
+	public boolean filter(Map<Variable, String> car, Map<Variable, Set<String>> variableDomain){
+		Variable varPrev=null; 
+		boolean hasFiltered=false;
+		for(Variable var:this.variables){ 
+			if(car.containsKey(var)){ 
+				varPrev=var; 
+				break;
+			} 
+		} 
+		if(varPrev!=null){ 
+			Set<String> valueDomain=new HashSet(); 
+			valueDomain.add(car.get(varPrev)); 
+			for(Variable var:this.variables){ 
+				if(!car.containsKey(var)&&!(variableDomain.get(var).size()==1)){
+					variableDomain.put(var,valueDomain); 
+					hasFiltered=true;
+				}
+			} 
+		} 
+		return hasFiltered; 
+	} 
 }

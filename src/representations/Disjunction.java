@@ -2,6 +2,8 @@ package representations;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.Iterator;
+import java.util.HashSet;
 
 /**
  * @author Romain Garcia
@@ -30,7 +32,34 @@ public class Disjunction implements Constraint {
 	}
 
 	@Override
-	public boolean filter(Map<Variable, String> allocation, Map<Variable, Set<String>> variableDomain) {
+	public boolean filter(Map<Variable, String> car, Map<Variable, Set<String>> variableDomain) {
+		int compt=0;
+		Iterator<Variable> iteCar=car.keySet().iterator();
+		Iterator<Variable> iteSco=getScope().iterator();
+		while(iteCar.hasNext() && iteSco.hasNext()){
+			if(iteCar.next()==iteSco.next()){
+				compt++;
+			}
+		}
+		if(compt==getScope().size()-2){
+			boolean has2filter=true;
+			Variable value2Changed=null;
+			for(Variable var:getScope()){
+				if(car.containsKey(var)){
+					has2filter=!car.get(var).equals(this.variables.get(var));
+				}
+				else{
+					value2Changed=var;
+				}
+			}
+			if(has2filter){
+				Set<String> x=new HashSet<String>();
+				x.add(this.variables.get(value2Changed));
+				variableDomain.put(value2Changed,x);
+				return true;
+			}
+		}
 		return false;
+		
 	}
 }

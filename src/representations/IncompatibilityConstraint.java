@@ -33,15 +33,7 @@ public class IncompatibilityConstraint implements Constraint {
 
 	@Override
 	public boolean filter(Map<Variable, String> allocation, Map<Variable, Set<String>> variableDomain) {
-		for (Map.Entry<Variable, String> allocationEntry : allocation.entrySet())
-			if (!variables.get(allocationEntry.getKey()).isEmpty()) {
-				variableDomain.forEach((key, value) -> {
-					if (!variables.get(key).isEmpty())
-						value.remove(variables.get(key));
-				});
-
-				return true;
-			}
+		
 		return false;
 	}
 }
