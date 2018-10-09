@@ -48,6 +48,8 @@ public class Main {
 		equalVariableSet.add(roofColor);
 		equalVariableSet.add(hoodColor);
 		equalVariableSet.add(tailgateColor);
+		equalVariableSet.add(leftSide);
+		equalVariableSet.add(rightSide);
 
 		Constraint allEq = new AllEqualConstraint(equalVariableSet);
 
@@ -68,10 +70,10 @@ public class Main {
 		//constraintSet.add(incompatibilityConstraint);
 
 		BackTracking ppc = new BackTracking(constraintSet, variableSet);
-		HashMap<Variable, String> car = ppc.solution(new HashMap<>());
+		HashMap<Variable, String> car = ppc.solution();
 		while(car!=null){
 			printCar(car);
-			car=ppc.solution(car);
+			car=ppc.solution();
 		}
 	}
 
