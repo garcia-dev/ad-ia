@@ -2,7 +2,11 @@ package ppc;
 
 import representations.Constraint;
 import representations.Variable;
+
 import java.util.*;
+
+import static java.util.Map.Entry.comparingByValue;
+import static java.util.stream.Collectors.toMap;
 
 public class BackTracking {
 	private Set<Constraint> allConstraint;
@@ -15,6 +19,9 @@ public class BackTracking {
 	
 	private HashMap<Variable,String> car=null;
 	private int index=0;
+
+	private LinkedHashMap<Variable, Integer> variableIntegerLinkedHashMap = null;
+
 	public BackTracking(Set<Constraint> allConstraint, Set<Variable> allVariable) {
 		this.allConstraint = allConstraint;
 		this.allVariable = allVariable;
@@ -27,7 +34,42 @@ public class BackTracking {
 		for (Variable var : this.allVariable) {
 			this.variableDomain.put(var, new HashSet<>(var.getDomain()));
 		}
+
+
 	}
+
+	private void createConstraintVariableMap() {
+		HashMap<Variable, Integer> variableIntegerHashMap = new HashMap<>();
+
+		allVariable.forEach(variable -> variableIntegerHashMap.put(variable, 0));
+
+		allConstraint.forEach(constraint -> constraint.getScope().forEach(variable -> {
+			int count = variableIntegerHashMap.get(variable);
+			variableIntegerHashMap.put(variable, count + 1);
+		}));
+
+		variableIntegerLinkedHashMap = variableIntegerHashMap.entrySet().stream().sorted(comparingByValue()).collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2, LinkedHashMap::new));
+
+		variableIntegerLinkedHashMap.forEach((key, value) ->
+				System.out.println("key : " + key + " - value : " + value));
+	}
+
+	public Variable getLessConstraintVariable() {
+		if (variableIntegerLinkedHashMap == null)
+			createConstraintVariableMap();
+
+		return variableIntegerLinkedHashMap.entrySet().iterator().next().getKey();
+	}
+
+	public Variable getMostConstraintVariable() {
+		if (variableIntegerLinkedHashMap == null)
+			createConstraintVariableMap();
+
+		ArrayList<Variable> variables = new ArrayList<>(variableIntegerLinkedHashMap.keySet());
+
+		return variables.get(variables.size() - 1);
+	}
+
 	private HashMap<Variable,String> getNextSolution(HashMap<Variable, String> car){
 		if (index < notUsed.size() && index >= 0) {
 			String nextValue = getValue(notUsed.get(index));  //compute the next value return "" if there is no more value
@@ -49,7 +91,6 @@ public class BackTracking {
 					return getNextSolution(car); //there is other value in the domain so try to test another one
 				}
 			}
-
 		} else {
 			if (index <0) {
 				System.out.println(variableDomain);
@@ -67,6 +108,7 @@ public class BackTracking {
 
 		}
 	}
+
 	public HashMap<Variable, String> solution() {
 		if(this.car==null){
 			this.car=this.getNextSolution(new HashMap());
@@ -106,13 +148,11 @@ public class BackTracking {
 	}
 
 	private boolean alreadyGive(HashMap<Variable, String> car) {// test if the car make in solution has already been make ^^
-		if (this.precCar.contains(car)) {
-			return true;
-		}
-		return false;
+		return precCar.contains(car);
 	}
+
 	private boolean filterDomain(Map<Variable,String> car,Map<Variable,Set<String>> domainVariable){
-		ArrayList<Variable> toReorganize=new ArrayList();
+		ArrayList toReorganize = new ArrayList<>();
 		boolean hasFiltered=true;
 		while(hasFiltered){
 			hasFiltered=false;
@@ -123,11 +163,11 @@ public class BackTracking {
 						if(domainVariable.get(var).size()==0){
 							return false;
 						}
-						if(domainVariable.get(var).size()==1){
-							Iterator i=domainVariable.get(var).iterator();
-							car.put(var,getValue(var));
-							toReorganize.add(var);
-						}
+//						if(domainVariable.get(var).size()==1){
+//							Iterator i=domainVariable.get(var).iterator();
+//							car.put(var,getValue(var));
+//							toReorganize.add(var);
+//						}
 					}
 				}
 			}

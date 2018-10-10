@@ -64,17 +64,26 @@ public class Main {
 		varIC.put(openingRoof, "True");
 		Constraint incompatibilityConstraint = new IncompatibilityConstraint(varIC);
 
+		HashMap<Variable, String> variableStringHashMap = new HashMap<>();
+		variableStringHashMap.put(roofColor, "red");
+		variableStringHashMap.put(openingRoof, "True");
+		Constraint constraint = new IncompatibilityConstraint(variableStringHashMap);
+
 		Set<Constraint> constraintSet = new HashSet<>();
-		//constraintSet.add(rule);
-		constraintSet.add(allEq);
-		//constraintSet.add(incompatibilityConstraint);
+		constraintSet.add(rule);
+//		constraintSet.add(allEq);
+		constraintSet.add(incompatibilityConstraint);
+		constraintSet.add(constraint);
 
 		BackTracking ppc = new BackTracking(constraintSet, variableSet);
 		HashMap<Variable, String> car = ppc.solution();
 		while(car!=null){
-			printCar(car);
+//			printCar(car);
 			car=ppc.solution();
 		}
+
+		System.out.println(ppc.getLessConstraintVariable());
+		System.out.println(ppc.getMostConstraintVariable());
 	}
 
 	public static void printCar(Map<Variable, String> car) {
