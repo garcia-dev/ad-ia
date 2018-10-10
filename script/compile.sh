@@ -6,4 +6,3 @@ javac -d "build" -cp "build" src/representations/*.java
 javac -d "build" -cp "build" src/ppc/BackTracking.java
 javac -d "build" -cp "build" src/examples/*.java
 echo "finished"
-read
