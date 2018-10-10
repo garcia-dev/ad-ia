@@ -1,8 +1,9 @@
 package representations;
 
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Rule implements Constraint {
 
@@ -14,22 +15,22 @@ public class Rule implements Constraint {
 		this.conclusion = conclusion;
 	}
 
-
-
 	@Override
 	public Set<Variable> getScope() {
-		Set<Variable> scope = new HashSet<>();
-		scope.addAll(premise.keySet());
-		scope.addAll(conclusion.keySet());
-		return scope;
+		return Stream.concat(premise.keySet().stream(), conclusion.keySet().stream()).collect(Collectors.toSet());
 	}
 
 	@Override
-	public boolean isSatisfiedBy(Map<Variable, String> assignment) {
-		boolean incompatibilityConstraint = new IncompatibilityConstraint(premise).isSatisfiedBy(assignment);
-		boolean disjunction = new Disjunction(conclusion).isSatisfiedBy(assignment);
+	public boolean isSatisfiedBy(Map<Variable, String> allocation) {
+		boolean incompatibilityConstraint = new IncompatibilityConstraint(premise).isSatisfiedBy(allocation);
+		boolean disjunction = new Disjunction(conclusion).isSatisfiedBy(allocation);
 
-		return !incompatibilityConstraint || disjunction;
+		return incompatibilityConstraint || disjunction;
 	}
 
+
+	@Override
+	public boolean filter(Map<Variable, String> allocation, Map<Variable, Set<String>> variableDomain) {
+		return new IncompatibilityConstraint(premise).filter(allocation, variableDomain) && new Disjunction(conclusion).filter(allocation, variableDomain);
+	}
 }

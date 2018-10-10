@@ -2,6 +2,8 @@ package representations;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.HashSet;
+import java.util.Iterator;
 
 public class IncompatibilityConstraint implements Constraint {
 
@@ -17,16 +19,46 @@ public class IncompatibilityConstraint implements Constraint {
 	}
 
 	@Override
-	public boolean isSatisfiedBy(Map<Variable, String> assignment) {
-		boolean compatible = true;
+	public boolean isSatisfiedBy(Map<Variable, String> allocation) {
+		boolean test = true;
 
-		for (Map.Entry<Variable, String> variable : variables.entrySet()) {
-			Variable name = variable.getKey();
-			String value = variable.getValue();
-			compatible &= value.equals(assignment.get(name));
+		for (Variable var : variables.keySet())
+			test &= variables.get(var).equals(allocation.get(var));
+
+		return !test;
+	}
+
+
+	@Override
+	public boolean filter(Map<Variable, String> car, Map<Variable, Set<String>> variableDomain) {
+		int compt=0;
+		Iterator<Variable> iteCar=car.keySet().iterator();
+		Iterator<Variable> iteSco=getScope().iterator();
+		while(iteCar.hasNext() && iteSco.hasNext()){
+			if(iteCar.next()==iteSco.next()){
+				compt++;
+			}
 		}
-
-		return !compatible;
+		if(compt==getScope().size()-2){
+			Variable value2Changed=null;
+			for(Variable var:getScope()){
+				if(car.containsKey(var)){
+					if(!car.get(var).equals(this.variables.get(var))){
+						return false;
+					}
+				}
+				else{
+					value2Changed=var;
+				}
+			}
+		if(value2Changed!=null){
+			Set<String> domain=new HashSet(value2Changed.getDomain());
+			domain.remove((Object)this.variables.get(value2Changed));
+			variableDomain.put(value2Changed,domain);
+			return true;
+		}
+		}
+		return false;
 	}
 
 }
