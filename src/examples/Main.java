@@ -70,7 +70,7 @@ public class Main {
 		//constraintSet.add(incompatibilityConstraint);
 
 		BackTracking ppc = new BackTracking(constraintSet, variableSet);
-		HashMap<Variable, String> car = ppc.solution();
+		 HashMap<Variable, String> car = ppc.solution();
 		while(car!=null){
 			printCar(car);
 			car=ppc.solution();

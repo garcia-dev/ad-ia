@@ -15,11 +15,13 @@ public class BackTracking {
 	
 	private HashMap<Variable,String> car=null;
 	private int index=0;
+	private Variable firstElem;
 	public BackTracking(Set<Constraint> allConstraint, Set<Variable> allVariable) {
 		this.allConstraint = allConstraint;
 		this.allVariable = allVariable;
 
 		this.notUsed = new ArrayList<>(allVariable);
+		this.firstElem=notUsed.get(0);
 		this.variableDomain = new HashMap<>();
 
 		this.precCar = new ArrayList<>();
@@ -30,33 +32,33 @@ public class BackTracking {
 	}
 	private HashMap<Variable,String> getNextSolution(HashMap<Variable, String> car){
 		if (index < notUsed.size() && index >= 0) {
+			System.out.println(variableDomain);
+			System.out.println();
+			System.out.println(notUsed);
+			System.out.println();
+			
 			String nextValue = getValue(notUsed.get(index));  //compute the next value return "" if there is no more value
-			if (nextValue.equals("")) {				
-				System.out.println(this.index);
+			if (nextValue.equals("")) {
 				car.remove(notUsed.get(index));
 				this.index=this.index - 1;
 				return getNextSolution(car);    //no other value in the domain so go back
 			} else {
-				System.out.print("set new value");
 				car.put(notUsed.get(index), nextValue);
 				if (doTest(car)) {
-					System.out.println(" sucessful");
 					filterDomain(car,variableDomain);
 					this.index=this.index + 1;
 					return getNextSolution(car); // the test is currently succesful so go ahead to add an other variable
 				} else {
-					System.out.println(" unsucessful");
 					return getNextSolution(car); //there is other value in the domain so try to test another one
 				}
 			}
 
 		} else {
 			if (index <0) {
-				System.out.println(variableDomain);
 				return null;
 			} else {
 				if (alreadyGive(car)) {
-					car.remove(notUsed.get(index - 1));
+					car.remove(notUsed.get(index-1));
 					this.index=this.index - 2;
 					return getNextSolution(car);    //no other value in the domain so go back
 				} else {
@@ -80,9 +82,7 @@ public class BackTracking {
 
 	private String getValue(Variable variable) {
 		Set<String> possibleValue = variableDomain.get(variable);
-
 		if (!possibleValue.iterator().hasNext()) {
-			System.out.println("set new domain");
 			for(int i=this.index;i<this.notUsed.size();i++){
 				Variable var=this.notUsed.get(i);
 				variableDomain.put(var, new HashSet<>(var.getDomain()));	
@@ -113,6 +113,7 @@ public class BackTracking {
 	}
 	private boolean filterDomain(Map<Variable,String> car,Map<Variable,Set<String>> domainVariable){
 		ArrayList<Variable> toReorganize=new ArrayList();
+		toReorganize.add(0,this.firstElem);
 		boolean hasFiltered=true;
 		while(hasFiltered){
 			hasFiltered=false;
@@ -120,22 +121,24 @@ public class BackTracking {
 				hasFiltered|=c.filter(car,domainVariable);
 				if(hasFiltered){
 					for(Variable var:c.getScope()){
+						System.out.println("size= "+domainVariable.get(var).size());
 						if(domainVariable.get(var).size()==0){
 							return false;
 						}
 						if(domainVariable.get(var).size()==1){
-							Iterator i=domainVariable.get(var).iterator();
 							car.put(var,getValue(var));
 							toReorganize.add(var);
+							domainVariable.put(var,new HashSet<>(var.getDomain()));
 						}
 					}
 				}
 			}
 		}
+		
 		if(!toReorganize.isEmpty()){
 			this.notUsed.removeAll(toReorganize);
 			this.notUsed.addAll(this.index,toReorganize);
-			this.index+=toReorganize.size()-1;
+			this.index+=toReorganize.size()-1;	
 		}
 		return true;
 		}

@@ -71,10 +71,13 @@ public class AllEqualConstraint implements Constraint {
 			valueDomain.add(car.get(varPrev)); 
 			for(Variable var:this.variables){ 
 				if(!car.containsKey(var)&&!(variableDomain.get(var).size()==1)){
-					variableDomain.put(var,valueDomain); 
+					variableDomain.put(var,new HashSet(valueDomain)); 
 					hasFiltered=true;
 				}
-			} 
+				else if(!variableDomain.get(var).equals(valueDomain) && !car.containsKey(var)){
+					variableDomain.put(var,new HashSet());
+				}
+			}
 		} 
 		return hasFiltered; 
 	} 
