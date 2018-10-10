@@ -15,13 +15,11 @@ public class BackTracking {
 	
 	private HashMap<Variable,String> car=null;
 	private int index=0;
-	private Variable firstElem;
 	public BackTracking(Set<Constraint> allConstraint, Set<Variable> allVariable) {
 		this.allConstraint = allConstraint;
 		this.allVariable = allVariable;
 
 		this.notUsed = new ArrayList<>(allVariable);
-		this.firstElem=notUsed.get(0);
 		this.variableDomain = new HashMap<>();
 
 		this.precCar = new ArrayList<>();
@@ -32,11 +30,6 @@ public class BackTracking {
 	}
 	private HashMap<Variable,String> getNextSolution(HashMap<Variable, String> car){
 		if (index < notUsed.size() && index >= 0) {
-			System.out.println(variableDomain);
-			System.out.println();
-			System.out.println(notUsed);
-			System.out.println();
-			
 			String nextValue = getValue(notUsed.get(index));  //compute the next value return "" if there is no more value
 			if (nextValue.equals("")) {
 				car.remove(notUsed.get(index));
@@ -97,7 +90,7 @@ public class BackTracking {
 		}
 	}
 
-	private boolean doTest(HashMap<Variable, String> car) {
+	private boolean doTest(Map<Variable, String> car) {
 		for (Constraint c : this.allConstraint)
 			if (car.keySet().containsAll(c.getScope()) && !c.isSatisfiedBy(car))
 				return false;
@@ -113,7 +106,6 @@ public class BackTracking {
 	}
 	private boolean filterDomain(Map<Variable,String> car,Map<Variable,Set<String>> domainVariable){
 		ArrayList<Variable> toReorganize=new ArrayList();
-		toReorganize.add(0,this.firstElem);
 		boolean hasFiltered=true;
 		while(hasFiltered){
 			hasFiltered=false;
@@ -121,25 +113,27 @@ public class BackTracking {
 				hasFiltered|=c.filter(car,domainVariable);
 				if(hasFiltered){
 					for(Variable var:c.getScope()){
-						System.out.println("size= "+domainVariable.get(var).size());
 						if(domainVariable.get(var).size()==0){
 							return false;
 						}
 						if(domainVariable.get(var).size()==1){
 							car.put(var,getValue(var));
-							toReorganize.add(var);
-							domainVariable.put(var,new HashSet<>(var.getDomain()));
+							if(!doTest(car)){
+								domainVariable.put(var,new HashSet<>(var.getDomain()));
+								car.remove(var);
+								return false;
+							}
+							else{
+								notUsed.remove(var);
+								notUsed.add(1,var);
+								index++;
+								System.out.println(notUsed);
+							}
 						}
 					}
 				}
 			}
 		}
-		
-		if(!toReorganize.isEmpty()){
-			this.notUsed.removeAll(toReorganize);
-			this.notUsed.addAll(this.index,toReorganize);
-			this.index+=toReorganize.size()-1;	
-		}
 		return true;
-		}
+	}
 }
