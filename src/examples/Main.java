@@ -65,21 +65,22 @@ public class Main {
 		Constraint incompatibilityConstraint = new IncompatibilityConstraint(varIC);
 
 		Set<Constraint> constraintSet = new HashSet<>();
-		//constraintSet.add(rule);
+		constraintSet.add(rule);
 		constraintSet.add(allEq);
-		//constraintSet.add(incompatibilityConstraint);
-		int sol=0;
+		constraintSet.add(incompatibilityConstraint);
+		
+		int sol = 0;
 		BackTracking ppc = new BackTracking(constraintSet, variableSet);
-		 HashMap<Variable, String> car = ppc.solution();
-		while(car!=null){
+		HashMap<Variable, String> car = ppc.solution();
+		while (car != null) {
 			sol++;
 			printCar(car);
-			car=ppc.solution();
+			car = ppc.solution();
 		}
 		System.out.println(sol);
 	}
 
-	public static void printCar(Map<Variable, String> car) {
+	private static void printCar(Map<Variable, String> car) {
 		System.out.println("solution => ");
 		car.forEach((key, value) -> System.out.println(key.getName() + " : " + value));
 	}
