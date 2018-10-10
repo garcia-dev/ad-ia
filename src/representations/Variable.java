@@ -8,7 +8,6 @@ import java.util.Set;
  */
 
 public class Variable {
-
 	private String name;
 	private Set<String> domain;
 

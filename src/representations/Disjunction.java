@@ -1,9 +1,9 @@
 package representations;
 
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-import java.util.Iterator;
-import java.util.HashSet;
 
 /**
  * @author Romain Garcia
@@ -53,7 +53,7 @@ public class Disjunction implements Constraint {
 				}
 			}
 			if(has2filter){
-				Set<String> x=new HashSet<String>();
+				Set<String> x = new HashSet<>();
 				x.add(this.variables.get(value2Changed));
 				variableDomain.put(value2Changed,x);
 				return true;
