@@ -10,8 +10,4 @@ public class State {
 	public State(Set<Variable> variableSet) {
 		this.variableSet = variableSet;
 	}
-
-	private void apply(Action action) {
-
-	}
 }
