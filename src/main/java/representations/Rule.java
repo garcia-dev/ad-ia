@@ -14,6 +14,8 @@ public class Rule implements Constraint {
 		this.conclusion = conclusion;
 	}
 
+
+
 	@Override
 	public Set<Variable> getScope() {
 		Set<Variable> scope = new HashSet<>();
