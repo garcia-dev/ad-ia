@@ -13,4 +13,8 @@ public class PlanningProblem {
 		this.finalStateSet = finalStateSet;
 		this.actionArrayList = actionArrayList;
 	}
+
+	private boolean satisfies(State state) {
+		return false;
+	}
 }
