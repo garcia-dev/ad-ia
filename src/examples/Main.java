@@ -68,13 +68,15 @@ public class Main {
 		//constraintSet.add(rule);
 		constraintSet.add(allEq);
 		//constraintSet.add(incompatibilityConstraint);
-
+		int sol=0;
 		BackTracking ppc = new BackTracking(constraintSet, variableSet);
 		 HashMap<Variable, String> car = ppc.solution();
 		while(car!=null){
+			sol++;
 			printCar(car);
 			car=ppc.solution();
 		}
+		System.out.println(sol);
 	}
 
 	public static void printCar(Map<Variable, String> car) {

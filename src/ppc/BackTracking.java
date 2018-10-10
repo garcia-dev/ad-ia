@@ -52,7 +52,7 @@ public class BackTracking {
 			} else {
 				if (alreadyGive(car)) {
 					car.remove(notUsed.get(index-1));
-					this.index=this.index - 2;
+					this.index=this.index - 1;
 					return getNextSolution(car);    //no other value in the domain so go back
 				} else {
 					this.precCar.add(new HashMap<>(car));
