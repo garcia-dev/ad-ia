@@ -14,10 +14,6 @@ public class PlanningProblem {
 		this.actionArrayList = actionArrayList;
 	}
 
-	private boolean satisfies(State state) {
-		return false;
-	}
-
 	private State apply(Action action, State state) {
 		return null;
 	}
