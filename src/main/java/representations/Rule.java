@@ -28,7 +28,6 @@ public class Rule implements Constraint {
 		return incompatibilityConstraint || disjunction;
 	}
 
-
 	@Override
 	public boolean filter(Map<Variable, String> allocation, Map<Variable, Set<String>> variableDomain) {
 		return new IncompatibilityConstraint(premise).filter(allocation, variableDomain) && new Disjunction(conclusion).filter(allocation, variableDomain);

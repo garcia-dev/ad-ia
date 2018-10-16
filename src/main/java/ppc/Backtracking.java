@@ -1,47 +1,141 @@
 package ppc;
 
-import representations.Variable;
 import representations.Constraint;
+import representations.Variable;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.HashMap;
+import java.util.*;
 
 public class Backtracking {
 
 	private Set<Constraint> constraints;
 	private Set<Variable> variables;
+
 	private List<Variable> unusedVariables;
+
+	private Map<Variable, Set<String>> variableDomain;
+	private List<HashMap<Variable, String>> previousCar;
+
+	private HashMap<Variable, String> car = null;
+	private int index = 0;
 
 	public Backtracking(Set<Constraint> constraints, Set<Variable> variables) {
 		this.constraints = constraints;
 		this.variables = variables;
-		this.unusedVariables = new ArrayList<>(variables);
-	}
 
-	private String getValue(String current, Variable variable) {
-		List<String> domain = new ArrayList<>(variable.getDomain());
-		if (domain.indexOf(current) < domain.size()) {
-			return domain.get(0);
-		} else {
-			return domain.get(domain.indexOf(current) + 1);
+		this.unusedVariables = new ArrayList<>(variables);
+		this.variableDomain = new HashMap<>();
+
+		this.previousCar = new ArrayList<>();
+
+		for (Variable variable : this.variables) {
+			this.variableDomain.put(variable, new HashSet<>(variable.getDomain()));
 		}
 	}
 
-	private boolean isValid(HashMap<Variable, String> car) {
-		for (Constraint constraint : constraints) {
-			System.out.println(car);
-			System.out.println(constraint.getScope());
-			if (car.keySet().containsAll(constraint.getScope())) {
-				if (!constraint.isSatisfiedBy(car)) {
-					System.out.println("Not valid!");
-					return false;
+	private HashMap<Variable, String> solution(HashMap<Variable, String> car) {
+		if (index < unusedVariables.size() && index >= 0) {
+			String nextValue = getValue(unusedVariables.get(index));  //compute the next value return "" if there is no more value
+			if (nextValue.equals("")) {
+				car.remove(unusedVariables.get(index));
+				this.index = this.index - 1;
+				return solution(car);    //no other value in the domain so go back
+			} else {
+				car.put(unusedVariables.get(index), nextValue);
+				if (doTest(car)) {
+					filterDomain(car, variableDomain);
+					this.index = this.index + 1;
+					return solution(car); // the test is currently succesful so go ahead to add an other variable
+				} else {
+					return solution(car); //there is other value in the domain so try to test another one
+				}
+			}
+
+		} else {
+			if (index < 0) {
+				return null;
+			} else {
+				if (alreadyGive(car)) {
+					car.remove(unusedVariables.get(index - 1));
+					this.index = this.index - 1;
+					return solution(car);    //no other value in the domain so go back
+				} else {
+					this.previousCar.add(new HashMap<>(car));
+					return car;
+				}
+			}
+
+		}
+	}
+
+	public HashMap<Variable, String> solution() {
+		return solution(new HashMap<>());
+	}
+
+	private String getValue(Variable variable) {
+		Set<String> possibleValue = variableDomain.get(variable);
+		if (!possibleValue.iterator().hasNext()) {
+			for (int i = this.index; i < this.unusedVariables.size(); i++) {
+				Variable var = this.unusedVariables.get(i);
+				variableDomain.put(var, new HashSet<>(var.getDomain()));
+			}
+			return "";
+		} else {
+			Iterator<String> i = possibleValue.iterator();
+			String value = i.next();
+			i.remove();
+			this.variableDomain.put(variable, possibleValue);
+			return value;
+		}
+	}
+
+	private boolean doTest(Map<Variable, String> car) {
+		for (Constraint c : this.constraints)
+			if (car.keySet().containsAll(c.getScope()) && !c.isSatisfiedBy(car))
+				return false;
+
+		return true;
+	}
+
+	/**
+	 * Returns <code>true</code> if the car has already been made.
+	 *
+	 * @param car the car to be tested
+	 * @return <code>true</code> if the car has already been made ; false otherwise
+	 */
+	private boolean alreadyGive(HashMap<Variable, String> car) {
+		return this.previousCar.contains(car);
+	}
+
+	private boolean filterDomain(Map<Variable, String> car, Map<Variable, Set<String>> domainVariable) {
+		ArrayList<Variable> toReorganize = new ArrayList();
+		boolean hasFiltered = true;
+		while (hasFiltered) {
+			hasFiltered = false;
+			for (Constraint c : this.constraints) {
+				hasFiltered |= c.filter(car, domainVariable);
+				if (hasFiltered) {
+					for (Variable var : c.getScope()) {
+						if (domainVariable.get(var).size() == 0) {
+							return false;
+						}
+						if (domainVariable.get(var).size() == 1) {
+							car.put(var, getValue(var));
+							if (!doTest(car)) {
+								domainVariable.put(var, new HashSet<>(var.getDomain()));
+								car.remove(var);
+								return false;
+							} else {
+								unusedVariables.remove(var);
+								unusedVariables.add(1, var);
+								index++;
+								System.out.println(unusedVariables);
+							}
+						}
+					}
 				}
 			}
 		}
-
-		System.out.println("Valid.");
 		return true;
 	}
+
 }

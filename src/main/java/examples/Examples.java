@@ -65,14 +65,14 @@ public class Examples {
 		 * Constraint verifying that the assignment doesn't have an opening roof
 		 * and a sound system at the same time
 		 */
-		HashMap<Variable, String> constraint4Assignation = new HashMap<>();
-		constraint4Assignation.put(hasOpeningRoof, "true");
-		constraint4Assignation.put(hasSono, "true");
+		HashMap<Variable, String> constraint4Assignment = new HashMap<>();
+		constraint4Assignment.put(hasOpeningRoof, "true");
+		constraint4Assignment.put(hasSono, "true");
 
 		constraint1 = new AllEqualConstraint(constraint1Assignment);
 		constraint2 = new Rule(constraint2Premise, constraint2Conclusion);
 		constraint3 = new IncompatibilityConstraint(constraint3Assignment);
-		constraint4 = new IncompatibilityConstraint(constraint4Assignation);
+		constraint4 = new IncompatibilityConstraint(constraint4Assignment);
 
 	}
 

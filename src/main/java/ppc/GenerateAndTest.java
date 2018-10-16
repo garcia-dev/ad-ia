@@ -16,12 +16,14 @@ public class GenerateAndTest {
 	public GenerateAndTest(Set<Constraint> constraints, Set<Variable> variables) {
 		this.constraints = constraints;
 		this.variables = new ArrayList<>(variables);
+
 		HashMap<Variable, String> car = new HashMap<>();
 
 		for (Variable variable : variables) {
 			ArrayList<String> domain = new ArrayList<>(variable.getDomain());
 			car.put(variable, domain.get(0));
 		}
+
 		boolean test = doTest(car);
 		int j = 1;
 		while (test) {
@@ -42,9 +44,9 @@ public class GenerateAndTest {
 		}
 	}
 
-	public boolean doTest(HashMap<Variable, String> car) {
-		for (Constraint c : this.constraints) {
-			if (!c.isSatisfiedBy(car)) {
+	private boolean doTest(HashMap<Variable, String> car) {
+		for (Constraint constraint : this.constraints) {
+			if (!constraint.isSatisfiedBy(car)) {
 				return false;
 			}
 		}

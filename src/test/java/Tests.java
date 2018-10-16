@@ -28,41 +28,35 @@ public class Tests {
 		car3.put(Examples.leftSideColor, "black");
 		car3.put(Examples.rightSideColor, "blue");
 
-		/*
-		 * Car which doesn't have an opening roof and a sound system at the same
-		 * time
-		 */
+		/* Car which doesn't have an opening roof and a sound system at the same time */
 		HashMap<Variable, String> car4 = new HashMap<>();
 		car4.put(Examples.hasOpeningRoof, "true");
 		car4.put(Examples.hasSono, "false");
 
 		/* Tests */
+
 		if (examples.getConstraint1().isSatisfiedBy(car1)) {
-			System.out.println("The first car satisfies the first constraint.");
+			System.out.println("The first constraint is satisfied by the first car.");
 		} else {
-			System.out.println("There is something wrong with the first "
-							   + "constraint.");
+			System.out.println("There is something wrong with the first constraint.");
 		}
 
 		if (examples.getConstraint2().isSatisfiedBy(car2)) {
-			System.out.println("The second car satisfies the second constraint.");
+			System.out.println("The second constraint is satisfied by the second car.");
 		} else {
-			System.out.println("There is something wrong with the second "
-							   + "constraint.");
+			System.out.println("There is something wrong with the second constraint.");
 		}
 
 		if (examples.getConstraint3().isSatisfiedBy(car3)) {
-			System.out.println("The third car satisfies the third constraint.");
+			System.out.println("The third constraint is satisfied by the third car.");
 		} else {
-			System.out.println("There is something wrong with the third "
-							   + "constraint.");
+			System.out.println("There is something wrong with the third constraint.");
 		}
 
 		if (examples.getConstraint4().isSatisfiedBy(car4)) {
-			System.out.println("The fourth car satisfies the fourth constraint.");
+			System.out.println("The fourth constraint is satisfied by the fourth car.");
 		} else {
-			System.out.println("There is something wrong with the fourth "
-							   + "constraint.");
+			System.out.println("There is something wrong with the fourth constraint.");
 		}
 	}
 
