@@ -8,7 +8,7 @@ public class BackTracking {
 	private Set<Constraint> allConstraint;
 	private Set<Variable> allVariable;
 	
-	private ArrayList<Variable> notUsed;
+	public ArrayList<Variable> notUsed;
 	
 	private Map<Variable, Set<String>> variableDomain;
 	private List<HashMap<Variable, String>> precCar;
@@ -39,7 +39,7 @@ public class BackTracking {
 				car.put(notUsed.get(index), nextValue);
 				if (doTest(car)) {
 					filterDomain(car,variableDomain);
-					this.index=this.index + 1;
+					this.index = this.index + 1;
 					return getNextSolution(car); // the test is currently succesful so go ahead to add an other variable
 				} else {
 					return getNextSolution(car); //there is other value in the domain so try to test another one
@@ -105,7 +105,6 @@ public class BackTracking {
 		return false;
 	}
 	private boolean filterDomain(Map<Variable,String> car,Map<Variable,Set<String>> domainVariable){
-		ArrayList<Variable> toReorganize=new ArrayList();
 		boolean hasFiltered=true;
 		while(hasFiltered){
 			hasFiltered=false;
@@ -127,7 +126,6 @@ public class BackTracking {
 								notUsed.remove(var);
 								notUsed.add(1,var);
 								index++;
-								System.out.println(notUsed);
 							}
 						}
 					}

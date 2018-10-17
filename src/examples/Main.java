@@ -51,6 +51,12 @@ public class Main {
 		equalVariableSet.add(leftSide);
 		equalVariableSet.add(rightSide);
 
+		Map<Variable,String> disjunctionSet=new HashMap();
+		disjunctionSet.put(hoodColor,"blue");
+		disjunctionSet.put(rightSide,"red");
+
+		Constraint dis=new Disjunction(disjunctionSet);
+
 		Constraint allEq = new AllEqualConstraint(equalVariableSet);
 
 		HashMap<Variable, String> premise = new HashMap<>();
@@ -66,21 +72,29 @@ public class Main {
 
 		Set<Constraint> constraintSet = new HashSet<>();
 		//constraintSet.add(rule);
+		constraintSet.add(dis);
 		constraintSet.add(allEq);
-		//constraintSet.add(incompatibilityConstraint);
+		constraintSet.add(incompatibilityConstraint);
 		int sol=0;
 		BackTracking ppc = new BackTracking(constraintSet, variableSet);
 		 HashMap<Variable, String> car = ppc.solution();
 		while(car!=null){
 			sol++;
 			printCar(car);
+			System.out.println(dis.isSatisfiedBy(car));
+			System.out.println(allEq.isSatisfiedBy(car));
+			System.out.println(incompatibilityConstraint.isSatisfiedBy(car));
+
+			System.out.println();
 			car=ppc.solution();
 		}
 		System.out.println(sol);
+		System.out.println(ppc.notUsed);
 	}
 
 	public static void printCar(Map<Variable, String> car) {
 		System.out.println("solution => ");
 		car.forEach((key, value) -> System.out.println(key.getName() + " : " + value));
+
 	}
 }

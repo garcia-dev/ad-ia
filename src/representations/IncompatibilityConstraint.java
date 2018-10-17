@@ -43,7 +43,7 @@ public class IncompatibilityConstraint implements Constraint {
 				compt++;
 			}
 		}
-		if(compt==getScope().size()-2){
+		if(compt==getScope().size()-1){
 			Variable value2Changed=null;
 			for(Variable var:getScope()){
 				if(car.containsKey(var)){

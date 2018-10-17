@@ -27,10 +27,10 @@ public class AllEqualConstraint implements Constraint {
 
 	@Override
 	public boolean isSatisfiedBy(Map<Variable, String> allocation) {
-		String value = null;
+		String value = "";
 
 		for (Variable key : variables) {
-			if (value == null) {
+			if (value.equals("")) {
 				value = allocation.get(key);
 				continue;
 			}

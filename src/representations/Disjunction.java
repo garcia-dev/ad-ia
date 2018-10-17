@@ -13,9 +13,7 @@ import java.util.HashSet;
 public class Disjunction implements Constraint {
 	private Map<Variable, String> variables;
 
-	public Disjunction(Map<Variable, String> variables) {
-		this.variables = variables;
-	}
+	public Disjunction(Map<Variable, String> variables) {this.variables = variables;}
 
 	@Override
 	public Set<Variable> getScope() {
@@ -33,15 +31,19 @@ public class Disjunction implements Constraint {
 
 	@Override
 	public boolean filter(Map<Variable, String> car, Map<Variable, Set<String>> variableDomain) {
-		int compt=0;
+		int i=0;
 		Iterator<Variable> iteCar=car.keySet().iterator();
 		Iterator<Variable> iteSco=getScope().iterator();
-		while(iteCar.hasNext() && iteSco.hasNext()){
-			if(iteCar.next()==iteSco.next()){
-				compt++;
+		while(iteSco.hasNext()){
+			Variable var=iteSco.next();
+			for(int j=0;j<car.size();j++) {
+				if (iteCar.next() == var) {
+					i++;
+				}
 			}
+			iteCar=car.keySet().iterator();
 		}
-		if(compt==getScope().size()-2){
+		if(i==getScope().size()-1){
 			boolean has2filter=true;
 			Variable value2Changed=null;
 			for(Variable var:getScope()){
@@ -53,7 +55,7 @@ public class Disjunction implements Constraint {
 				}
 			}
 			if(has2filter){
-				Set<String> x=new HashSet<String>();
+				Set<String> x=new HashSet<>();
 				x.add(this.variables.get(value2Changed));
 				variableDomain.put(value2Changed,x);
 				return true;
