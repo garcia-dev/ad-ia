@@ -13,7 +13,7 @@ public class Backtracking {
 	private List<Variable> unusedVariables;
 
 	private Map<Variable, Set<String>> variableDomain;
-	private List<HashMap<Variable, String>> previousCar;
+	private List<HashMap<Variable, String>> precCar;
 
 	private HashMap<Variable, String> car = null;
 	private int index = 0;
@@ -25,7 +25,7 @@ public class Backtracking {
 		this.unusedVariables = new ArrayList<>(variables);
 		this.variableDomain = new HashMap<>();
 
-		this.previousCar = new ArrayList<>();
+		this.precCar = new ArrayList<>();
 
 		for (Variable variable : this.variables) {
 			this.variableDomain.put(variable, new HashSet<>(variable.getDomain()));
@@ -34,19 +34,19 @@ public class Backtracking {
 
 	private HashMap<Variable, String> solution(HashMap<Variable, String> car) {
 		if (index < unusedVariables.size() && index >= 0) {
-			String nextValue = getValue(unusedVariables.get(index));  //compute the next value return "" if there is no more value
+			String nextValue = getValue(unusedVariables.get(index)); // compute the next value return "" if there is no more value
 			if (nextValue.equals("")) {
 				car.remove(unusedVariables.get(index));
 				this.index = this.index - 1;
-				return solution(car);    //no other value in the domain so go back
+				return solution(car); // no other value in the domain so go back
 			} else {
 				car.put(unusedVariables.get(index), nextValue);
 				if (doTest(car)) {
 					filterDomain(car, variableDomain);
 					this.index = this.index + 1;
-					return solution(car); // the test is currently succesful so go ahead to add an other variable
+					return solution(car); // the test is currently successful so go ahead to add an other variable
 				} else {
-					return solution(car); //there is other value in the domain so try to test another one
+					return solution(car); // there is other value in the domain so try to test another one
 				}
 			}
 
@@ -59,7 +59,7 @@ public class Backtracking {
 					this.index = this.index - 1;
 					return solution(car);    //no other value in the domain so go back
 				} else {
-					this.previousCar.add(new HashMap<>(car));
+					this.precCar.add(new HashMap<>(car));
 					return car;
 				}
 			}
@@ -103,7 +103,7 @@ public class Backtracking {
 	 * @return <code>true</code> if the car has already been made ; false otherwise
 	 */
 	private boolean alreadyGive(HashMap<Variable, String> car) {
-		return this.previousCar.contains(car);
+		return this.precCar.contains(car);
 	}
 
 	private boolean filterDomain(Map<Variable, String> car, Map<Variable, Set<String>> domainVariable) {

@@ -1,7 +1,13 @@
 import examples.Examples;
+import ppc.Backtracking;
+import representations.Constraint;
+import representations.Rule;
 import representations.Variable;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class Tests {
 
@@ -33,7 +39,7 @@ public class Tests {
 		car4.put(Examples.hasOpeningRoof, "true");
 		car4.put(Examples.hasSono, "false");
 
-		/* Tests */
+		/* Simple tests */
 
 		if (examples.getConstraint1().isSatisfiedBy(car1)) {
 			System.out.println("The first constraint is satisfied by the first car.");
@@ -58,6 +64,30 @@ public class Tests {
 		} else {
 			System.out.println("There is something wrong with the fourth constraint.");
 		}
+
+		/* Backtracking tests */
+
+//		backtrack(examples);
+
+	}
+
+	private static void backtrack(Examples examples) {
+		int sol = 0;
+		Backtracking backtracking = new Backtracking(examples.getConstraints(),
+													 examples.getVariables());
+
+		HashMap<Variable, String> car = backtracking.solution();
+		while (car != null) {
+			sol++;
+			printCar(car);
+			car = backtracking.solution();
+		}
+		System.out.println(sol);
+	}
+
+	private static void printCar(Map<Variable, String> car) {
+		System.out.print("\nsolution => ");
+		car.forEach((key, value) -> System.out.print(key.getName() + ": " + value + ", "));
 	}
 
 }

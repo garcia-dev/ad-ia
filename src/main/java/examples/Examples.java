@@ -34,6 +34,12 @@ public class Examples {
 	private Constraint constraint3;
 	private Constraint constraint4;
 
+	private Constraint constraintTest;
+
+	/* Sets */
+	private Set<Constraint> constraints = new HashSet<>();
+	private Set<Variable> variables = new HashSet<>();
+
 	public Examples() {
 
 		/* Constraints */
@@ -69,10 +75,32 @@ public class Examples {
 		constraint4Assignment.put(hasOpeningRoof, "true");
 		constraint4Assignment.put(hasSono, "true");
 
+		HashMap<Variable, String> constraintTestPremise = new HashMap<>();
+		HashMap<Variable, String> constraintTestConclusion = new HashMap<>();
+		constraintTestPremise.put(Examples.roofColor, "blue");
+		constraintTestConclusion.put(Examples.tailgateColor, "red");
+		constraintTestConclusion.put(Examples.hoodColor, "black");
+
 		constraint1 = new AllEqualConstraint(constraint1Assignment);
 		constraint2 = new Rule(constraint2Premise, constraint2Conclusion);
 		constraint3 = new IncompatibilityConstraint(constraint3Assignment);
 		constraint4 = new IncompatibilityConstraint(constraint4Assignment);
+		constraintTest = new Rule(constraintTestPremise, constraintTestConclusion);
+
+		/* Sets */
+		variables.add(roofColor);
+		variables.add(hoodColor);
+		variables.add(tailgateColor);
+		variables.add(leftSideColor);
+		variables.add(rightSideColor);
+		variables.add(hasOpeningRoof);
+		variables.add(hasSono);
+
+		constraints.add(constraint1);
+		constraints.add(constraint2);
+		constraints.add(constraint3);
+		constraints.add(constraint4);
+		constraints.add(constraintTest);
 
 	}
 
@@ -90,5 +118,13 @@ public class Examples {
 
 	public Constraint getConstraint4() {
 		return constraint4;
+	}
+
+	public Set<Constraint> getConstraints() {
+		return constraints;
+	}
+
+	public Set<Variable> getVariables() {
+		return variables;
 	}
 }
