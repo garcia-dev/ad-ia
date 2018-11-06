@@ -1,6 +1,6 @@
-package main.java.planning;
+package planning;
 
-import main.java.representations.Variable;
+import representations.Variable;
 
 import java.util.Map;
 

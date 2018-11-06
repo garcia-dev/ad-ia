@@ -1,8 +1,8 @@
-package main.java.examples;
+package examples;
 
-import main.java.planning.Action;
-import main.java.planning.State;
-import main.java.representations.Variable;
+import planning.Action;
+import planning.State;
+import representations.Variable;
 
 import java.util.Arrays;
 import java.util.HashMap;

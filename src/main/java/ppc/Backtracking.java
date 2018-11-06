@@ -1,7 +1,7 @@
-package main.java.ppc;
+package ppc;
 
-import main.java.representations.Constraint;
-import main.java.representations.Variable;
+import representations.Constraint;
+import representations.Variable;
 
 import java.util.*;
 
