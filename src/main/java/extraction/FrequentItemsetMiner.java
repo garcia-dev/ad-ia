@@ -2,6 +2,7 @@ package extraction;
 
 import representations.Variable;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -14,7 +15,7 @@ public class FrequentItemsetMiner {
 	}
 
 	public Map<Set<Variable>, Float> frequentItemsets(float minimalSupport) {
-		Map<Set<Variable>, Float> result;
+		Map<Set<Variable>, Float> result = new HashMap<>();
 		return null;
 	}
 
