@@ -5,7 +5,7 @@ import main.java.representations.Variable;
 import java.util.Map;
 import java.util.Set;
 
-public class FrequentItemsetMiner {
+class FrequentItemsetMiner {
 	private BooleanDatabase booleanDatabase;
 
 	public FrequentItemsetMiner(BooleanDatabase booleanDatabase) {

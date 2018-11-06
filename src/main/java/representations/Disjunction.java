@@ -13,7 +13,9 @@ import java.util.Set;
 public class Disjunction implements Constraint {
 	private Map<Variable, String> variables;
 
-	public Disjunction(Map<Variable, String> variables) {this.variables = variables;}
+	public Disjunction(Map<Variable, String> variables) {
+		this.variables = variables;
+	}
 
 	@Override
 	public Set<Variable> getScope() {
@@ -31,37 +33,34 @@ public class Disjunction implements Constraint {
 
 	@Override
 	public boolean filter(Map<Variable, String> car, Map<Variable, Set<String>> variableDomain) {
-		int i=0;
-		Iterator<Variable> iteCar=car.keySet().iterator();
-		Iterator<Variable> iteSco=getScope().iterator();
-		while(iteSco.hasNext()){
-			Variable var=iteSco.next();
-			for(int j=0;j<car.size();j++) {
-				if (iteCar.next() == var) {
+		int i = 0;
+		Iterator<Variable> iteCar = car.keySet().iterator();
+
+		for (Variable var : getScope()) {
+			for (int j = 0; j < car.size(); j++)
+				if (iteCar.next() == var)
 					i++;
-				}
-			}
-			iteCar=car.keySet().iterator();
+				
+			iteCar = car.keySet().iterator();
 		}
-		if(i==getScope().size()-1){
-			boolean has2filter=true;
-			Variable value2Changed=null;
-			for(Variable var:getScope()){
-				if(car.containsKey(var)){
-					has2filter=!car.get(var).equals(this.variables.get(var));
-				}
-				else{
-					value2Changed=var;
-				}
-			}
-			if(has2filter){
-				Set<String> x=new HashSet<>();
+
+		if (i == getScope().size() - 1) {
+			boolean has2filter = true;
+			Variable value2Changed = null;
+
+			for (Variable var : getScope())
+				if (car.containsKey(var))
+					has2filter = !car.get(var).equals(this.variables.get(var));
+				else
+					value2Changed = var;
+
+			if (has2filter) {
+				Set<String> x = new HashSet<>();
 				x.add(this.variables.get(value2Changed));
-				variableDomain.put(value2Changed,x);
+				variableDomain.put(value2Changed, x);
 				return true;
 			}
 		}
 		return false;
-		
 	}
 }

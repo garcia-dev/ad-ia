@@ -9,39 +9,39 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-public class AssemblyLine {
+class AssemblyLine {
 	/* Variables definitions */
-	public static final HashMap<Variable, String> CHASSIS_INSTALLATION = new HashMap<>();
-	public static final HashMap<Variable, String> FRONT_LEFT_WHEEL_INSTALLATION = new HashMap<>();
-	public static final HashMap<Variable, String> FRONT_RIGHT_WHEEL_INSTALLATION = new HashMap<>();
-	public static final HashMap<Variable, String> REAR_LEFT_WHEEL_INSTALLATION = new HashMap<>();
-	public static final HashMap<Variable, String> REAR_RIGHT_WHEEL_INSTALLATION = new HashMap<>();
-	public static final HashMap<Variable, String> BODY_INSTALLATION = new HashMap<>();
-	public static final HashMap<Variable, String> LEFT_WHEELS_INSTALLATION = new HashMap<>();
-	public static final HashMap<Variable, String> RIGHT_WHEELS_INSTALLATION = new HashMap<>();
+	private static final HashMap<Variable, String> CHASSIS_INSTALLATION = new HashMap<>();
+	private static final HashMap<Variable, String> FRONT_LEFT_WHEEL_INSTALLATION = new HashMap<>();
+	private static final HashMap<Variable, String> FRONT_RIGHT_WHEEL_INSTALLATION = new HashMap<>();
+	private static final HashMap<Variable, String> REAR_LEFT_WHEEL_INSTALLATION = new HashMap<>();
+	private static final HashMap<Variable, String> REAR_RIGHT_WHEEL_INSTALLATION = new HashMap<>();
+	private static final HashMap<Variable, String> BODY_INSTALLATION = new HashMap<>();
+	private static final HashMap<Variable, String> LEFT_WHEELS_INSTALLATION = new HashMap<>();
+	private static final HashMap<Variable, String> RIGHT_WHEELS_INSTALLATION = new HashMap<>();
 
 	/* Color variables */
-	public static final HashMap<Variable, String> REAR_WHEELS_INSTALLATION = new HashMap<>();
-	public static final HashMap<Variable, String> FRONT_WHEELS_INSTALLATION = new HashMap<>();
-	public static final HashMap<Variable, String> ROOF_PAINTING_GRAY = new HashMap<>();
-	public static final HashMap<Variable, String> ROOF_PAINTING_BLACK = new HashMap<>();
-	public static final HashMap<Variable, String> ROOF_PAINTING_WHITE = new HashMap<>();
-	public static final HashMap<Variable, String> ROOF_PAINTING_RED = new HashMap<>();
-	public static final HashMap<Variable, String> ROOF_PAINTING_GREEN = new HashMap<>();
-	public static final HashMap<Variable, String> ROOF_PAINTING_BLUE = new HashMap<>();
-	public static final HashMap<Variable, String> ROOF_PAINTING_ORANGE = new HashMap<>();
-	public static final HashMap<Variable, String> ROOF_PAINTING_YELLOW = new HashMap<>();
-	public static final HashMap<Variable, String> FRONT_PAINTING = new HashMap<>();
-	public static final HashMap<Variable, String> LEFT_PAINTING = new HashMap<>();
-	public static final HashMap<Variable, String> REAR_PAINTING = new HashMap<>();
-	public static final HashMap<Variable, String> RIGHT_PAINTING = new HashMap<>();
-	public static final Action INSTALL_CHASSIS = new Action(new HashMap<>(), CHASSIS_INSTALLATION);
+	private static final HashMap<Variable, String> REAR_WHEELS_INSTALLATION = new HashMap<>();
+	private static final HashMap<Variable, String> FRONT_WHEELS_INSTALLATION = new HashMap<>();
+	private static final HashMap<Variable, String> ROOF_PAINTING_GRAY = new HashMap<>();
+	private static final HashMap<Variable, String> ROOF_PAINTING_BLACK = new HashMap<>();
+	private static final HashMap<Variable, String> ROOF_PAINTING_WHITE = new HashMap<>();
+	private static final HashMap<Variable, String> ROOF_PAINTING_RED = new HashMap<>();
+	private static final HashMap<Variable, String> ROOF_PAINTING_GREEN = new HashMap<>();
+	private static final HashMap<Variable, String> ROOF_PAINTING_BLUE = new HashMap<>();
+	private static final HashMap<Variable, String> ROOF_PAINTING_ORANGE = new HashMap<>();
+	private static final HashMap<Variable, String> ROOF_PAINTING_YELLOW = new HashMap<>();
+	private static final HashMap<Variable, String> FRONT_PAINTING = new HashMap<>();
+	private static final HashMap<Variable, String> LEFT_PAINTING = new HashMap<>();
+	private static final HashMap<Variable, String> REAR_PAINTING = new HashMap<>();
+	private static final HashMap<Variable, String> RIGHT_PAINTING = new HashMap<>();
+	private static final Action INSTALL_CHASSIS = new Action(new HashMap<>(), CHASSIS_INSTALLATION);
 	/* Simple installation actions */
 	public static final Action INSTALL_FRONT_LEFT_WHEEL = new Action(CHASSIS_INSTALLATION, FRONT_LEFT_WHEEL_INSTALLATION);
 	public static final Action INSTALL_FRONT_RIGHT_WHEEL = new Action(CHASSIS_INSTALLATION, FRONT_RIGHT_WHEEL_INSTALLATION);
 	public static final Action INSTALL_REAR_LEFT_WHEEL = new Action(CHASSIS_INSTALLATION, REAR_LEFT_WHEEL_INSTALLATION);
 	public static final Action INSTALL_REAR_RIGHT_WHEEL = new Action(CHASSIS_INSTALLATION, REAR_RIGHT_WHEEL_INSTALLATION);
-	public static final Action INSTALL_BODY = new Action(CHASSIS_INSTALLATION, BODY_INSTALLATION);
+	private static final Action INSTALL_BODY = new Action(CHASSIS_INSTALLATION, BODY_INSTALLATION);
 	/* Parallel installation actions */
 	public static final Action INSTALL_LEFT_WHEELS = new Action(CHASSIS_INSTALLATION, LEFT_WHEELS_INSTALLATION);
 	public static final Action INSTALL_RIGHT_WHEELS = new Action(CHASSIS_INSTALLATION, RIGHT_WHEELS_INSTALLATION);
@@ -70,29 +70,29 @@ public class AssemblyLine {
 					"green", "blue", "orange", "yellow"));
 
 	/* Wheels color */
-	public static final Variable FRONT_LEFT_WHEEL_COLOR = new Variable("frontLeftWheelColor", ALL_COLORS);
-	public static final Variable FRONT_RIGHT_WHEEL_COLOR = new Variable("frontRightWheelColor", ALL_COLORS);
-	public static final Variable REAR_LEFT_WHEEL_COLOR = new Variable("rearLeftWheelColor", ALL_COLORS);
-	public static final Variable REAR_RIGHT_WHEEL_COLOR = new Variable("rearRightWheelColor", ALL_COLORS);
+	private static final Variable FRONT_LEFT_WHEEL_COLOR = new Variable("frontLeftWheelColor", ALL_COLORS);
+	private static final Variable FRONT_RIGHT_WHEEL_COLOR = new Variable("frontRightWheelColor", ALL_COLORS);
+	private static final Variable REAR_LEFT_WHEEL_COLOR = new Variable("rearLeftWheelColor", ALL_COLORS);
+	private static final Variable REAR_RIGHT_WHEEL_COLOR = new Variable("rearRightWheelColor", ALL_COLORS);
 
 	/* Sides color */
-	public static final Variable FRONT_COLOR = new Variable("frontColor", ALL_COLORS);
-	public static final Variable LEFT_COLOR = new Variable("leftColor", ALL_COLORS);
-	public static final Variable REAR_COLOR = new Variable("rearColor", ALL_COLORS);
-	public static final Variable RIGHT_COLOR = new Variable("rightColor", ALL_COLORS);
-	public static final Variable ROOF_COLOR = new Variable("roofColor", ALL_COLORS);
+	private static final Variable FRONT_COLOR = new Variable("frontColor", ALL_COLORS);
+	private static final Variable LEFT_COLOR = new Variable("leftColor", ALL_COLORS);
+	private static final Variable REAR_COLOR = new Variable("rearColor", ALL_COLORS);
+	private static final Variable RIGHT_COLOR = new Variable("rightColor", ALL_COLORS);
+	private static final Variable ROOF_COLOR = new Variable("roofColor", ALL_COLORS);
 
 	/* Boolean domain */
 	private static final Set<String> BOOLEANS =
 			new HashSet<>(Arrays.asList("true", "false"));
 
 	/* Boolean variables */
-	public static final Variable HAS_CHASSIS = new Variable("hasChassis", BOOLEANS);
-	public static final Variable HAS_FRONT_LEFT_WHEEL = new Variable("hasFrontLeftWheel", BOOLEANS);
-	public static final Variable HAS_FRONT_RIGHT_WHEEL = new Variable("hasFrontRightWheel", BOOLEANS);
-	public static final Variable HAS_REAR_LEFT_WHEEL = new Variable("hasRearLeftWheel", BOOLEANS);
-	public static final Variable HAS_REAR_RIGHT_WHEEL = new Variable("hasRearRightWheel", BOOLEANS);
-	public static final Variable HAS_BODY = new Variable("hasBody", BOOLEANS);
+	private static final Variable HAS_CHASSIS = new Variable("hasChassis", BOOLEANS);
+	private static final Variable HAS_FRONT_LEFT_WHEEL = new Variable("hasFrontLeftWheel", BOOLEANS);
+	private static final Variable HAS_FRONT_RIGHT_WHEEL = new Variable("hasFrontRightWheel", BOOLEANS);
+	private static final Variable HAS_REAR_LEFT_WHEEL = new Variable("hasRearLeftWheel", BOOLEANS);
+	private static final Variable HAS_REAR_RIGHT_WHEEL = new Variable("hasRearRightWheel", BOOLEANS);
+	private static final Variable HAS_BODY = new Variable("hasBody", BOOLEANS);
 
 	/* Variables assignments */
 	static {

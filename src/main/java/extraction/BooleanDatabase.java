@@ -5,7 +5,7 @@ import main.java.representations.Variable;
 import java.util.List;
 import java.util.Map;
 
-public class BooleanDatabase {
+class BooleanDatabase {
 	private List<Variable> variableList;
 	private List<Map<Variable, String>> transactionList;
 

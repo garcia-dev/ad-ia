@@ -26,9 +26,9 @@ public class AllEqualConstraint implements Constraint {
 				value = allocation.get(variable);
 				continue;
 			}
-			if (!allocation.get(variable).equals(value)) {
+
+			if (!allocation.get(variable).equals(value))
 				return false;
-			}
 		}
 
 		return true;
@@ -39,24 +39,22 @@ public class AllEqualConstraint implements Constraint {
 		Variable varPrev = null;
 		boolean hasFiltered = false;
 
-		for (Variable var : this.variables) {
+		for (Variable var : this.variables)
 			if (car.containsKey(var)) {
 				varPrev = var;
 				break;
 			}
-		}
 
 		if (varPrev != null) {
 			Set<String> valueDomain = new HashSet<>();
 			valueDomain.add(car.get(varPrev));
-			for (Variable var : this.variables) {
+
+			for (Variable var : this.variables)
 				if (!car.containsKey(var) && !(variableDomain.get(var).size() == 1)) {
 					variableDomain.put(var, new HashSet<>(valueDomain));
 					hasFiltered = true;
-				} else if (!variableDomain.get(var).equals(valueDomain) && !car.containsKey(var)) {
+				} else if (!variableDomain.get(var).equals(valueDomain) && !car.containsKey(var))
 					variableDomain.put(var, new HashSet<>());
-				}
-			}
 		}
 
 		return hasFiltered;

@@ -3,7 +3,7 @@ package main.java.planning;
 import java.util.List;
 import java.util.Set;
 
-public class PlanningProblem {
+class PlanningProblem {
 	private State initialState;
 	private Set<State> finalStates;
 	private List<Action> actionsList;
