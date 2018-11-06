@@ -1,4 +1,4 @@
-package representations;
+package main.java.representations;
 
 import java.util.Map;
 import java.util.Set;

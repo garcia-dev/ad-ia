@@ -1,9 +1,9 @@
-package representations;
+package main.java.representations;
 
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-import java.util.Iterator;
-import java.util.HashSet;
 
 public class Disjunction implements Constraint {
 

@@ -1,8 +1,8 @@
-package examples;
+package main.java.examples;
 
-import planning.Action;
-import planning.State;
-import representations.Variable;
+import main.java.planning.Action;
+import main.java.planning.State;
+import main.java.representations.Variable;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -10,25 +10,64 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class AssemblyLine {
+	/* Variables definitions */
+	public static final HashMap<Variable, String> CHASSIS_INSTALLATION = new HashMap<>();
+	public static final HashMap<Variable, String> FRONT_LEFT_WHEEL_INSTALLATION = new HashMap<>();
+	public static final HashMap<Variable, String> FRONT_RIGHT_WHEEL_INSTALLATION = new HashMap<>();
+	public static final HashMap<Variable, String> REAR_LEFT_WHEEL_INSTALLATION = new HashMap<>();
+	public static final HashMap<Variable, String> REAR_RIGHT_WHEEL_INSTALLATION = new HashMap<>();
+	public static final HashMap<Variable, String> BODY_INSTALLATION = new HashMap<>();
+	public static final HashMap<Variable, String> LEFT_WHEELS_INSTALLATION = new HashMap<>();
+	public static final HashMap<Variable, String> RIGHT_WHEELS_INSTALLATION = new HashMap<>();
+
+	/* Color variables */
+	public static final HashMap<Variable, String> REAR_WHEELS_INSTALLATION = new HashMap<>();
+	public static final HashMap<Variable, String> FRONT_WHEELS_INSTALLATION = new HashMap<>();
+	public static final HashMap<Variable, String> ROOF_PAINTING_GRAY = new HashMap<>();
+	public static final HashMap<Variable, String> ROOF_PAINTING_BLACK = new HashMap<>();
+	public static final HashMap<Variable, String> ROOF_PAINTING_WHITE = new HashMap<>();
+	public static final HashMap<Variable, String> ROOF_PAINTING_RED = new HashMap<>();
+	public static final HashMap<Variable, String> ROOF_PAINTING_GREEN = new HashMap<>();
+	public static final HashMap<Variable, String> ROOF_PAINTING_BLUE = new HashMap<>();
+	public static final HashMap<Variable, String> ROOF_PAINTING_ORANGE = new HashMap<>();
+	public static final HashMap<Variable, String> ROOF_PAINTING_YELLOW = new HashMap<>();
+	public static final HashMap<Variable, String> FRONT_PAINTING = new HashMap<>();
+	public static final HashMap<Variable, String> LEFT_PAINTING = new HashMap<>();
+	public static final HashMap<Variable, String> REAR_PAINTING = new HashMap<>();
+	public static final HashMap<Variable, String> RIGHT_PAINTING = new HashMap<>();
+	public static final Action INSTALL_CHASSIS = new Action(new HashMap<>(), CHASSIS_INSTALLATION);
+	/* Simple installation actions */
+	public static final Action INSTALL_FRONT_LEFT_WHEEL = new Action(CHASSIS_INSTALLATION, FRONT_LEFT_WHEEL_INSTALLATION);
+	public static final Action INSTALL_FRONT_RIGHT_WHEEL = new Action(CHASSIS_INSTALLATION, FRONT_RIGHT_WHEEL_INSTALLATION);
+	public static final Action INSTALL_REAR_LEFT_WHEEL = new Action(CHASSIS_INSTALLATION, REAR_LEFT_WHEEL_INSTALLATION);
+	public static final Action INSTALL_REAR_RIGHT_WHEEL = new Action(CHASSIS_INSTALLATION, REAR_RIGHT_WHEEL_INSTALLATION);
+	public static final Action INSTALL_BODY = new Action(CHASSIS_INSTALLATION, BODY_INSTALLATION);
+	/* Parallel installation actions */
+	public static final Action INSTALL_LEFT_WHEELS = new Action(CHASSIS_INSTALLATION, LEFT_WHEELS_INSTALLATION);
+	public static final Action INSTALL_RIGHT_WHEELS = new Action(CHASSIS_INSTALLATION, RIGHT_WHEELS_INSTALLATION);
+	public static final Action INSTALL_REAR_WHEELS = new Action(CHASSIS_INSTALLATION, REAR_WHEELS_INSTALLATION);
+	public static final Action INSTALL_FRONT_WHEELS = new Action(CHASSIS_INSTALLATION, FRONT_WHEELS_INSTALLATION);
+	/* Precise painting actions */
+	public static final Action PAINT_ROOF_GRAY = new Action(BODY_INSTALLATION, ROOF_PAINTING_GRAY);
+	public static final Action PAINT_ROOF_BLACK = new Action(BODY_INSTALLATION, ROOF_PAINTING_BLACK);
+	public static final Action PAINT_ROOF_WHITE = new Action(BODY_INSTALLATION, ROOF_PAINTING_WHITE);
+	public static final Action PAINT_ROOF_RED = new Action(BODY_INSTALLATION, ROOF_PAINTING_RED);
+	public static final Action PAINT_ROOF_GREEN = new Action(BODY_INSTALLATION, ROOF_PAINTING_GREEN);
+	public static final Action PAINT_ROOF_BLUE = new Action(BODY_INSTALLATION, ROOF_PAINTING_BLUE);
+	public static final Action PAINT_ROOF_ORANGE = new Action(BODY_INSTALLATION, ROOF_PAINTING_ORANGE);
+	public static final Action PAINT_ROOF_YELLOW = new Action(BODY_INSTALLATION, ROOF_PAINTING_YELLOW);
+
+	/* Actions */
+	/* Large effects painting actions */
+	public static final Action PAINT_FRONT = new Action(BODY_INSTALLATION, FRONT_PAINTING);
+	public static final Action PAINT_LEFT = new Action(BODY_INSTALLATION, LEFT_PAINTING);
+	public static final Action PAINT_REAR = new Action(BODY_INSTALLATION, REAR_PAINTING);
+	public static final Action PAINT_RIGHT = new Action(BODY_INSTALLATION, RIGHT_PAINTING);
 
 	/* Colors domain */
 	private static final Set<String> ALL_COLORS =
 			new HashSet<>(Arrays.asList("gray", "black", "white", "red",
-										"green", "blue", "orange", "yellow"));
-
-	/* Boolean domain */
-	private static final Set<String> BOOLEANS =
-			new HashSet<>(Arrays.asList("true", "false"));
-
-	/* Boolean variables */
-	public static final Variable HAS_CHASSIS = new Variable("hasChassis", BOOLEANS);
-	public static final Variable HAS_FRONT_LEFT_WHEEL = new Variable("hasFrontLeftWheel", BOOLEANS);
-	public static final Variable HAS_FRONT_RIGHT_WHEEL = new Variable("hasFrontRightWheel", BOOLEANS);
-	public static final Variable HAS_REAR_LEFT_WHEEL = new Variable("hasRearLeftWheel", BOOLEANS);
-	public static final Variable HAS_REAR_RIGHT_WHEEL = new Variable("hasRearRightWheel", BOOLEANS);
-	public static final Variable HAS_BODY = new Variable("hasBody", BOOLEANS);
-
-	/* Color variables */
+					"green", "blue", "orange", "yellow"));
 
 	/* Wheels color */
 	public static final Variable FRONT_LEFT_WHEEL_COLOR = new Variable("frontLeftWheelColor", ALL_COLORS);
@@ -43,32 +82,17 @@ public class AssemblyLine {
 	public static final Variable RIGHT_COLOR = new Variable("rightColor", ALL_COLORS);
 	public static final Variable ROOF_COLOR = new Variable("roofColor", ALL_COLORS);
 
-	/* Variables definitions */
-	public static final HashMap<Variable, String> CHASSIS_INSTALLATION = new HashMap<>();
-	public static final HashMap<Variable, String> FRONT_LEFT_WHEEL_INSTALLATION = new HashMap<>();
-	public static final HashMap<Variable, String> FRONT_RIGHT_WHEEL_INSTALLATION = new HashMap<>();
-	public static final HashMap<Variable, String> REAR_LEFT_WHEEL_INSTALLATION = new HashMap<>();
-	public static final HashMap<Variable, String> REAR_RIGHT_WHEEL_INSTALLATION = new HashMap<>();
-	public static final HashMap<Variable, String> BODY_INSTALLATION = new HashMap<>();
+	/* Boolean domain */
+	private static final Set<String> BOOLEANS =
+			new HashSet<>(Arrays.asList("true", "false"));
 
-	public static final HashMap<Variable, String> LEFT_WHEELS_INSTALLATION = new HashMap<>();
-	public static final HashMap<Variable, String> RIGHT_WHEELS_INSTALLATION = new HashMap<>();
-	public static final HashMap<Variable, String> REAR_WHEELS_INSTALLATION = new HashMap<>();
-	public static final HashMap<Variable, String> FRONT_WHEELS_INSTALLATION = new HashMap<>();
-
-	public static final HashMap<Variable, String> ROOF_PAINTING_GRAY = new HashMap<>();
-	public static final HashMap<Variable, String> ROOF_PAINTING_BLACK = new HashMap<>();
-	public static final HashMap<Variable, String> ROOF_PAINTING_WHITE = new HashMap<>();
-	public static final HashMap<Variable, String> ROOF_PAINTING_RED = new HashMap<>();
-	public static final HashMap<Variable, String> ROOF_PAINTING_GREEN = new HashMap<>();
-	public static final HashMap<Variable, String> ROOF_PAINTING_BLUE = new HashMap<>();
-	public static final HashMap<Variable, String> ROOF_PAINTING_ORANGE = new HashMap<>();
-	public static final HashMap<Variable, String> ROOF_PAINTING_YELLOW = new HashMap<>();
-
-	public static final HashMap<Variable, String> FRONT_PAINTING = new HashMap<>();
-	public static final HashMap<Variable, String> LEFT_PAINTING = new HashMap<>();
-	public static final HashMap<Variable, String> REAR_PAINTING = new HashMap<>();
-	public static final HashMap<Variable, String> RIGHT_PAINTING = new HashMap<>();
+	/* Boolean variables */
+	public static final Variable HAS_CHASSIS = new Variable("hasChassis", BOOLEANS);
+	public static final Variable HAS_FRONT_LEFT_WHEEL = new Variable("hasFrontLeftWheel", BOOLEANS);
+	public static final Variable HAS_FRONT_RIGHT_WHEEL = new Variable("hasFrontRightWheel", BOOLEANS);
+	public static final Variable HAS_REAR_LEFT_WHEEL = new Variable("hasRearLeftWheel", BOOLEANS);
+	public static final Variable HAS_REAR_RIGHT_WHEEL = new Variable("hasRearRightWheel", BOOLEANS);
+	public static final Variable HAS_BODY = new Variable("hasBody", BOOLEANS);
 
 	/* Variables assignments */
 	static {
@@ -110,40 +134,6 @@ public class AssemblyLine {
 		RIGHT_PAINTING.put(AssemblyLine.REAR_RIGHT_WHEEL_COLOR, "gray");
 		RIGHT_PAINTING.put(AssemblyLine.ROOF_COLOR, "gray");
 	}
-
-	/* Actions */
-
-	public static final Action INSTALL_CHASSIS = new Action(new HashMap<>(), CHASSIS_INSTALLATION);
-
-	/* Simple installation actions */
-	public static final Action INSTALL_FRONT_LEFT_WHEEL = new Action(CHASSIS_INSTALLATION, FRONT_LEFT_WHEEL_INSTALLATION);
-	public static final Action INSTALL_FRONT_RIGHT_WHEEL = new Action(CHASSIS_INSTALLATION, FRONT_RIGHT_WHEEL_INSTALLATION);
-	public static final Action INSTALL_REAR_LEFT_WHEEL = new Action(CHASSIS_INSTALLATION, REAR_LEFT_WHEEL_INSTALLATION);
-	public static final Action INSTALL_REAR_RIGHT_WHEEL = new Action(CHASSIS_INSTALLATION, REAR_RIGHT_WHEEL_INSTALLATION);
-	public static final Action INSTALL_BODY = new Action(CHASSIS_INSTALLATION, BODY_INSTALLATION);
-
-	/* Parallel installation actions */
-	public static final Action INSTALL_LEFT_WHEELS = new Action(CHASSIS_INSTALLATION, LEFT_WHEELS_INSTALLATION);
-	public static final Action INSTALL_RIGHT_WHEELS = new Action(CHASSIS_INSTALLATION, RIGHT_WHEELS_INSTALLATION);
-	public static final Action INSTALL_REAR_WHEELS = new Action(CHASSIS_INSTALLATION, REAR_WHEELS_INSTALLATION);
-	public static final Action INSTALL_FRONT_WHEELS = new Action(CHASSIS_INSTALLATION, FRONT_WHEELS_INSTALLATION);
-
-	/* Precise painting actions */
-	public static final Action PAINT_ROOF_GRAY = new Action(BODY_INSTALLATION, ROOF_PAINTING_GRAY);
-	public static final Action PAINT_ROOF_BLACK = new Action(BODY_INSTALLATION, ROOF_PAINTING_BLACK);
-	public static final Action PAINT_ROOF_WHITE = new Action(BODY_INSTALLATION, ROOF_PAINTING_WHITE);
-	public static final Action PAINT_ROOF_RED = new Action(BODY_INSTALLATION, ROOF_PAINTING_RED);
-	public static final Action PAINT_ROOF_GREEN = new Action(BODY_INSTALLATION, ROOF_PAINTING_GREEN);
-	public static final Action PAINT_ROOF_BLUE = new Action(BODY_INSTALLATION, ROOF_PAINTING_BLUE);
-	public static final Action PAINT_ROOF_ORANGE = new Action(BODY_INSTALLATION, ROOF_PAINTING_ORANGE);
-	public static final Action PAINT_ROOF_YELLOW = new Action(BODY_INSTALLATION, ROOF_PAINTING_YELLOW);
-
-	/* Large effects painting actions */
-	public static final Action PAINT_FRONT = new Action(BODY_INSTALLATION, FRONT_PAINTING);
-	public static final Action PAINT_LEFT = new Action(BODY_INSTALLATION, LEFT_PAINTING);
-	public static final Action PAINT_REAR = new Action(BODY_INSTALLATION, REAR_PAINTING);
-	public static final Action PAINT_RIGHT = new Action(BODY_INSTALLATION, RIGHT_PAINTING);
-
 
 	public static State generateGoalState() {
 		return new State(new HashMap<>())

@@ -1,18 +1,14 @@
-import examples.Examples;
-import ppc.Backtracking;
-import representations.Constraint;
-import representations.Rule;
-import representations.Variable;
+package test.java;
+
+import main.java.examples.Examples;
+import main.java.ppc.Backtracking;
+import main.java.representations.Variable;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 public class Tests {
-
 	public static void main(String[] args) {
-
 		Examples examples = new Examples();
 
 		/* Cars */
@@ -74,7 +70,7 @@ public class Tests {
 	private static void backtrack(Examples examples) {
 		int sol = 0;
 		Backtracking backtracking = new Backtracking(examples.getConstraints(),
-													 examples.getVariables());
+				examples.getVariables());
 
 		HashMap<Variable, String> car = backtracking.solution();
 		while (car != null) {

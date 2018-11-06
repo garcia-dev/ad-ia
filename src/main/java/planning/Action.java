@@ -1,12 +1,10 @@
-package planning;
+package main.java.planning;
 
-import representations.Variable;
+import main.java.representations.Variable;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class Action {
-
 	private Map<Variable, String> preconditions;
 	private Map<Variable, String> effects;
 
@@ -15,11 +13,11 @@ public class Action {
 		this.effects = effects;
 	}
 
-	public boolean isApplicable(State state) {
-		return state.satistfies(new State(preconditions));
-	}
-
 	public Map<Variable, String> getEffects() {
 		return effects;
+	}
+
+	public boolean isApplicable(State state) {
+		return state.satisfies(new State(preconditions));
 	}
 }

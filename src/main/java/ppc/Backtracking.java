@@ -1,7 +1,7 @@
-package ppc;
+package main.java.ppc;
 
-import representations.Constraint;
-import representations.Variable;
+import main.java.representations.Constraint;
+import main.java.representations.Variable;
 
 import java.util.*;
 
@@ -107,7 +107,7 @@ public class Backtracking {
 	}
 
 	private boolean filterDomain(Map<Variable, String> car, Map<Variable, Set<String>> domainVariable) {
-		ArrayList<Variable> toReorganize = new ArrayList();
+		ArrayList<Variable> toReorganize = new ArrayList<>();
 		boolean hasFiltered = true;
 		while (hasFiltered) {
 			hasFiltered = false;

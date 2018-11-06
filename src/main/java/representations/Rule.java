@@ -1,4 +1,4 @@
-package representations;
+package main.java.representations;
 
 import java.util.Map;
 import java.util.Set;
@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Rule implements Constraint {
-
 	private Map<Variable, String> premise;
 	private Map<Variable, String> conclusion;
 
