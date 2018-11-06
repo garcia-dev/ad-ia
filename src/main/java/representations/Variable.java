@@ -1,10 +1,15 @@
-package main.java.representations;
+package representations;
 
 import java.util.Set;
 
+/**
+ * @author Romain Garcia
+ * @version 2018-09-11
+ */
+
 public class Variable {
-	private final String name;
-	private final Set<String> domain;
+	private String name;
+	private Set<String> domain;
 
 	public Variable(String name, Set<String> domain) {
 		this.name = name;
