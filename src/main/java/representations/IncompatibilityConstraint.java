@@ -1,9 +1,9 @@
-package representations;
+package main.java.representations;
 
-import java.util.Map;
-import java.util.Set;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Romain Garcia
@@ -57,7 +57,7 @@ public class IncompatibilityConstraint implements Constraint {
 			}
 		if(value2Changed!=null){
 			Set<String> domain=new HashSet(value2Changed.getDomain());
-			domain.remove((Object)this.variables.get(value2Changed));
+			domain.remove(this.variables.get(value2Changed));
 			variableDomain.put(value2Changed,domain);
 			return true;
 		}

@@ -1,6 +1,6 @@
 package main.java.extraction;
 
-import representations.Variable;
+import main.java.representations.Variable;
 
 import java.util.Map;
 import java.util.Set;
