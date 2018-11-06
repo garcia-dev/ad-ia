@@ -7,7 +7,7 @@ import main.java.representations.Variable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Tests {
+class Tests {
 	public static void main(String[] args) {
 		Examples examples = new Examples();
 

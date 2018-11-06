@@ -51,9 +51,9 @@ public class Backtracking {
 			}
 
 		} else {
-			if (index < 0) {
+			if (index < 0)
 				return null;
-			} else {
+			else {
 				if (alreadyGive(car)) {
 					car.remove(unusedVariables.get(index - 1));
 					this.index = this.index - 1;
