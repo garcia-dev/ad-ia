@@ -1,4 +1,4 @@
-package main.java.representations;
+package representations;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -40,7 +40,7 @@ public class Disjunction implements Constraint {
 			for (int j = 0; j < car.size(); j++)
 				if (iteCar.next() == var)
 					i++;
-				
+
 			iteCar = car.keySet().iterator();
 		}
 

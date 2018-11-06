@@ -1,4 +1,4 @@
-package main.java.planning;
+package planning;
 
 import java.util.List;
 import java.util.Set;

@@ -1,6 +1,6 @@
-package main.java.examples;
+package examples;
 
-import main.java.representations.*;
+import representations.*;
 
 import java.util.Arrays;
 import java.util.HashMap;

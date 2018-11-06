@@ -1,4 +1,4 @@
-package main.java.representations;
+package representations;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -51,7 +51,7 @@ public class IncompatibilityConstraint implements Constraint {
 						return false;
 				} else
 					value2Changed = var;
-				
+
 			if (value2Changed != null) {
 				Set<String> domain = new HashSet<>(value2Changed.getDomain());
 				domain.remove(this.variables.get(value2Changed));

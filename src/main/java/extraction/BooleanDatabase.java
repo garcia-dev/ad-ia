@@ -1,6 +1,6 @@
-package main.java.extraction;
+package extraction;
 
-import main.java.representations.Variable;
+import representations.Variable;
 
 import java.util.List;
 import java.util.Map;

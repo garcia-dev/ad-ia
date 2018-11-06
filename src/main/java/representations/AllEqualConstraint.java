@@ -1,4 +1,4 @@
-package main.java.representations;
+package representations;
 
 import java.util.HashSet;
 import java.util.Map;

@@ -1,8 +1,6 @@
-package test.java;
-
-import main.java.examples.Examples;
-import main.java.ppc.Backtracking;
-import main.java.representations.Variable;
+import examples.Examples;
+import ppc.Backtracking;
+import representations.Variable;
 
 import java.util.HashMap;
 import java.util.Map;
