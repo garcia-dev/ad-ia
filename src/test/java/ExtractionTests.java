@@ -1,3 +1,4 @@
+import extraction.AssociationRuleMiner;
 import extraction.BooleanDatabase;
 import extraction.FrequentItemsetMiner;
 import representations.Variable;
@@ -51,15 +52,13 @@ class ExtractionTests {
 		transactions.add(item3);
 		transactions.add(item4);
 
-		BooleanDatabase booleanDatabase =
-				new BooleanDatabase(variables, transactions);
+		AssociationRuleMiner associationRuleMiner =
+				new AssociationRuleMiner(new FrequentItemsetMiner(
+						new BooleanDatabase(variables, transactions)).frequentItemsets(0.5));
 
-		FrequentItemsetMiner frequentItemsetMiner =
-				new FrequentItemsetMiner(booleanDatabase);
+		Map<List<Variable>, List<Double>> associationRuleMap = associationRuleMiner.calcAssociationRule();
 
-		Map<Set<Variable>, Double> frequentItemSet = frequentItemsetMiner.frequentItemsets(0.5);
-
-		frequentItemSet.forEach((key, value) -> System.out.println("key: " + key + " - value: " + value));
+		associationRuleMap.forEach((key, value) -> System.out.println(key + " - F: " + value.get(0) + " - C: " + value.get(1)));
 	}
 
 }
