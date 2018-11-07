@@ -1,4 +1,5 @@
 import examples.Examples;
+import extraction.AssociationRuleMiner;
 import extraction.BooleanDatabase;
 import extraction.FrequentItemsetMiner;
 import representations.Variable;
@@ -58,7 +59,16 @@ public class ExtractionTests {
 		FrequentItemsetMiner frequentItemsetMiner =
 				new FrequentItemsetMiner(booleanDatabase);
 
+		Map<Set<Variable>, Double> frequentItemSets = frequentItemsetMiner.frequentItemsets(0.5);
 
+		printFrequentItemSets(frequentItemSets);
+
+		AssociationRuleMiner associationRuleMiner = new AssociationRuleMiner(frequentItemSets);
+
+	}
+
+	private static void printFrequentItemSets(Map<Set<Variable>, Double> frequentItemSets) {
+		frequentItemSets.forEach((key, value) -> System.out.println("Item: " + key + " ; Frequency: " + value));
 	}
 
 }

@@ -6,13 +6,15 @@ import java.util.Map;
 import java.util.Set;
 
 public class AssociationRuleMiner {
-	Map<Set<Variable>, Integer> itemsets;
 
-	public AssociationRuleMiner(Map<Set<Variable>, Integer> itemsets) {
-		this.itemsets = itemsets;
+	private Map<Set<Variable>, Double> frequentItemsets;
+
+	public AssociationRuleMiner(Map<Set<Variable>, Double> frequentItemsets) {
+		this.frequentItemsets = frequentItemsets;
 	}
 
 	public void calcAssocationRule() {
 
 	}
+
 }
