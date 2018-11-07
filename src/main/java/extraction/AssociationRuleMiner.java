@@ -22,11 +22,9 @@ public class AssociationRuleMiner {
 
 				associationRuleMap.put(keys, new ArrayList<>(Arrays.asList(value, value / frequentItemsets.get(Set.of(keys.get(0))))));
 
-				associationRuleMap.put(IntStream.range(0, keys.size()).mapToObj(i -> keys.get(keys.size() - 1 - i)).collect(Collectors.toList()), new ArrayList<>(Arrays.asList(value, value / frequentItemsets.get(Set.of(keys.get(0))))));
+				associationRuleMap.put(IntStream.range(0, keys.size()).mapToObj(i -> keys.get(keys.size() - 1 - i)).collect(Collectors.toList()), new ArrayList<>(Arrays.asList(value, value / frequentItemsets.get(Set.of(keys.get(1))))));
 			}
 		});
-
-		associationRuleMap.forEach((key, value) -> System.out.println(key));
 
 		return associationRuleMap;
 	}

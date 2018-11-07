@@ -58,7 +58,7 @@ class ExtractionTests {
 
 		Map<List<Variable>, List<Double>> associationRuleMap = associationRuleMiner.calcAssociationRule();
 
-		associationRuleMap.forEach((key, value) -> System.out.println(key + " - F: " + value.get(0) + " - C: " + value.get(1)));
+		associationRuleMap.forEach((key, value) -> System.out.println(key.get(0) + " -> " + key.get(1) + " - Frequency: " + value.get(0) + " - Trust: " + value.get(1)));
 	}
 
 }
