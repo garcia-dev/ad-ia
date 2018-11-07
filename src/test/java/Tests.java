@@ -61,8 +61,7 @@ class Tests {
 
 		/* Backtracking tests */
 
-//		backtrack(examples);
-
+		backtrack(examples);
 	}
 
 	private static void backtrack(Examples examples) {
