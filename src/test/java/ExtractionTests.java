@@ -1,21 +1,20 @@
-import examples.Examples;
 import extraction.BooleanDatabase;
 import extraction.FrequentItemsetMiner;
 import representations.Variable;
 
 import java.util.*;
 
-public class ExtractionTests {
+class ExtractionTests {
 
 	/* Boolean domain */
 	private static final Set<String> BOOLEANS =
 			new HashSet<>(Arrays.asList("true", "false"));
 
-	public static Variable JACKET = new Variable("Jacket", BOOLEANS);
-	public static Variable JEANS = new Variable("Jeans", BOOLEANS);
-	public static Variable SHIRT = new Variable("Shirt", BOOLEANS);
-	public static Variable SHOES = new Variable("Shoes", BOOLEANS);
-	public static Variable SWEAT_SHIRT = new Variable("Sweat-shirt", BOOLEANS);
+	private static Variable JACKET = new Variable("Jacket", BOOLEANS);
+	private static Variable JEANS = new Variable("Jeans", BOOLEANS);
+	private static Variable SHIRT = new Variable("Shirt", BOOLEANS);
+	private static Variable SHOES = new Variable("Shoes", BOOLEANS);
+	private static Variable SWEAT_SHIRT = new Variable("Sweat-shirt", BOOLEANS);
 
 	public static void main(String[] args) {
 
@@ -58,7 +57,9 @@ public class ExtractionTests {
 		FrequentItemsetMiner frequentItemsetMiner =
 				new FrequentItemsetMiner(booleanDatabase);
 
+		Map<Set<Variable>, Double> frequentItemSet = frequentItemsetMiner.frequentItemsets(0.5);
 
+		frequentItemSet.forEach((key, value) -> System.out.println("key: " + key + " - value: " + value));
 	}
 
 }
