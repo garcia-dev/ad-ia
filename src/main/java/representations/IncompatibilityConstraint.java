@@ -35,29 +35,31 @@ public class IncompatibilityConstraint implements Constraint {
 		Iterator<Variable> iteCar=car.keySet().iterator();
 		Iterator<Variable> iteSco=getScope().iterator();
 		while(iteCar.hasNext() && iteSco.hasNext()){
-			if(iteCar.next()==iteSco.next()){
+			if(iteCar.next() == iteSco.next()){
 				compt++;
 			}
 		}
-		if(compt==getScope().size()-2){
-			Variable value2Changed=null;
-			for(Variable var:getScope()){
-				if(car.containsKey(var)){
-					if(!car.get(var).equals(this.variables.get(var))){
+
+		if(compt == getScope().size() - 2) {
+			Variable value2Changed = null;
+			for (Variable var:getScope()) {
+				if (car.containsKey(var)) {
+					if (!car.get(var).equals(this.variables.get(var))) {
 						return false;
 					}
-				}
-				else{
-					value2Changed=var;
+				} else {
+					value2Changed = var;
 				}
 			}
-		if(value2Changed!=null){
-			Set<String> domain=new HashSet(value2Changed.getDomain());
-			domain.remove((Object)this.variables.get(value2Changed));
-			variableDomain.put(value2Changed,domain);
-			return true;
+
+			if (value2Changed != null) {
+				Set<String> domain = new HashSet<>(value2Changed.getDomain());
+				domain.remove((Object)this.variables.get(value2Changed));
+				variableDomain.put(value2Changed,domain);
+				return true;
+			}
 		}
-		}
+
 		return false;
 	}
 

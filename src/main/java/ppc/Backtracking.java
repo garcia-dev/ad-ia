@@ -107,7 +107,7 @@ public class Backtracking {
 	}
 
 	private boolean filterDomain(Map<Variable, String> car, Map<Variable, Set<String>> domainVariable) {
-		ArrayList<Variable> toReorganize = new ArrayList();
+		ArrayList<Variable> toReorganize = new ArrayList<>();
 		boolean hasFiltered = true;
 		while (hasFiltered) {
 			hasFiltered = false;
