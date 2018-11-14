@@ -7,7 +7,20 @@ import java.util.Map;
 
 public class Database {
 
-	public Database(List<Variable> variables, List<Map<Variable, String>> transactions) {
+	private List<Variable> variables;
+	private List<Map<Variable, String>> transactions;
 
+	public Database(List<Variable> variables, List<Map<Variable, String>> transactions) {
+		this.variables = variables;
+		this.transactions = transactions;
 	}
+
+	public List<Variable> getVariables() {
+		return variables;
+	}
+
+	public List<Map<Variable, String>> getTransactions() {
+		return transactions;
+	}
+
 }

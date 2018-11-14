@@ -19,11 +19,11 @@ public class IncompatibilityConstraint implements Constraint {
 	}
 
 	@Override
-	public boolean isSatisfiedBy(Map<Variable, String> allocation) {
+	public boolean isSatisfiedBy(Map<Variable, String> assignment) {
 		boolean test = true;
 
 		for (Variable var : variables.keySet())
-			test &= variables.get(var).equals(allocation.get(var));
+			test &= variables.get(var).equals(assignment.get(var));
 
 		return !test;
 	}

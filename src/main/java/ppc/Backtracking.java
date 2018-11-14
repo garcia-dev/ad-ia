@@ -18,7 +18,7 @@ public class Backtracking {
 	private HashMap<Variable, String> car = null;
 	private int index = 0;
 
-	public Backtracking(Set<Constraint> constraints, Set<Variable> variables) {
+	public Backtracking(Set<Variable> variables, Set<Constraint> constraints) {
 		this.constraints = constraints;
 		this.variables = variables;
 
@@ -32,7 +32,7 @@ public class Backtracking {
 		}
 	}
 
-	private HashMap<Variable, String> solution(HashMap<Variable, String> car) {
+	public Map<Variable, String> solution(Map<Variable, String> car) {
 		if (index < unusedVariables.size() && index >= 0) {
 			String nextValue = getValue(unusedVariables.get(index)); // compute the next value return "" if there is no more value
 			if (nextValue.equals("")) {
@@ -54,7 +54,7 @@ public class Backtracking {
 			if (index < 0) {
 				return null;
 			} else {
-				if (alreadyGive(car)) {
+				if (alreadyMade(car)) {
 					car.remove(unusedVariables.get(index - 1));
 					this.index = this.index - 1;
 					return solution(car);    //no other value in the domain so go back
@@ -67,7 +67,7 @@ public class Backtracking {
 		}
 	}
 
-	public HashMap<Variable, String> solution() {
+	public Map<Variable, String> solution() {
 		return solution(new HashMap<>());
 	}
 
@@ -100,10 +100,11 @@ public class Backtracking {
 	 * Returns <code>true</code> if the car has already been made.
 	 *
 	 * @param car the car to be tested
-	 * @return <code>true</code> if the car has already been made ; false otherwise
+	 * @return <code>true</code> if the car has already been made ;
+	 * <code>false</code> otherwise
 	 */
-	private boolean alreadyGive(HashMap<Variable, String> car) {
-		return this.precCar.contains(car);
+	private boolean alreadyMade(Map<Variable, String> car) {
+		return precCar.contains(car);
 	}
 
 	private boolean filterDomain(Map<Variable, String> car, Map<Variable, Set<String>> domainVariable) {
@@ -135,6 +136,7 @@ public class Backtracking {
 				}
 			}
 		}
+
 		return true;
 	}
 

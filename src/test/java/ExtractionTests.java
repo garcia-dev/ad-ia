@@ -58,7 +58,8 @@ public class ExtractionTests {
 		FrequentItemsetMiner frequentItemsetMiner =
 				new FrequentItemsetMiner(booleanDatabase);
 
-		Map<Set<Variable>, Double> frequentItemSets = frequentItemsetMiner.frequentItemsets(0.5);
+		Map<Set<Variable>, Double> frequentItemSets =
+				frequentItemsetMiner.frequentItemsets(0.5);
 
 		printFrequentItemSets(frequentItemSets);
 

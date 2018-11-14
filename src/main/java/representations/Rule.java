@@ -21,15 +21,16 @@ public class Rule implements Constraint {
 	}
 
 	@Override
-	public boolean isSatisfiedBy(Map<Variable, String> allocation) {
-		boolean incompatibilityConstraint = new IncompatibilityConstraint(premise).isSatisfiedBy(allocation);
-		boolean disjunction = new Disjunction(conclusion).isSatisfiedBy(allocation);
+	public boolean isSatisfiedBy(Map<Variable, String> assignment) {
+		boolean incompatibilityConstraint = new IncompatibilityConstraint(premise).isSatisfiedBy(assignment);
+		boolean disjunction = new Disjunction(conclusion).isSatisfiedBy(assignment);
 
 		return incompatibilityConstraint || disjunction;
 	}
 
 	@Override
-	public boolean filter(Map<Variable, String> allocation, Map<Variable, Set<String>> variableDomain) {
-		return new IncompatibilityConstraint(premise).filter(allocation, variableDomain) && new Disjunction(conclusion).filter(allocation, variableDomain);
+	public boolean filter(Map<Variable, String> assignment, Map<Variable, Set<String>> variableDomain) {
+		return new IncompatibilityConstraint(premise).filter(assignment, variableDomain)
+				&& new Disjunction(conclusion).filter(assignment, variableDomain);
 	}
 }

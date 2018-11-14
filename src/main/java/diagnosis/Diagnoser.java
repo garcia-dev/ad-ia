@@ -1,5 +1,6 @@
 package diagnosis;
 
+import ppc.Backtracking;
 import representations.Constraint;
 import representations.Variable;
 
@@ -18,6 +19,12 @@ public class Diagnoser {
 
 	public void add(Variable variable, String value) {
 		variables.put(variable, value);
+	}
+
+	public boolean isExplanation(Set<Variable> variables, Variable variable, String value) {
+		Backtracking backtracking = new Backtracking(variables, constraints);
+		return constraints.containsAll(variables)
+				&& !(backtracking.solution(this.variables).size() > 0);
 	}
 
 }

@@ -19,9 +19,9 @@ public class Disjunction implements Constraint {
 	}
 
 	@Override
-	public boolean isSatisfiedBy(Map<Variable, String> allocation) {
+	public boolean isSatisfiedBy(Map<Variable, String> assignment) {
 		for (Map.Entry<Variable, String> entry : variables.entrySet())
-			if (entry.getValue().equals(allocation.get(entry.getKey())))
+			if (entry.getValue().equals(assignment.get(entry.getKey())))
 				return true;
 
 		return false;

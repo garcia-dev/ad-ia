@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class BooleanDatabase {
+
 	private List<Variable> variables;
 	private List<Map<Variable, String>> transactions;
 
@@ -21,4 +22,5 @@ public class BooleanDatabase {
 	public List<Map<Variable, String>> getTransactions() {
 		return transactions;
 	}
+
 }

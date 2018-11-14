@@ -18,15 +18,15 @@ public class AllEqualConstraint implements Constraint {
 	}
 
 	@Override
-	public boolean isSatisfiedBy(Map<Variable, String> allocation) {
+	public boolean isSatisfiedBy(Map<Variable, String> assignment) {
 		String value = "";
 
 		for (Variable variable : variables) {
 			if (value.equals("")) {
-				value = allocation.get(variable);
+				value = assignment.get(variable);
 				continue;
 			}
-			if (!allocation.get(variable).equals(value)) {
+			if (!assignment.get(variable).equals(value)) {
 				return false;
 			}
 		}

@@ -63,27 +63,30 @@ public class BacktrackingTests {
 
 		/* Backtracking tests */
 
-//		backtrack(examples);
+		backtrack(examples);
 
 	}
 
 	private static void backtrack(Examples examples) {
-		int sol = 0;
-		Backtracking backtracking = new Backtracking(examples.getConstraints(),
-													 examples.getVariables());
+		int solution = 0;
+		Backtracking backtracking = new Backtracking(examples.getVariables(),
+													 examples.getConstraints());
 
 		HashMap<Variable, String> car = backtracking.solution();
 		while (car != null) {
-			sol++;
+			solution++;
 			printCar(car);
 			car = backtracking.solution();
 		}
-		System.out.println(sol);
+
+		System.out.println("\nNumber of solutions = " + solution);
 	}
 
 	private static void printCar(Map<Variable, String> car) {
-		System.out.print("\nsolution => ");
-		car.forEach((key, value) -> System.out.print(key.getName() + ": " + value + ", "));
+		System.out.println("\nSolution:");
+		car.forEach(
+				(key, value) -> System.out.println("\t" + key.getName() + ": " + value + ",")
+		);
 	}
 
 }
