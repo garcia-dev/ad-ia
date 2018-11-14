@@ -23,14 +23,13 @@ public class Database {
 		transactionList.forEach(transaction -> {
 			Map<Variable, String> booleanTransactionMap = new LinkedHashMap<>();
 
-			transaction.forEach(((variable, value) -> booleanVariableList.forEach(booleanVariable -> {
-				if (booleanVariable.getName().equals(variable.getName() + "_" + value))
-					booleanTransactionMap.put(booleanVariable, "1");
-			})));
+			booleanVariableList.forEach(variable -> booleanTransactionMap.put(variable, "0"));
 
-			booleanVariableList.forEach(variable -> {
-				if (!booleanTransactionMap.containsKey(variable))
-					booleanTransactionMap.put(variable, "0");
+			transaction.forEach((variable, value) -> {
+				booleanVariableList.forEach(booleanVariable -> {
+					if (booleanVariable.getName().equals(variable.getName() + "_" + value))
+						booleanTransactionMap.put(booleanVariable, "1");
+				});
 			});
 
 			booleanTransactionList.add(booleanTransactionMap);
