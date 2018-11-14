@@ -32,6 +32,12 @@ public class Backtracking {
 		}
 	}
 
+	/**
+	 *this function is the heart of the backtrack it is him who make the solution
+	 *
+	 * @param car the car to be build
+	 * @return a car completely build
+	 */
 	private HashMap<Variable, String> solution(HashMap<Variable, String> car) {
 		if (index < unusedVariables.size() && index >= 0) {
 			String nextValue = getValue(unusedVariables.get(index)); // compute the next value return "" if there is no more value
@@ -67,10 +73,21 @@ public class Backtracking {
 		}
 	}
 
+	/**
+	 * Give the next car who is a solution of the backtrack
+	 *
+	 * @return the next solution or <code>null</code> if there is no other solution.
+	 */
 	public HashMap<Variable, String> solution() {
 		return solution(new HashMap<>());
 	}
 
+	/**
+	 * This function give the next value of a variable to be used in the car
+	 *
+	 * @param variable the variable from wich we want the next value of his domain
+	 * @return return an empty string "" if there is no other value in the domain or the next value to be used
+	 */
 	private String getValue(Variable variable) {
 		Set<String> possibleValue = variableDomain.get(variable);
 		if (!possibleValue.iterator().hasNext()) {
@@ -88,6 +105,11 @@ public class Backtracking {
 		}
 	}
 
+	/**
+	 * This function test if the given car respect the given constraint.
+	 * @param car represent the car in construction to be tested.
+	 * @return <code>true</code> if the car in construction respect the given constraint, <code>false</code> otherwise.
+	 */
 	private boolean doTest(Map<Variable, String> car) {
 		for (Constraint c : this.constraints)
 			if (car.keySet().containsAll(c.getScope()) && !c.isSatisfiedBy(car))
@@ -106,6 +128,19 @@ public class Backtracking {
 		return this.precCar.contains(car);
 	}
 
+	/**
+	 * This function filter the domain of each variable.
+	 * For example if we got the constraint that all parts of the car must be of the same color,
+	 * if one parts have been paints in red this function will reduce the domain off all others variable
+	 * to one, wich contains the value "red". This will reduce the cost of the backtrack because he didn't need
+	 * to make recurtion into all of the value for each variable to find a good solution
+	 * there with the basic execution it take only 3 recurtion to find the first solution
+	 * (1 for the color,1 for the sono and another 1 for the openning roof).
+	 *
+	 * @param car the car in construction
+	 * @param domainVariable this variable contains the domain of each variable to be set on the car
+	 * @return a boolean if filtering have been sucessful or not (ie: for all variable there domain contains at list element)
+	 */
 	private boolean filterDomain(Map<Variable, String> car, Map<Variable, Set<String>> domainVariable) {
 		ArrayList<Variable> toReorganize = new ArrayList<>();
 		boolean hasFiltered = true;
