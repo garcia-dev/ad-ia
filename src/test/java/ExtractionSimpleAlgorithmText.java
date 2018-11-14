@@ -5,11 +5,11 @@ import representations.Variable;
 
 import java.util.*;
 
-class ExtractionTests {
+class ExtractionSimpleAlgorithmText {
 
 	/* Boolean domain */
 	private static final Set<String> BOOLEANS =
-			new HashSet<>(Arrays.asList("true", "false"));
+			new HashSet<>(Arrays.asList("0", "1s"));
 
 	private static Variable JACKET = new Variable("Jacket", BOOLEANS);
 	private static Variable JEANS = new Variable("Jeans", BOOLEANS);
@@ -29,21 +29,21 @@ class ExtractionTests {
 
 		/* Assignments */
 		Map<Variable, String> item1 = new HashMap<>();
-		item1.put(SHOES, "true");
-		item1.put(SHIRT, "true");
-		item1.put(JACKET, "true");
+		item1.put(SHOES, "1");
+		item1.put(SHIRT, "1");
+		item1.put(JACKET, "1");
 
 		Map<Variable, String> item2 = new HashMap<>();
-		item2.put(SHOES, "true");
-		item2.put(JACKET, "true");
+		item2.put(SHOES, "1");
+		item2.put(JACKET, "1");
 
 		Map<Variable, String> item3 = new HashMap<>();
-		item3.put(SHOES, "true");
-		item3.put(JEANS, "true");
+		item3.put(SHOES, "1");
+		item3.put(JEANS, "1");
 
 		Map<Variable, String> item4 = new HashMap<>();
-		item4.put(SHIRT, "true");
-		item4.put(SWEAT_SHIRT, "true");
+		item4.put(SHIRT, "1");
+		item4.put(SWEAT_SHIRT, "1");
 
 		/* Transactions */
 		List<Map<Variable, String>> transactions = new ArrayList<>();
@@ -58,7 +58,7 @@ class ExtractionTests {
 
 		Map<List<Variable>, List<Double>> associationRuleMap = associationRuleMiner.calcAssociationRule();
 
-		associationRuleMap.forEach((key, value) -> System.out.println(key.get(0) + " -> " + key.get(1) + " - Frequency: " + value.get(0) + " - Trust: " + value.get(1)));
+		associationRuleMap.forEach((key, value) -> System.out.println(key.get(0) + " -> " + key.get(1) +
+				" - Frequency: " + value.get(0) + " - Trust: " + value.get(1)));
 	}
-
 }

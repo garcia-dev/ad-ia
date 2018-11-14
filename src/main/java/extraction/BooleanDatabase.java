@@ -21,4 +21,20 @@ public class BooleanDatabase {
 	public List<Map<Variable, String>> getTransactionList() {
 		return transactionList;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder res = new StringBuilder();
+
+		transactionList.get(0).forEach(((variable, value) -> res.append(variable.getName()).append(";")));
+		res.append("\n");
+
+		transactionList.forEach(transaction -> {
+			transaction.forEach((variable, value) -> res.append(value).append(";"));
+
+			res.append("\n");
+		});
+
+		return res.toString();
+	}
 }

@@ -23,7 +23,8 @@ public class FrequentItemsetMiner {
 		});
 
 		// Adding every variable as a frequentItemset
-		booleanDatabase.getVariableList().forEach(variable -> frequentItemset.put(new HashSet<>(Set.of(variable)), 0.0));
+		booleanDatabase.getVariableList().forEach(variable -> frequentItemset.put(
+				new HashSet<>(Set.of(variable)), 0.0));
 
 		// Counting the occurences of each key in frequentItemset and updating the value
 		frequentItemset.forEach((key, value) -> frequentItemset.forEach((secondKey, secondValue) -> {
@@ -34,7 +35,10 @@ public class FrequentItemsetMiner {
 		// Initializing a List of key that will be removed from frequentItemset
 		List<Set<Variable>> keyToRemoveSet = new ArrayList<>();
 
-		// Updating the value of each key to its support value, if this value is under the minimalSupport value as parameter, it's added in the list of keys to be removed
+		/*
+			Updating the value of each key to its support value, if this value is under the minimalSupport value as
+			parameter, it's added in the list of keys to be removed
+		 */
 		frequentItemset.forEach((key, value) -> {
 			Double support = value / booleanDatabase.getTransactionList().size();
 
