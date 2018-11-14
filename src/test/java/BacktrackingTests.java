@@ -1,15 +1,11 @@
 import examples.Examples;
 import ppc.Backtracking;
-import representations.Constraint;
-import representations.Rule;
 import representations.Variable;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
-public class Tests {
+public class BacktrackingTests {
 
 	public static void main(String[] args) {
 
@@ -19,25 +15,25 @@ public class Tests {
 
 		/* Car whose roof, hood and tailgate are the same color */
 		HashMap<Variable, String> car1 = new HashMap<>();
-		car1.put(Examples.roofColor, "black");
-		car1.put(Examples.hoodColor, "black");
-		car1.put(Examples.tailgateColor, "black");
+		car1.put(Examples.ROOF_COLOR, "black");
+		car1.put(Examples.HOOD_COLOR, "black");
+		car1.put(Examples.TAILGATE_COLOR, "black");
 
 		/* Car whose at least one side is the same color as the roof */
 		HashMap<Variable, String> car2 = new HashMap<>();
-		car2.put(Examples.roofColor, "black");
-		car2.put(Examples.leftSideColor, "black");
-		car2.put(Examples.rightSideColor, "blue");
+		car2.put(Examples.ROOF_COLOR, "black");
+		car2.put(Examples.LEFT_SIDE_COLOR, "black");
+		car2.put(Examples.RIGHT_SIDE_COLOR, "blue");
 
 		/* Car whose sides are not both black */
 		HashMap<Variable, String> car3 = new HashMap<>();
-		car3.put(Examples.leftSideColor, "black");
-		car3.put(Examples.rightSideColor, "blue");
+		car3.put(Examples.LEFT_SIDE_COLOR, "black");
+		car3.put(Examples.RIGHT_SIDE_COLOR, "blue");
 
 		/* Car which doesn't have an opening roof and a sound system at the same time */
 		HashMap<Variable, String> car4 = new HashMap<>();
-		car4.put(Examples.hasOpeningRoof, "true");
-		car4.put(Examples.hasSono, "false");
+		car4.put(Examples.HAS_OPENING_ROOF, "true");
+		car4.put(Examples.HAS_SONO, "false");
 
 		/* Simple tests */
 

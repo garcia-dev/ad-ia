@@ -1,4 +1,3 @@
-import examples.Examples;
 import extraction.AssociationRuleMiner;
 import extraction.BooleanDatabase;
 import extraction.FrequentItemsetMiner;

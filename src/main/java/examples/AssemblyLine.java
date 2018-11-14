@@ -41,7 +41,7 @@ public class AssemblyLine {
 	public static final Variable LEFT_COLOR = new Variable("leftColor", ALL_COLORS);
 	public static final Variable REAR_COLOR = new Variable("rearColor", ALL_COLORS);
 	public static final Variable RIGHT_COLOR = new Variable("rightColor", ALL_COLORS);
-	public static final Variable ROOF_COLOR = new Variable("roofColor", ALL_COLORS);
+	public static final Variable ROOF_COLOR = new Variable("ROOF_COLOR", ALL_COLORS);
 
 	/* Variables definitions */
 	public static final HashMap<Variable, String> CHASSIS_INSTALLATION = new HashMap<>();
