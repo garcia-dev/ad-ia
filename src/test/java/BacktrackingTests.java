@@ -72,7 +72,7 @@ public class BacktrackingTests {
 		Backtracking backtracking = new Backtracking(examples.getVariables(),
 													 examples.getConstraints());
 
-		HashMap<Variable, String> car = backtracking.solution();
+		Map<Variable, String> car = backtracking.solution();
 		while (car != null) {
 			solution++;
 			printCar(car);
