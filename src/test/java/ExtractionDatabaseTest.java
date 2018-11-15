@@ -1,6 +1,4 @@
-import extraction.BooleanDatabase;
-import extraction.DBReader;
-import extraction.Database;
+import extraction.*;
 import representations.Variable;
 
 import java.io.IOException;
@@ -20,18 +18,25 @@ public class ExtractionDatabaseTest {
 	private static Variable RIGHT_COLOR = new Variable("couleur_droite", COLORS);
 
 	public static void main(String[] args) {
-		List<Variable> variableList = new ArrayList<>(List.of(LEFT_COLOR, ROOF_COLOR, OPENING_ROOF, HOOD_COLOR, SONO, TAILGATE_COLOR, RIGHT_COLOR));
+		List<Variable> variableList = new ArrayList<>(List.of(LEFT_COLOR, ROOF_COLOR, OPENING_ROOF, HOOD_COLOR, SONO,
+				TAILGATE_COLOR, RIGHT_COLOR));
 
 		Database database = null;
 
 		try {
-			database = new DBReader(new HashSet<>(variableList)).importDB("src/main/resources/db_example.csv");
+			database = new DBReader(new HashSet<>(variableList)).importDB("src/main/resources/test_db.csv");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		BooleanDatabase booleanDatabase = Objects.requireNonNull(database).translateToBoolean();
 
-		System.out.println(booleanDatabase.toString());
+		AssociationRuleMiner associationRuleMiner =
+				new AssociationRuleMiner(new FrequentItemsetMiner(booleanDatabase).frequentItemsets(0.5));
+
+		Map<List<?>, List<Double>> associationRuleMap = associationRuleMiner.calcAssociationRule();
+
+		associationRuleMap.forEach((key, value) -> System.out.println(key.get(0) + " -> " + key.get(1) +
+				" - Frequency: " + value.get(0) + " - Trust: " + value.get(1)));
 	}
 }
