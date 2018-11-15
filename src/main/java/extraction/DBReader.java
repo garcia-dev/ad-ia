@@ -65,5 +65,4 @@ public class DBReader {
 		}
 		return new Database(orderedVariables, instances);
 	}
-
 }

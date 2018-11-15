@@ -5,6 +5,17 @@ import representations.Variable;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * BooleanDatabase's class
+ * <p>
+ * The BooleanDatabase's class is a class representing a boolean database.
+ * </p>
+ *
+ * @author DORANGE Martin, GARCIA Romain, QUERRÉ Maël, WILLIAMSON Christina
+ * @version 2018-11-15
+ * @see Variable
+ */
+
 public class BooleanDatabase {
 	private List<Variable> variableList;
 	private List<Map<Variable, String>> transactionList;
@@ -14,14 +25,18 @@ public class BooleanDatabase {
 		this.transactionList = transactionList;
 	}
 
-	public List<Variable> getVariableList() {
-		return variableList;
-	}
-
-	public List<Map<Variable, String>> getTransactionList() {
+	/**
+	 * Getter of the Transaction list affiliated to the BooleanDatabase.
+	 *
+	 * @return the Transaction list affiliated to the BooleanDatabase
+	 */
+	List<Map<Variable, String>> getTransactionList() {
 		return transactionList;
 	}
 
+	/**
+	 * @see Object#toString()
+	 */
 	@Override
 	public String toString() {
 		StringBuilder res = new StringBuilder();

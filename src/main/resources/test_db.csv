@@ -1,0 +1,6 @@
+couleur_gauche;couleur_toit;toit_ouvrant;couleur_capot;sono;couleur_hayon;couleur_droite;
+noir;rouge;0;noir;1;noir;blanc;
+rouge;noir;1;noir;0;noir;noir;
+rouge;noir;0;noir;1;noir;noir;
+blanc;blanc;0;blanc;1;blanc;blanc;
+rouge;blanc;1;noir;0;blanc;blanc;

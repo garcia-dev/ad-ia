@@ -4,6 +4,17 @@ import representations.Variable;
 
 import java.util.*;
 
+/**
+ * FrequentItemsetMiner's class
+ * <p>
+ * The FrequentItemsetMiner's class is a class generating the frequent item sets based on variable transactions.
+ * </p>
+ *
+ * @author DORANGE Martin, GARCIA Romain, QUERRÉ Maël, WILLIAMSON Christina
+ * @version 2018-11-15
+ * @see Variable
+ */
+
 public class FrequentItemsetMiner {
 	private BooleanDatabase booleanDatabase;
 
@@ -11,45 +22,50 @@ public class FrequentItemsetMiner {
 		this.booleanDatabase = booleanDatabase;
 	}
 
+	/**
+	 * Method generating the frequent item sets.
+	 *
+	 * @param minimalSupport the minimal value of support needed to be considered a frequent item
+	 * @return a map of frequent item
+	 */
 	public Map<Set<Variable>, Double> frequentItemsets(Double minimalSupport) {
 		Map<Set<Variable>, Double> frequentItemset = new HashMap<>();
 
-		// Adding every transaction as a frequentItemset
+		List<Set<Variable>> subsetsList = new ArrayList<>();
+
+		// For each transaction, we're focusing on the variable with a value of '1'
 		booleanDatabase.getTransactionList().forEach(map -> {
-			if (!frequentItemset.containsKey(map.keySet()))
-				frequentItemset.put(map.keySet(), 1.0);
-			else
-				frequentItemset.put(map.keySet(), frequentItemset.get(map.keySet()) + 1);
+			List<Variable> trueVariableList = new ArrayList<>();
+
+			map.forEach((key, value) -> {
+				if (value.equals("1"))
+					trueVariableList.add(key);
+			});
+
+			// Generating every subsets
+			double subsetsNumber = Math.pow(2, trueVariableList.size());
+
+			for (int i = 1; i < subsetsNumber; i++) {
+				Set<Variable> subset = new HashSet<>();
+
+				for (int j = 0; j < trueVariableList.size(); j++)
+					if ((i & (1 << j)) != 0)
+						subset.add(trueVariableList.get(j));
+
+				subsetsList.add(subset);
+			}
 		});
-
-		// Adding every variable as a frequentItemset
-		booleanDatabase.getVariableList().forEach(variable -> frequentItemset.put(
-				new HashSet<>(Set.of(variable)), 0.0));
-
-		// Counting the occurences of each key in frequentItemset and updating the value
-		frequentItemset.forEach((key, value) -> frequentItemset.forEach((secondKey, secondValue) -> {
-			if (secondKey != key && secondKey.containsAll(key))
-				frequentItemset.put(key, frequentItemset.get(key) + 1);
-		}));
-
-		// Initializing a List of key that will be removed from frequentItemset
-		List<Set<Variable>> keyToRemoveSet = new ArrayList<>();
 
 		/*
-			Updating the value of each key to its support value, if this value is under the minimalSupport value as
-			parameter, it's added in the list of keys to be removed
+			For each subset we're checking if the frequency/support value is higher than the minimal value, if it is
+			we're putting it into the frequentItemset
 		 */
-		frequentItemset.forEach((key, value) -> {
-			Double support = value / booleanDatabase.getTransactionList().size();
+		subsetsList.forEach(subset -> {
+			double support = (double) Collections.frequency(subsetsList, subset) / booleanDatabase.getTransactionList().size();
 
 			if (support >= minimalSupport)
-				frequentItemset.put(key, support);
-			else
-				keyToRemoveSet.add(key);
+				frequentItemset.put(subset, support);
 		});
-
-		// Removing the keys with a lower support value than minimalSupport
-		keyToRemoveSet.forEach(frequentItemset::remove);
 
 		return frequentItemset;
 	}
