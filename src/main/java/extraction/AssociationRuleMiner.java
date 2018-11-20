@@ -13,7 +13,7 @@ import java.util.stream.IntStream;
  * </p>
  *
  * @author DORANGE Martin, GARCIA Romain, QUERRÉ Maël, WILLIAMSON Christina
- * @version 2018-11-15
+ * @version 2018-11-20
  * @see Variable
  */
 
@@ -29,7 +29,7 @@ public class AssociationRuleMiner {
 	 *
 	 * @return a map of assocation rules
 	 */
-	public Map<List<?>, List<Double>> calcAssociationRule() {
+	public Map<List<?>, List<Double>> calcAssociationRule(double minimalTrust) {
 		Map<List<?>, List<Double>> associationRuleMap = new HashMap<>();
 
 		List<List<Variable>> keyList = new ArrayList<>();
@@ -60,7 +60,7 @@ public class AssociationRuleMiner {
 			// Generating pairs, calculating the Trust value and putting it into the map
 			for (int i = 0; i < subsetsList.size(); i++)
 				for (int j = i + 1; j < subsetsList.size(); j++)
-					// Checking if there is no duplicate
+					// If there is no duplicate, then we're calculating the association rules
 					if (!subsetsList.get(i).containsAll(subsetsList.get(j)) &&
 							!subsetsList.get(j).containsAll(subsetsList.get(i)) &&
 							Collections.disjoint(subsetsList.get(i), subsetsList.get(j))) {
@@ -71,18 +71,25 @@ public class AssociationRuleMiner {
 						test.addAll(subsetsList.get(i));
 						test.addAll(subsetsList.get(j));
 
-						// Adding the pair into the map, with its Frequency and Trust value
-						associationRuleMap.put(variableSetList,
-								List.of(frequentItemsets.get(test),
-										frequentItemsets.get(test) / frequentItemsets.get(subsetsList.get(i))));
+						/*
+							Adding the pair into the map, with its Frequency and Trust value if Trust value is higher
+						    than minimalTrust
+						 */
+						double trust = frequentItemsets.get(test) / frequentItemsets.get(subsetsList.get(j));
+						if (trust >= minimalTrust)
+							associationRuleMap.put(variableSetList, List.of(frequentItemsets.get(test), trust));
 
-						// Adding the pair reverse into the map, with its Frequency and Trust value
-						associationRuleMap.put(IntStream.range(0,
-								variableSetList.size()).mapToObj(s ->
-										variableSetList.get(variableSetList.size() - 1 - s))
-										.collect(Collectors.toList()),
-								List.of(frequentItemsets.get(test),
-										frequentItemsets.get(test) / frequentItemsets.get(subsetsList.get(j))));
+						/*
+							Adding the pair reverse into the map, with its Frequency and Trust value if Trust value
+							is higher than minimalTrust
+						 */
+						trust = frequentItemsets.get(test) / frequentItemsets.get(subsetsList.get(j));
+						if (trust >= minimalTrust)
+							associationRuleMap.put(IntStream.range(0,
+									variableSetList.size()).mapToObj(s ->
+											variableSetList.get(variableSetList.size() - 1 - s))
+											.collect(Collectors.toList()),
+									List.of(frequentItemsets.get(test), trust));
 					}
 		}
 

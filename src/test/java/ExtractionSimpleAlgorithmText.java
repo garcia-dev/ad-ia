@@ -57,7 +57,7 @@ class ExtractionSimpleAlgorithmText {
 				new AssociationRuleMiner(new FrequentItemsetMiner(
 						new BooleanDatabase(variables, transactions)).frequentItemsets(0.5));
 
-		Map<List<?>, List<Double>> associationRuleMap = associationRuleMiner.calcAssociationRule();
+		Map<List<?>, List<Double>> associationRuleMap = associationRuleMiner.calcAssociationRule(0);
 
 		associationRuleMap.forEach((key, value) -> System.out.println(key.get(0) + " -> " + key.get(1) +
 				" - Frequency: " + value.get(0) + " - Trust: " + value.get(1)));

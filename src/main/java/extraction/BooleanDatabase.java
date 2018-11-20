@@ -34,6 +34,10 @@ public class BooleanDatabase {
 		return transactionList;
 	}
 
+	public List<Variable> getVariableList() {
+		return variableList;
+	}
+
 	/**
 	 * @see Object#toString()
 	 */
