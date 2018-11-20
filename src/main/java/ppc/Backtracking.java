@@ -1,4 +1,4 @@
-package ppc;
+package main.java.ppc;
 
 import representations.Constraint;
 import representations.Variable;
@@ -15,7 +15,7 @@ public class Backtracking {
 	private Map<Variable, Set<String>> variableDomain;
 	private List<HashMap<Variable, String>> precCar;
 
-	private HashMap<Variable, String> car = null;
+	private HashMap<representations.Variable, String> car = null;
 	private int index = 0;
 
 	/**
@@ -116,7 +116,7 @@ public class Backtracking {
 	 * @param car represent the car in construction to be tested.
 	 * @return <code>true</code> if the car in construction respect the given constraint, <code>false</code> otherwise.
 	 */
-	private boolean doTest(Map<Variable, String> car) {
+	private boolean doTest(Map<representations.Variable, String> car) {
 		for (Constraint c : this.constraints)
 			if (car.keySet().containsAll(c.getScope()) && !c.isSatisfiedBy(car))
 				return false;
@@ -155,7 +155,7 @@ public class Backtracking {
 			for (Constraint c : this.constraints) {
 				hasFiltered |= c.filter(car, domainVariable);
 				if (hasFiltered) {
-					for (Variable var : c.getScope()) {
+					for (representations.Variable var : c.getScope()) {
 						if (domainVariable.get(var).size() == 0) {
 							return false;
 						}
