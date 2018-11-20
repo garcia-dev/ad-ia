@@ -18,6 +18,12 @@ public class Backtracking {
 	private HashMap<Variable, String> car = null;
 	private int index = 0;
 
+	/**
+	 * this is the constructor of the class backtracking, it take the set of variable and constraint for build a solution,a car
+	 *
+	 * @param constraints a set of constraints who need to be respect to have a good solution
+	 * @param variables a set with all the variable who need to be used.
+	 */
 	public Backtracking(Set<Constraint> constraints, Set<Variable> variables) {
 		this.constraints = constraints;
 		this.variables = variables;
@@ -35,8 +41,8 @@ public class Backtracking {
 	/**
 	 *this function is the heart of the backtrack it is him who make the solution
 	 *
-	 * @param car the car to be build
-	 * @return a car completely build
+	 * @param car the car to be build (empty when we make the first solution and full when we want another solution
+	 * @return a car completely build or null if there is no others solution
 	 */
 	private HashMap<Variable, String> solution(HashMap<Variable, String> car) {
 		if (index < unusedVariables.size() && index >= 0) {
@@ -153,19 +159,19 @@ public class Backtracking {
 						if (domainVariable.get(var).size() == 0) {
 							return false;
 						}
-						if (domainVariable.get(var).size() == 1) {
+						/*if (domainVariable.get(var).size() == 1) {
 							car.put(var, getValue(var));
 							if (!doTest(car)) {
-								domainVariable.put(var, new HashSet<>(var.getDomain()));
-								car.remove(var);
-								return false;
-							} else {
-								unusedVariables.remove(var);
-								unusedVariables.add(1, var);
-								index++;
-								System.out.println(unusedVariables);
+								domainVariable.put(var, new HashSet<>(var.getDomain()));			this doesn't work as expected
+								car.remove(var);													because the whole system of bactrack
+								return false;														is based on index instead of set and only
+							} else {																set. So when we put a specific value to a variable
+								unusedVariables.remove(var);										we need to reorganize the index and the list
+								unusedVariables.add(1, var);										this second part of reorganizing doesn't work
+								index++;															as expected and it didn't give full solution
+								System.out.println(unusedVariables);								and just a partial set of solution.
 							}
-						}
+						}*/
 					}
 				}
 			}
