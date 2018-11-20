@@ -27,13 +27,16 @@ public class Diagnoser {
 	}
 
 	public boolean isExplanation(Map<Variable, String> variables, Variable variable, String value) {
-		Backtracking backtracking = new Backtracking(variables.keySet(), this.constraints);
+		Backtracking backtracking = new Backtracking(this.variables.keySet(), this.constraints);
+		// TODO: redéfinir les domaines en fonction de la valeur de chaque variable (var.setDomain)
 
 		Map<Variable, String> vars = new HashMap<>(variables);
 		vars.put(variable, value);
 
+		System.out.println("Solution: " + backtracking.solution());
+
 		return this.variables.entrySet().containsAll(variables.entrySet())
-				&& !(backtracking.solution(vars).size() > 0);
+				&& backtracking.solution().isEmpty();
 	}
 
 	public Map<Variable, String> explanation(Variable variable, String value) {
@@ -42,12 +45,13 @@ public class Diagnoser {
 
 		for (Map.Entry<Variable, String> entry : choicesToExplore.entrySet()) {
 			Variable var = entry.getKey();
-			String val = entry.getValue();
+			//String val = entry.getValue();
 
 			Map<Variable, String> explanationBuffer = new HashMap<>(explanation);
 			explanationBuffer.remove(var);
 
-			if (isExplanation(explanationBuffer, var, val)) {
+
+			if (isExplanation(explanationBuffer, variable, value)) {
 				explanation = explanationBuffer;
 			}
 		}
@@ -55,4 +59,7 @@ public class Diagnoser {
 		return explanation;
 	}
 
+	public Map<Variable, String> getVariables() {
+		return variables;
+	}
 }

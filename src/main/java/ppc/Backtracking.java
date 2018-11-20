@@ -32,7 +32,7 @@ public class Backtracking {
 		}
 	}
 
-	public Map<Variable, String> solution(Map<Variable, String> car) {
+	private Map<Variable, String> solution(Map<Variable, String> car) {
 		if (index < unusedVariables.size() && index >= 0) {
 			String nextValue = getValue(unusedVariables.get(index)); // compute the next value return "" if there is no more value
 			if (nextValue.equals("")) {
