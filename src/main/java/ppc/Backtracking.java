@@ -42,7 +42,7 @@ public class Backtracking {
 			} else {
 				car.put(unusedVariables.get(index), nextValue);
 				if (doTest(car)) {
-					filterDomain(car, variableDomain);
+					//filterDomain(car, variableDomain);
 					this.index = this.index + 1;
 					return solution(car); // the test is currently successful so go ahead to add an other variable
 				} else {

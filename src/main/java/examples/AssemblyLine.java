@@ -11,16 +11,21 @@ import java.util.Set;
 
 public class AssemblyLine {
 
-	/* Colors domain */
+	/* Domains */
+
+	// Colors domain
 	private static final Set<String> ALL_COLORS =
 			new HashSet<>(Arrays.asList("gray", "black", "white", "red",
 										"green", "blue", "orange", "yellow"));
 
-	/* Boolean domain */
+	// Boolean domain
 	private static final Set<String> BOOLEANS =
 			new HashSet<>(Arrays.asList("true", "false"));
 
-	/* Boolean variables */
+
+	/* Variables */
+
+	// Boolean variables
 	public static final Variable HAS_CHASSIS = new Variable("hasChassis", BOOLEANS);
 	public static final Variable HAS_FRONT_LEFT_WHEEL = new Variable("hasFrontLeftWheel", BOOLEANS);
 	public static final Variable HAS_FRONT_RIGHT_WHEEL = new Variable("hasFrontRightWheel", BOOLEANS);
@@ -30,20 +35,20 @@ public class AssemblyLine {
 
 	/* Color variables */
 
-	/* Wheels color */
+	// Wheels colors
 	public static final Variable FRONT_LEFT_WHEEL_COLOR = new Variable("frontLeftWheelColor", ALL_COLORS);
 	public static final Variable FRONT_RIGHT_WHEEL_COLOR = new Variable("frontRightWheelColor", ALL_COLORS);
 	public static final Variable REAR_LEFT_WHEEL_COLOR = new Variable("rearLeftWheelColor", ALL_COLORS);
 	public static final Variable REAR_RIGHT_WHEEL_COLOR = new Variable("rearRightWheelColor", ALL_COLORS);
 
-	/* Sides color */
+	// Sides colors
 	public static final Variable FRONT_COLOR = new Variable("frontColor", ALL_COLORS);
 	public static final Variable LEFT_COLOR = new Variable("leftColor", ALL_COLORS);
 	public static final Variable REAR_COLOR = new Variable("rearColor", ALL_COLORS);
 	public static final Variable RIGHT_COLOR = new Variable("rightColor", ALL_COLORS);
 	public static final Variable ROOF_COLOR = new Variable("ROOF_COLOR", ALL_COLORS);
 
-	/* Variables definitions */
+	// Variables definitions
 	public static final HashMap<Variable, String> CHASSIS_INSTALLATION = new HashMap<>();
 	public static final HashMap<Variable, String> FRONT_LEFT_WHEEL_INSTALLATION = new HashMap<>();
 	public static final HashMap<Variable, String> FRONT_RIGHT_WHEEL_INSTALLATION = new HashMap<>();
@@ -70,7 +75,7 @@ public class AssemblyLine {
 	public static final HashMap<Variable, String> REAR_PAINTING = new HashMap<>();
 	public static final HashMap<Variable, String> RIGHT_PAINTING = new HashMap<>();
 
-	/* Variables assignments */
+	// Variables assignments
 	static {
 		CHASSIS_INSTALLATION.put(AssemblyLine.HAS_CHASSIS, "true");
 		FRONT_LEFT_WHEEL_INSTALLATION.put(AssemblyLine.HAS_FRONT_LEFT_WHEEL, "true");
@@ -111,8 +116,10 @@ public class AssemblyLine {
 		RIGHT_PAINTING.put(AssemblyLine.ROOF_COLOR, "gray");
 	}
 
+
 	/* Actions */
 
+	// Basic installation action
 	public static final Action INSTALL_CHASSIS = new Action(new HashMap<>(), CHASSIS_INSTALLATION);
 
 	/* Simple installation actions */

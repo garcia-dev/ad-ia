@@ -9,8 +9,6 @@ public class BacktrackingTests {
 
 	public static void main(String[] args) {
 
-		Examples examples = new Examples();
-
 		/* Cars */
 
 		/* Car whose roof, hood and tailgate are the same color */
@@ -37,25 +35,25 @@ public class BacktrackingTests {
 
 		/* Simple tests */
 
-		if (examples.getConstraint1().isSatisfiedBy(car1)) {
+		if (Examples.getConstraint1().isSatisfiedBy(car1)) {
 			System.out.println("The first constraint is satisfied by the first car.");
 		} else {
 			System.out.println("There is something wrong with the first constraint.");
 		}
 
-		if (examples.getConstraint2().isSatisfiedBy(car2)) {
+		if (Examples.getConstraint2().isSatisfiedBy(car2)) {
 			System.out.println("The second constraint is satisfied by the second car.");
 		} else {
 			System.out.println("There is something wrong with the second constraint.");
 		}
 
-		if (examples.getConstraint3().isSatisfiedBy(car3)) {
+		if (Examples.getConstraint3().isSatisfiedBy(car3)) {
 			System.out.println("The third constraint is satisfied by the third car.");
 		} else {
 			System.out.println("There is something wrong with the third constraint.");
 		}
 
-		if (examples.getConstraint4().isSatisfiedBy(car4)) {
+		if (Examples.getConstraint4().isSatisfiedBy(car4)) {
 			System.out.println("The fourth constraint is satisfied by the fourth car.");
 		} else {
 			System.out.println("There is something wrong with the fourth constraint.");
@@ -63,23 +61,23 @@ public class BacktrackingTests {
 
 		/* Backtracking tests */
 
-		backtrack(examples);
+		backtrack();
 
 	}
 
-	private static void backtrack(Examples examples) {
-		int solution = 0;
-		Backtracking backtracking = new Backtracking(examples.getVariables(),
-													 examples.getConstraints());
+	private static void backtrack() {
+		int numberOfSolutions = 0;
+		Backtracking backtracking = new Backtracking(Examples.getVariables(),
+													 Examples.getConstraints());
 
 		Map<Variable, String> car = backtracking.solution();
 		while (car != null) {
-			solution++;
+			numberOfSolutions++;
 			printCar(car);
 			car = backtracking.solution();
 		}
 
-		System.out.println("\nNumber of solutions = " + solution);
+		System.out.println("\nNumber of solutions = " + numberOfSolutions);
 	}
 
 	private static void printCar(Map<Variable, String> car) {

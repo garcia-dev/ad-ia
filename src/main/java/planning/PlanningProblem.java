@@ -15,12 +15,4 @@ public class PlanningProblem {
 		this.actionsList = actionsList;
 	}
 
-	private boolean satisfies(State state) {
-		return finalStates.contains(state);
-	}
-
-	private State apply(Action action, State state) {
-		return null;
-	}
-
 }
