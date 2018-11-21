@@ -1,4 +1,4 @@
-import extraction.*;
+/*import extraction.*;
 import representations.Variable;
 
 import java.io.IOException;
@@ -40,7 +40,7 @@ public class ExtractionDatabaseTest {
 	private static Variable RIGHT_COLOR_WHITE = new Variable("couleur_droite_blanc", BOOLEANS);
 
 	public static void main(String[] args) {
-		List<Variable> variableList = new ArrayList<>(List.of(LEFT_COLOR, ROOF_COLOR, OPENING_ROOF, HOOD_COLOR, SONO,
+		List<Variable> variableList = new ArrayList<>(Arrays.asList(LEFT_COLOR, ROOF_COLOR, OPENING_ROOF, HOOD_COLOR, SONO,
 				TAILGATE_COLOR, RIGHT_COLOR));
 
 		Database database = null;
@@ -61,7 +61,7 @@ public class ExtractionDatabaseTest {
 //		associationRuleMap.forEach((key, value) -> System.out.println(key.get(0) + " -> " + key.get(1) +
 //				" - Frequency: " + value.get(0) + " - Trust: " + value.get(1)));
 
-		List<Variable> booleanVariableList = new ArrayList<>(List.of(LEFT_COLOR_BLACK, LEFT_COLOR_RED,
+		List<Variable> booleanVariableList = new ArrayList<>(Arrays.asList(LEFT_COLOR_BLACK, LEFT_COLOR_RED,
 				LEFT_COLOR_WHITE, ROOF_COLOR_BLACK, ROOF_COLOR_RED, ROOF_COLOR_WHITE, OPENING_ROOF_0, OPENING_ROOF_1,
 				HOOD_COLOR_BLACK, HOOD_COLOR_RED, HOOD_COLOR_WHITE, SONO_0, SONO_1, TAILGATE_COLOR_BLACK,
 				TAILGATE_COLOR_RED, TAILGATE_COLOR_WHITE, RIGHT_COLOR_BLACK, RIGHT_COLOR_RED, RIGHT_COLOR_WHITE));
@@ -72,3 +72,4 @@ public class ExtractionDatabaseTest {
 		System.out.println(booleanDatabase1.toString());
 	}
 }
+*/

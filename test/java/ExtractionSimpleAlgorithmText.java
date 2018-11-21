@@ -1,4 +1,4 @@
-import extraction.AssociationRuleMiner;
+/*import extraction.AssociationRuleMiner;
 import extraction.BooleanDatabase;
 import extraction.FrequentItemsetMiner;
 import representations.Variable;
@@ -7,7 +7,7 @@ import java.util.*;
 
 class ExtractionSimpleAlgorithmText {
 
-	/* Boolean domain */
+	/* Boolean domain *//*
 	private static final Set<String> BOOLEANS = new HashSet<>(Arrays.asList("0", "1"));
 
 	private static Variable JACKET = new Variable("Jacket", BOOLEANS);
@@ -18,10 +18,10 @@ class ExtractionSimpleAlgorithmText {
 
 	public static void main(String[] args) {
 
-		/* Variables */
-		List<Variable> variables = new ArrayList<>(List.of(JACKET, JEANS, SHIRT, SHOES, SWEAT_SHIRT));
+		/* Variables *//*
+		List<Variable> variables = new ArrayList(Arrays.asList(JACKET, JEANS, SHIRT, SHOES, SWEAT_SHIRT));
 
-		/* Assignments */
+		/* Assignments *//*
 		Map<Variable, String> item1 = new LinkedHashMap<>();
 		item1.put(JACKET, "1");
 		item1.put(JEANS, "0");
@@ -50,8 +50,8 @@ class ExtractionSimpleAlgorithmText {
 		item4.put(SHOES, "0");
 		item4.put(SWEAT_SHIRT, "1");
 
-		/* Transactions */
-		List<Map<Variable, String>> transactions = new ArrayList<>(List.of(item1, item2, item3, item4));
+		/* Transactions *//*
+		List<Map<Variable, String>> transactions = new ArrayList<>(Arrays.asList((item1, item2, item3, item4));
 
 		AssociationRuleMiner associationRuleMiner =
 				new AssociationRuleMiner(new FrequentItemsetMiner(
@@ -62,4 +62,4 @@ class ExtractionSimpleAlgorithmText {
 		associationRuleMap.forEach((key, value) -> System.out.println(key.get(0) + " -> " + key.get(1) +
 				" - Frequency: " + value.get(0) + " - Trust: " + value.get(1)));
 	}
-}
+}*/

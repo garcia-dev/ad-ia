@@ -1,4 +1,4 @@
-package main.java.ppc;
+package ppc;
 
 import representations.Constraint;
 import representations.Variable;
@@ -48,15 +48,16 @@ public class Backtracking {
 		if (index < unusedVariables.size() && index >= 0) {
 			String nextValue = getValue(unusedVariables.get(index)); // compute the next value return "" if there is no more value
 			if (nextValue.equals("")) {
-				car.remove(unusedVariables.get(index));
 				this.index = this.index - 1;
 				return solution(car); // no other value in the domain so go back
 			} else {
 				car.put(unusedVariables.get(index), nextValue);
 				if (doTest(car)) {
-					filterDomain(car, variableDomain);
-					this.index = this.index + 1;
-					return solution(car); // the test is currently successful so go ahead to add an other variable
+					if(filterDomain(car, variableDomain))
+						this.index++; //the test is currently successful like the filtering so go ahead to add an other variable
+					else
+						this.index--; //the filtering isn't good so go back
+					return solution(car);
 				} else {
 					return solution(car); // there is other value in the domain so try to test another one
 				}
@@ -64,20 +65,19 @@ public class Backtracking {
 
 		} else {
 			if (index < 0)
-				return null;
-			else {
-				if (alreadyGive(car)) {
-					car.remove(unusedVariables.get(index - 1));
-					this.index = this.index - 1;
-					return solution(car);    //no other value in the domain so go back
-				} else {
-					this.precCar.add(new HashMap<>(car));
-					return car;
+				return null; //there is no other solution so we return null
+
+			if (alreadyGive(car)) {
+				this.index = this.index - 1;
+				return solution(car);    //car has been already made so we go back to try to make another one
 				}
-			}
+				this.precCar.add(new HashMap<>(car)); //the creation of the car is currently sucesfull so we add it to the list of car made by the ppc and we return it
+				return car;
 
 		}
 	}
+
+
 
 	/**
 	 * Give the next car who is a solution of the backtrack
@@ -85,7 +85,14 @@ public class Backtracking {
 	 * @return the next solution or <code>null</code> if there is no other solution.
 	 */
 	public HashMap<Variable, String> solution() {
-		return solution(new HashMap<>());
+		if(car==null) {
+			car=solution(new HashMap<>());
+			return car;
+		}
+		else{
+			car=solution(this.car);
+			return car;
+		}
 	}
 
 	/**
@@ -159,17 +166,23 @@ public class Backtracking {
 						if (domainVariable.get(var).size() == 0) {
 							return false;
 						}
-						/*if (domainVariable.get(var).size() == 1) {
+						/*
+						this doesn't work as expected because the whole system of bactrack is based on index instead of set and only
+						set. So when we put a specific value to a variable we need to reorganize the index and the list
+						this second part of reorganizing doesn't work as expected and it didn't give full solution
+						and just a partial set of solution.
+
+						if (domainVariable.get(var).size() == 1) {
 							car.put(var, getValue(var));
 							if (!doTest(car)) {
-								domainVariable.put(var, new HashSet<>(var.getDomain()));			this doesn't work as expected
-								car.remove(var);													because the whole system of bactrack
-								return false;														is based on index instead of set and only
-							} else {																set. So when we put a specific value to a variable
-								unusedVariables.remove(var);										we need to reorganize the index and the list
-								unusedVariables.add(1, var);										this second part of reorganizing doesn't work
-								index++;															as expected and it didn't give full solution
-								System.out.println(unusedVariables);								and just a partial set of solution.
+								domainVariable.put(var, new HashSet<>(var.getDomain()));
+								car.remove(var);
+								return false;
+							} else {
+								unusedVariables.remove(var);
+								unusedVariables.add(1, var);
+								index++;
+								System.out.println(unusedVariables);
 							}
 						}*/
 					}

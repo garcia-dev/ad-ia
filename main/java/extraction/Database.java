@@ -35,7 +35,7 @@ public class Database {
 
 		// Creating the boolean variables based on the variable + their value
 		variableList.forEach(variable -> variable.getDomain().forEach(value -> booleanVariableList.add(
-				new Variable(variable.getName() + "_" + value, Set.of("0", "1")))));
+				new Variable(variable.getName() + "_" + value, new HashSet(Arrays.asList("0", "1"))))));
 
 		// Creating the booleanTransactionList
 		transactionList.forEach(transaction -> {

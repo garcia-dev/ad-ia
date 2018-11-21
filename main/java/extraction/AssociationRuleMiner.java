@@ -65,7 +65,7 @@ public class AssociationRuleMiner {
 							!subsetsList.get(j).containsAll(subsetsList.get(i)) &&
 							Collections.disjoint(subsetsList.get(i), subsetsList.get(j))) {
 						List<Set<Variable>> variableSetList =
-								new ArrayList<>(List.of(subsetsList.get(i), subsetsList.get(j)));
+								new ArrayList<>(Arrays.asList(subsetsList.get(i), subsetsList.get(j)));
 
 						Set<Variable> test = new HashSet<>();
 						test.addAll(subsetsList.get(i));
@@ -73,7 +73,7 @@ public class AssociationRuleMiner {
 
 						// Adding the pair into the map, with its Frequency and Trust value
 						associationRuleMap.put(variableSetList,
-								List.of(frequentItemsets.get(test),
+								Arrays.asList(frequentItemsets.get(test),
 										frequentItemsets.get(test) / frequentItemsets.get(subsetsList.get(i))));
 
 						// Adding the pair reverse into the map, with its Frequency and Trust value
@@ -81,7 +81,7 @@ public class AssociationRuleMiner {
 								variableSetList.size()).mapToObj(s ->
 										variableSetList.get(variableSetList.size() - 1 - s))
 										.collect(Collectors.toList()),
-								List.of(frequentItemsets.get(test),
+								Arrays.asList(frequentItemsets.get(test),
 										frequentItemsets.get(test) / frequentItemsets.get(subsetsList.get(j))));
 					}
 		}
