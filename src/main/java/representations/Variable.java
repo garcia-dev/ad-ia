@@ -44,6 +44,15 @@ public class Variable {
 	}
 
 	/**
+	 * Sets this domain.
+	 *
+	 * @param domain the domain to be set
+	 */
+	public void setDomain(Set<String> domain) {
+		this.domain = domain;
+	}
+
+	/**
 	 * Returns the string representation of this {@code Variable}.
 	 *
 	 * @return the string representation of this {@code Variable}

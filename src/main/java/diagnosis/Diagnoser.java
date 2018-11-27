@@ -5,6 +5,7 @@ import representations.Constraint;
 import representations.Variable;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -26,11 +27,33 @@ public class Diagnoser {
 		variables.remove(variable);
 	}
 
+	private Map<Variable, String> reduceDomains(Map<Variable, String> choices) {
+		for (Map.Entry<Variable, String> assignedVariable : choices.entrySet()) {
+			Variable variable = assignedVariable.getKey();
+			String value = assignedVariable.getValue();
+
+			Set<String> toRemove = new HashSet<>();
+
+			// Parse the domain of the current assignedVariable
+			for (String domainValue : variable.getDomain()) {
+				if (!domainValue.equals(value)) {
+					toRemove.add(value);
+				}
+			}
+
+			variable.getDomain().removeAll(toRemove);
+		}
+
+		return choices;
+	}
+
 	public boolean isExplanation(Map<Variable, String> explanationVariables, Variable variable, String value) {
 		Backtracking backtracking = new Backtracking(variables.keySet(), constraints);
 
+
 		Map<Variable, String> vars = new HashMap<>(explanationVariables);
 		vars.put(variable, value);
+		vars = reduceDomains(vars);
 
 		System.out.println("CSP Solution: " + backtracking.solution());
 
