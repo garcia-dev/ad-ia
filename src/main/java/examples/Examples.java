@@ -7,11 +7,11 @@ import java.util.*;
 public class Examples {
 
 	// Colors domain
-	private static final Set<String> COLORS =
-			new HashSet<>(Arrays.asList("black", "red", "green", "blue"));
+	public static final Set<String> COLORS =
+			new HashSet<>(Arrays.asList("black", "blue", "red"));
 
 	// Boolean domain
-	private static final Set<String> BOOLEANS =
+	public static final Set<String> BOOLEANS =
 			new HashSet<>(Arrays.asList("true", "false"));
 
 	// Color variables

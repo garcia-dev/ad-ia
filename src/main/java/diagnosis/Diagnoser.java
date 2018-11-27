@@ -26,9 +26,8 @@ public class Diagnoser {
 		variables.remove(variable);
 	}
 
-	private boolean isExplanation(Map<Variable, String> explanationVariables, Variable variable, String value) {
+	public boolean isExplanation(Map<Variable, String> explanationVariables, Variable variable, String value) {
 		Backtracking backtracking = new Backtracking(variables.keySet(), constraints);
-		// TODO: redéfinir les domaines en fonction de la valeur de chaque variable (var.setDomain)
 
 		Map<Variable, String> vars = new HashMap<>(explanationVariables);
 		vars.put(variable, value);

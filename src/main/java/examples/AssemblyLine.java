@@ -4,10 +4,7 @@ import planning.Action;
 import planning.State;
 import representations.Variable;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class AssemblyLine {
 
@@ -49,31 +46,31 @@ public class AssemblyLine {
 	public static final Variable ROOF_COLOR = new Variable("ROOF_COLOR", ALL_COLORS);
 
 	// Variables definitions
-	public static final HashMap<Variable, String> CHASSIS_INSTALLATION = new HashMap<>();
-	public static final HashMap<Variable, String> FRONT_LEFT_WHEEL_INSTALLATION = new HashMap<>();
-	public static final HashMap<Variable, String> FRONT_RIGHT_WHEEL_INSTALLATION = new HashMap<>();
-	public static final HashMap<Variable, String> REAR_LEFT_WHEEL_INSTALLATION = new HashMap<>();
-	public static final HashMap<Variable, String> REAR_RIGHT_WHEEL_INSTALLATION = new HashMap<>();
-	public static final HashMap<Variable, String> BODY_INSTALLATION = new HashMap<>();
+	public static final Map<Variable, String> CHASSIS_INSTALLATION = new HashMap<>();
+	public static final Map<Variable, String> FRONT_LEFT_WHEEL_INSTALLATION = new HashMap<>();
+	public static final Map<Variable, String> FRONT_RIGHT_WHEEL_INSTALLATION = new HashMap<>();
+	public static final Map<Variable, String> REAR_LEFT_WHEEL_INSTALLATION = new HashMap<>();
+	public static final Map<Variable, String> REAR_RIGHT_WHEEL_INSTALLATION = new HashMap<>();
+	public static final Map<Variable, String> BODY_INSTALLATION = new HashMap<>();
 
-	public static final HashMap<Variable, String> LEFT_WHEELS_INSTALLATION = new HashMap<>();
-	public static final HashMap<Variable, String> RIGHT_WHEELS_INSTALLATION = new HashMap<>();
-	public static final HashMap<Variable, String> REAR_WHEELS_INSTALLATION = new HashMap<>();
-	public static final HashMap<Variable, String> FRONT_WHEELS_INSTALLATION = new HashMap<>();
+	public static final Map<Variable, String> LEFT_WHEELS_INSTALLATION = new HashMap<>();
+	public static final Map<Variable, String> RIGHT_WHEELS_INSTALLATION = new HashMap<>();
+	public static final Map<Variable, String> REAR_WHEELS_INSTALLATION = new HashMap<>();
+	public static final Map<Variable, String> FRONT_WHEELS_INSTALLATION = new HashMap<>();
 
-	public static final HashMap<Variable, String> ROOF_PAINTING_GRAY = new HashMap<>();
-	public static final HashMap<Variable, String> ROOF_PAINTING_BLACK = new HashMap<>();
-	public static final HashMap<Variable, String> ROOF_PAINTING_WHITE = new HashMap<>();
-	public static final HashMap<Variable, String> ROOF_PAINTING_RED = new HashMap<>();
-	public static final HashMap<Variable, String> ROOF_PAINTING_GREEN = new HashMap<>();
-	public static final HashMap<Variable, String> ROOF_PAINTING_BLUE = new HashMap<>();
-	public static final HashMap<Variable, String> ROOF_PAINTING_ORANGE = new HashMap<>();
-	public static final HashMap<Variable, String> ROOF_PAINTING_YELLOW = new HashMap<>();
+	public static final Map<Variable, String> ROOF_PAINTING_GRAY = new HashMap<>();
+	public static final Map<Variable, String> ROOF_PAINTING_BLACK = new HashMap<>();
+	public static final Map<Variable, String> ROOF_PAINTING_WHITE = new HashMap<>();
+	public static final Map<Variable, String> ROOF_PAINTING_RED = new HashMap<>();
+	public static final Map<Variable, String> ROOF_PAINTING_GREEN = new HashMap<>();
+	public static final Map<Variable, String> ROOF_PAINTING_BLUE = new HashMap<>();
+	public static final Map<Variable, String> ROOF_PAINTING_ORANGE = new HashMap<>();
+	public static final Map<Variable, String> ROOF_PAINTING_YELLOW = new HashMap<>();
 
-	public static final HashMap<Variable, String> FRONT_PAINTING = new HashMap<>();
-	public static final HashMap<Variable, String> LEFT_PAINTING = new HashMap<>();
-	public static final HashMap<Variable, String> REAR_PAINTING = new HashMap<>();
-	public static final HashMap<Variable, String> RIGHT_PAINTING = new HashMap<>();
+	public static final Map<Variable, String> FRONT_PAINTING = new HashMap<>();
+	public static final Map<Variable, String> LEFT_PAINTING = new HashMap<>();
+	public static final Map<Variable, String> REAR_PAINTING = new HashMap<>();
+	public static final Map<Variable, String> RIGHT_PAINTING = new HashMap<>();
 
 	// Variables assignments
 	static {

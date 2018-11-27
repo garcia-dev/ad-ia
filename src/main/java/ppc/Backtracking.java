@@ -13,9 +13,9 @@ public class Backtracking {
 	private List<Variable> unusedVariables;
 
 	private Map<Variable, Set<String>> variableDomain;
-	private List<HashMap<Variable, String>> precCar;
+	private List<Map<Variable, String>> precCar;
 
-	private HashMap<Variable, String> assignment = null;
+	private Map<Variable, String> assignment = null;
 	private int index = 0;
 
 	/**
@@ -48,36 +48,56 @@ public class Backtracking {
 	 * @return an assignment completely built or null if there is no others
 	 * solution
 	 */
-	private HashMap<Variable, String> solution(HashMap<Variable, String> assignment) {
+	public Map<Variable, String> solution(Map<Variable, String> assignment) {
 		if (index < unusedVariables.size() && index >= 0) {
-			String nextValue = getValue(unusedVariables.get(index)); // compute the next value return "" if there is no more value
+
+			// Compute the next value, returns "" if there is no more value
+			String nextValue = getValue(unusedVariables.get(index));
+
 			if (nextValue.equals("")) {
 				index = index - 1;
-				return solution(assignment); // no other value in the domain so go back
+
+				// There is no more value in the domain so go back
+				return solution(assignment);
 			} else {
 				assignment.put(unusedVariables.get(index), nextValue);
-				if (doTest(assignment)) {
-					if (filterDomain(assignment, variableDomain)) {
-						index++; // the test is currently successful like the filtering so go ahead to add an other variable
-					} else {
-						index--; // the filtering isn't good so go back
-					}
+				if (verifiesConstraints(assignment)) {
+//					if (filterDomain(assignment, variableDomain)) {
+//
+//						// The test is currently successful like the filtering
+//						// so go ahead to add an other variable
+//						index++;
+//					} else {
+//
+//						// The filtering isn't successful so go back
+//						index--;
+//					}
+					index++;
 					return solution(assignment);
 				} else {
-					return solution(assignment); // there is other value in the domain so try to test another one
+
+					// There are other values in the domain so try to test another one
+					return solution(assignment);
 				}
 			}
 
 		} else {
 			if (index < 0) {
-				return null; // there is no other solution so we return null
+
+				// There is no other solution so we return null
+				return null;
 			}
 			if (alreadyGave(assignment)) {
 				index = index - 1;
-				return solution(assignment); // assignment has been already made so we go back to try to make another one
+
+				// The assignment has already been made so we go back to try to
+				// make another one
+				return solution(assignment);
 			}
 
-			precCar.add(new HashMap<>(assignment)); //the creation of the assignment is currently sucesfull so we add it to the list of assignment made by the ppc and we return it
+			// The creation of the assignment is currently successful so we add
+			// it to the list of assignments made by the ppc and we return it
+			precCar.add(new HashMap<>(assignment));
 			return assignment;
 
 		}
@@ -89,7 +109,7 @@ public class Backtracking {
 	 *
 	 * @return the next solution or {@code null} if there is no other solution.
 	 */
-	public HashMap<Variable, String> solution() {
+	public Map<Variable, String> solution() {
 		if (assignment == null) {
 			assignment = solution(new HashMap<>());
 			return assignment;
@@ -125,16 +145,17 @@ public class Backtracking {
 	}
 
 	/**
-	 * Returns {@code true} if the given assignment respects the given
-	 * constraint.
+	 * Returns {@code true} if the given assignment satisfies all the
+	 * constraints it's involved in.
 	 *
 	 * @param assignment the assignment to be tested
-	 * @return {@code true} if the assignment respects the given constraint ;
-	 * {@code false} otherwise
+	 * @return {@code true} if the given assignment satisfies all the
+	 * constraints it's involved in ; {@code false} otherwise
 	 */
-	private boolean doTest(Map<Variable, String> assignment) {
-		for (Constraint c : this.constraints) {
-			if (assignment.keySet().containsAll(c.getScope()) && !c.isSatisfiedBy(assignment)) {
+	private boolean verifiesConstraints(Map<Variable, String> assignment) {
+		for (Constraint constraint : constraints) {
+			if (assignment.keySet().containsAll(constraint.getScope())
+					&& !constraint.isSatisfiedBy(assignment)) {
 				return false;
 			}
 		}
@@ -148,7 +169,7 @@ public class Backtracking {
 	 * @return {@code true} if the assignment has already been made ; false
 	 * otherwise
 	 */
-	private boolean alreadyGave(HashMap<Variable, String> assignment) {
+	private boolean alreadyGave(Map<Variable, String> assignment) {
 		return this.precCar.contains(assignment);
 	}
 
@@ -164,29 +185,29 @@ public class Backtracking {
 	 * it takes only 3 recursions to find the first solution (1 for the color, 1
 	 * for the sono and another 1 for the opening roof).
 	 *
-	 * @param car            the assignment in construction
+	 * @param assignment     the assignment in construction
 	 * @param variableDomain the domain of each variable to be set on the
 	 *                       assignment
 	 * @return {@code true} if the filtering has been sucessful ; {@code false}
 	 * otherwise
 	 */
-	private boolean filterDomain(Map<Variable, String> car, Map<Variable, Set<String>> variableDomain) {
+	private boolean filterDomain(Map<Variable, String> assignment, Map<Variable, Set<String>> variableDomain) {
 		ArrayList<Variable> toReorganize = new ArrayList<>();
 		boolean hasFiltered = true;
 		while (hasFiltered) {
 			hasFiltered = false;
-			for (Constraint c : this.constraints) {
-				hasFiltered |= c.filter(car, variableDomain);
+			for (Constraint constraint : constraints) {
+				hasFiltered |= constraint.filter(assignment, variableDomain);
 				if (hasFiltered) {
-					for (representations.Variable var : c.getScope()) {
+					for (representations.Variable var : constraint.getScope()) {
 						if (variableDomain.get(var).size() == 0) {
 							return false;
 						}
 
 						/*
-						 * The code below doesn't work as expected because the whole
-						 * system of the backtracking is based on an index
-						 * instead of set and only set. So when we put a
+						 * The code below doesn't work as expected because the
+						 * whole system of the backtracking is based on an index
+						 * instead of a set and only a set. So when we put a
 						 * specific value to a variable, we need to reorganize
 						 * the index and the list ; this second part of
 						 * reorganization doesn't work as expected and it didn't
@@ -195,7 +216,7 @@ public class Backtracking {
 						 */
 						//if (variableDomain.get(var).size() == 1) {
 						//	assignment.put(var, getValue(var));
-						//	if (!doTest(assignment)) {
+						//	if (!verifiesConstraints(assignment)) {
 						//		variableDomain.put(var, new HashSet<>(var.getDomain()));
 						//		assignment.remove(var);
 						//		return false;
