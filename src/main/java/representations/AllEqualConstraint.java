@@ -8,10 +8,19 @@ public class AllEqualConstraint implements Constraint {
 
 	private Set<Variable> variables;
 
+	/**
+	 * Constructs a new {@code AllEqualConstraint} with a given set of {@code
+	 * Variable}.
+	 *
+	 * @param variables the set of {@code Variable}
+	 */
 	public AllEqualConstraint(Set<Variable> variables) {
 		this.variables = variables;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Set<Variable> getScope() {
 		return variables;

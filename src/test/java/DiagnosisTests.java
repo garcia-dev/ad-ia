@@ -16,7 +16,8 @@ public class DiagnosisTests {
 		diagnoser.add(Examples.TAILGATE_COLOR, "red");
 
 		//System.out.println(diagnoser.isExplanation(diagnoser.getVariables(), Examples.LEFT_SIDE_COLOR, "black"));
-		System.out.println(diagnoser.explanation(Examples.LEFT_SIDE_COLOR, "black"));
+		System.out.println("Diagnoser explanation: "
+				+ diagnoser.explanation(Examples.LEFT_SIDE_COLOR, "black"));
 
 	}
 

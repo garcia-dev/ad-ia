@@ -19,36 +19,35 @@ public class Diagnoser {
 	}
 
 	public void add(Variable variable, String value) {
-		this.variables.put(variable, value);
+		variables.put(variable, value);
 	}
 
 	public void remove(Variable variable) {
-		this.variables.remove(variable);
+		variables.remove(variable);
 	}
 
-	public boolean isExplanation(Map<Variable, String> variables, Variable variable, String value) {
-		Backtracking backtracking = new Backtracking(this.variables.keySet(), this.constraints);
+	private boolean isExplanation(Map<Variable, String> explanationVariables, Variable variable, String value) {
+		Backtracking backtracking = new Backtracking(variables.keySet(), constraints);
 		// TODO: redéfinir les domaines en fonction de la valeur de chaque variable (var.setDomain)
 
-		Map<Variable, String> vars = new HashMap<>(variables);
+		Map<Variable, String> vars = new HashMap<>(explanationVariables);
 		vars.put(variable, value);
 
-		System.out.println("Solution: " + backtracking.solution());
+		System.out.println("CSP Solution: " + backtracking.solution());
 
-		return this.variables.entrySet().containsAll(variables.entrySet())
+		return variables.entrySet().containsAll(vars.entrySet())
 				&& backtracking.solution().isEmpty();
 	}
 
 	public Map<Variable, String> explanation(Variable variable, String value) {
-		Map<Variable, String> choicesToExplore = this.variables;
-		Map<Variable, String> explanation = new HashMap<>(this.variables);
+		Map<Variable, String> choicesToExplore = variables;
+		Map<Variable, String> explanation = new HashMap<>(variables);
 
 		for (Map.Entry<Variable, String> entry : choicesToExplore.entrySet()) {
-			Variable var = entry.getKey();
-			//String val = entry.getValue();
+			Variable exploredVariable = entry.getKey();
 
 			Map<Variable, String> explanationBuffer = new HashMap<>(explanation);
-			explanationBuffer.remove(var);
+			explanationBuffer.remove(exploredVariable);
 
 
 			if (isExplanation(explanationBuffer, variable, value)) {

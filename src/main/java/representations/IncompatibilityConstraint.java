@@ -22,8 +22,9 @@ public class IncompatibilityConstraint implements Constraint {
 	public boolean isSatisfiedBy(Map<Variable, String> assignment) {
 		boolean test = true;
 
-		for (Variable var : variables.keySet())
-			test &= variables.get(var).equals(assignment.get(var));
+		for (Variable variable : variables.keySet()) {
+			test &= variables.get(variable).equals(assignment.get(variable));
+		}
 
 		return !test;
 	}
