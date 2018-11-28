@@ -16,10 +16,10 @@ public class Diagnoser {
 
 
 	/**
-	 * Constructs a new {@code Diagnoser}
+	 * Constructs a new {@code Diagnoser}.
 	 *
-	 * @param variables   the variables to diagnose
-	 * @param constraints the constraints to diagnose
+	 * @param variables   the variables useful for the diagnosis
+	 * @param constraints the constraints useful for the diagnosis
 	 */
 	public Diagnoser(Map<Variable, String> variables, Set<Constraint> constraints) {
 		this.variables = variables;
@@ -27,10 +27,11 @@ public class Diagnoser {
 	}
 
 	/**
-	 * Adds a variable and its value to this {@code Diagnoser}.
+	 * Adds a variable and its value (assignment) to the variables of this
+	 * {@code Diagnoser}.
 	 *
 	 * @param variable the variable to be added
-	 * @param value    the value to be added
+	 * @param value    the value of the variable to be added
 	 */
 	public void add(Variable variable, String value) {
 		variables.put(variable, value);
@@ -46,27 +47,27 @@ public class Diagnoser {
 	}
 
 	/**
-	 * Returns the choices which the domains were reduced to according to their
+	 * Returns the choices which the domains were reduced to, according to their
 	 * assignments.
 	 *
 	 * @param choices the choices which the domains are to be reduced to
 	 * @return the choices which the domains were reduced to
 	 */
 	private Map<Variable, String> reduceDomains(Map<Variable, String> choices) {
-		for (Map.Entry<Variable, String> assignedVariable : choices.entrySet()) {
-			Variable variable = assignedVariable.getKey();
-			String value = assignedVariable.getValue();
+		for (Map.Entry<Variable, String> choice : choices.entrySet()) {
+			Variable variable = choice.getKey();
+			String value = choice.getValue();
 
-			Set<String> toRemove = new HashSet<>();
+			Set<String> valuesToRemove = new HashSet<>();
 
-			// Parse the domain of the current assignedVariable
+			// Parse the domain of the current choice
 			for (String domainValue : variable.getDomain()) {
 				if (!domainValue.equals(value)) {
-					toRemove.add(value);
+					valuesToRemove.add(value);
 				}
 			}
 
-			variable.getDomain().removeAll(toRemove);
+			variable.getDomain().removeAll(valuesToRemove);
 		}
 
 		return choices;
@@ -74,19 +75,19 @@ public class Diagnoser {
 
 	/**
 	 * Returns {@code true} if the couple (variable, value) is an explanation
-	 * for explanationVariables.
+	 * for the given choices.
 	 *
-	 * @param explanationVariables the variables to be diagnosed
-	 * @param variable             the variable to be tested
-	 * @param value                the value of the variable to be tested
+	 * @param choices  the variables to be diagnosed
+	 * @param variable the variable to be tested
+	 * @param value    the value of the variable to be tested
 	 * @return {@code true} if the couple (variable, value) is an explanation
-	 * for explanationVariables
+	 * for the given choices
 	 */
-	public boolean isExplanation(Map<Variable, String> explanationVariables, Variable variable, String value) {
+	public boolean isExplanation(Map<Variable, String> choices, Variable variable, String value) {
 		Backtracking backtracking = new Backtracking(variables.keySet(), constraints);
 
 
-		Map<Variable, String> vars = new HashMap<>(explanationVariables);
+		Map<Variable, String> vars = new HashMap<>(choices);
 		vars.put(variable, value);
 		vars = reduceDomains(vars);
 
@@ -107,8 +108,8 @@ public class Diagnoser {
 		Map<Variable, String> choicesToExplore = variables;
 		Map<Variable, String> explanation = new HashMap<>(variables);
 
-		for (Map.Entry<Variable, String> entry : choicesToExplore.entrySet()) {
-			Variable exploredVariable = entry.getKey();
+		for (Map.Entry<Variable, String> choice : choicesToExplore.entrySet()) {
+			Variable exploredVariable = choice.getKey();
 
 			Map<Variable, String> explanationBuffer = new HashMap<>(explanation);
 			explanationBuffer.remove(exploredVariable);
