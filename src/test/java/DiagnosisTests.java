@@ -1,8 +1,5 @@
 import diagnosis.Diagnoser;
 import examples.Examples;
-import representations.Constraint;
-import representations.Rule;
-import representations.Variable;
 
 import java.util.*;
 

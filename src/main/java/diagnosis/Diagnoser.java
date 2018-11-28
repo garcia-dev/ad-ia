@@ -14,19 +14,44 @@ public class Diagnoser {
 	private Map<Variable, String> variables;
 	private Set<Constraint> constraints;
 
+
+	/**
+	 * Constructs a new {@code Diagnoser}
+	 *
+	 * @param variables   the variables to diagnose
+	 * @param constraints the constraints to diagnose
+	 */
 	public Diagnoser(Map<Variable, String> variables, Set<Constraint> constraints) {
 		this.variables = variables;
 		this.constraints = constraints;
 	}
 
+	/**
+	 * Adds a variable and its value to this {@code Diagnoser}.
+	 *
+	 * @param variable the variable to be added
+	 * @param value    the value to be added
+	 */
 	public void add(Variable variable, String value) {
 		variables.put(variable, value);
 	}
 
+	/**
+	 * Removes a variable from this {@code Diagnoser}.
+	 *
+	 * @param variable the variable to be removed
+	 */
 	public void remove(Variable variable) {
 		variables.remove(variable);
 	}
 
+	/**
+	 * Returns the choices which the domains were reduced to according to their
+	 * assignments.
+	 *
+	 * @param choices the choices which the domains are to be reduced to
+	 * @return the choices which the domains were reduced to
+	 */
 	private Map<Variable, String> reduceDomains(Map<Variable, String> choices) {
 		for (Map.Entry<Variable, String> assignedVariable : choices.entrySet()) {
 			Variable variable = assignedVariable.getKey();
@@ -47,6 +72,16 @@ public class Diagnoser {
 		return choices;
 	}
 
+	/**
+	 * Returns {@code true} if the couple (variable, value) is an explanation
+	 * for explanationVariables.
+	 *
+	 * @param explanationVariables the variables to be diagnosed
+	 * @param variable             the variable to be tested
+	 * @param value                the value of the variable to be tested
+	 * @return {@code true} if the couple (variable, value) is an explanation
+	 * for explanationVariables
+	 */
 	public boolean isExplanation(Map<Variable, String> explanationVariables, Variable variable, String value) {
 		Backtracking backtracking = new Backtracking(variables.keySet(), constraints);
 
@@ -61,6 +96,13 @@ public class Diagnoser {
 				&& backtracking.solution().isEmpty();
 	}
 
+	/**
+	 * Returns an explanation for the couple (variable, value).
+	 *
+	 * @param variable the variable to be tested
+	 * @param value    the value of the variable to be tested
+	 * @return an explanation for the couple (variable, value)
+	 */
 	public Map<Variable, String> explanation(Variable variable, String value) {
 		Map<Variable, String> choicesToExplore = variables;
 		Map<Variable, String> explanation = new HashMap<>(variables);
@@ -80,6 +122,11 @@ public class Diagnoser {
 		return explanation;
 	}
 
+	/**
+	 * Returns these variables.
+	 *
+	 * @return these variables
+	 */
 	public Map<Variable, String> getVariables() {
 		return variables;
 	}
