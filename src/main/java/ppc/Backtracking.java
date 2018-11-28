@@ -62,16 +62,7 @@ public class Backtracking {
 			} else {
 				assignment.put(unusedVariables.get(index), nextValue);
 				if (verifiesConstraints(assignment)) {
-//					if (filterDomain(assignment, variableDomain)) {
-//
-//						// The test is currently successful like the filtering
-//						// so go ahead to add an other variable
-//						index++;
-//					} else {
-//
-//						// The filtering isn't successful so go back
-//						index--;
-//					}
+					filterDomain(assignment, variableDomain);
 					index++;
 					return solution(assignment);
 				} else {
@@ -211,8 +202,8 @@ public class Backtracking {
 						 * specific value to a variable, we need to reorganize
 						 * the index and the list ; this second part of
 						 * reorganization doesn't work as expected and it didn't
-						 * give a full solution but just a partial set of a
-						 * solution.
+						 * give a full solution but just a partial set of
+						 * solutions.
 						 */
 						//if (variableDomain.get(var).size() == 1) {
 						//	assignment.put(var, getValue(var));

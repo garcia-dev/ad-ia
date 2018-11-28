@@ -67,6 +67,8 @@ public class BacktrackingTests {
 
 	private static void backtrack() {
 		int numberOfSolutions = 0;
+		long startTime = System.currentTimeMillis();
+
 		Backtracking backtracking = new Backtracking(Examples.getVariables(),
 													 Examples.getConstraints());
 
@@ -77,7 +79,11 @@ public class BacktrackingTests {
 			car = backtracking.solution();
 		}
 
-		System.out.println("\nNumber of solutions = " + numberOfSolutions);
+		System.out.println("\nNumber of solutions: " + numberOfSolutions);
+
+		long endTime = System.currentTimeMillis();
+		System.out.println("Total elapsed time in execution for the backtracking:" + (endTime - startTime));
+
 	}
 
 	private static void printCar(Map<Variable, String> car) {
