@@ -1,15 +1,11 @@
 package extraction;
 
+import representations.Variable;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import representations.Variable;
+import java.util.*;
 
 public class DBReader {
 
@@ -69,5 +65,4 @@ public class DBReader {
 		}
 		return new Database(orderedVariables, instances);
 	}
-
 }

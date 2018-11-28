@@ -78,7 +78,7 @@ public class Backtracking {
 				// There is no other solution so we return null
 				return null;
 			}
-			if (alreadyGave(assignment)) {
+			if (alreadyMade(assignment)) {
 				index = index - 1;
 
 				// The assignment has already been made so we go back to try to
@@ -160,7 +160,7 @@ public class Backtracking {
 	 * @return {@code true} if the assignment has already been made ; false
 	 * otherwise
 	 */
-	private boolean alreadyGave(Map<Variable, String> assignment) {
+	private boolean alreadyMade(Map<Variable, String> assignment) {
 		return this.precCar.contains(assignment);
 	}
 
