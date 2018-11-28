@@ -53,10 +53,8 @@ public class Backtracking {
 			} else {
 				car.put(unusedVariables.get(index), nextValue);
 				if (doTest(car)) {
-					if(filterDomain(car, variableDomain))
-						this.index++; //the test is currently successful like the filtering so go ahead to add an other variable
-					else
-						this.index--; //the filtering isn't good so go back
+					filterDomain(car, variableDomain);
+                    this.index++; //the test is currently successful like the filtering so go ahead to add an other variable
 					return solution(car);
 				} else {
 					return solution(car); // there is other value in the domain so try to test another one

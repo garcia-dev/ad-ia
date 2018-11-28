@@ -51,8 +51,6 @@ public class Examples {
 		constraint1Assignment.add(roofColor);
 		constraint1Assignment.add(hoodColor);
 		constraint1Assignment.add(tailgateColor);
-		constraint1Assignment.add(leftSideColor);
-		constraint1Assignment.add(rightSideColor);
 
 		/*
 		 * Constraint verifying that at least one side is the same color as the

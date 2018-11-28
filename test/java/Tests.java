@@ -37,7 +37,7 @@ class Tests {
 
 		/* Simple tests */
 
-/*		if (examples.getConstraint1().isSatisfiedBy(car1)) {
+		if (examples.getConstraint1().isSatisfiedBy(car1)) {
 			System.out.println("The first constraint is satisfied by the first car.");
 		} else {
 			System.out.println("There is something wrong with the first constraint.");
@@ -70,8 +70,8 @@ class Tests {
 		int sol = 0;
 		long startTime = System.currentTimeMillis();
 
-		//Backtracking backtracking = new Backtracking(examples.getConstraints(),examples.getVariables());
-		Backtracking backtracking = new Backtracking(new HashSet<>(Arrays.asList(examples.getConstraint1())),examples.getVariables());
+		Backtracking backtracking = new Backtracking(examples.getConstraints(),examples.getVariables());
+		//Backtracking backtracking = new Backtracking(new HashSet<>(Arrays.asList(examples.getConstraint1())),examples.getVariables());
 
 		HashMap<Variable, String> car = backtracking.solution();
 		while (car != null) {
