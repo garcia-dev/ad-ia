@@ -5,7 +5,7 @@ import representations.Variable;
 
 import java.util.*;
 
-class ExtractionSimpleAlgorithmText {
+class ExtractionSimpleAlgorithmTest {
 
 	/* Boolean domain */
 	private static final Set<String> BOOLEANS = new HashSet<>(Arrays.asList("0", "1"));
