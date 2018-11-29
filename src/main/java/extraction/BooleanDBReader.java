@@ -3,6 +3,7 @@ package extraction;
 import representations.Variable;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -12,7 +13,7 @@ import java.util.stream.Stream;
 /**
  * BooleanDBReader's class
  * <p>
- * The BooleanDBReader's class is a class reading a database under csv format and creates its boolean database.
+ * The class BooleanDBReader reads a database under csv format and creates its boolean database.
  * </p>
  *
  * @author DORANGE Martin, GARCIA Romain, QUERRÉ Maël, WILLIAMSON Christina
@@ -21,7 +22,7 @@ import java.util.stream.Stream;
  */
 
 public class BooleanDBReader {
-	private List<Variable> booleanVariableList;
+	private final List<Variable> booleanVariableList;
 
 	public BooleanDBReader(List<Variable> booleanVariableList) {
 		this.booleanVariableList = booleanVariableList;
@@ -42,16 +43,16 @@ public class BooleanDBReader {
 
 		// Getting all variables used in the file database
 		try {
-			variableNameList.addAll(Arrays.asList(Files.lines(Paths.get(fileURI))
+			variableNameList.addAll(Arrays.asList(Files.lines(Paths.get(ClassLoader.getSystemResource(fileURI).toURI()))
 					.map(line -> line.split(";")).findFirst().get()));
-		} catch (IOException e) {
+		} catch (IOException | URISyntaxException e) {
 			e.printStackTrace();
 		}
 
 		// Splitting the file lines into a List, skipping the header line
-		try (Stream<String> stream = Files.lines(Paths.get(fileURI)).skip(1)) {
+		try (Stream<String> stream = Files.lines(Paths.get(ClassLoader.getSystemResource(fileURI).toURI())).skip(1)) {
 			stream.forEach(line -> transactionValuesList.add(Arrays.asList(line.split(";"))));
-		} catch (IOException e) {
+		} catch (IOException | URISyntaxException e) {
 			e.printStackTrace();
 		}
 

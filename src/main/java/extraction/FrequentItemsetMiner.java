@@ -16,7 +16,7 @@ import java.util.*;
  */
 
 public class FrequentItemsetMiner {
-	private BooleanDatabase booleanDatabase;
+	private final BooleanDatabase booleanDatabase;
 
 	public FrequentItemsetMiner(BooleanDatabase booleanDatabase) {
 		this.booleanDatabase = booleanDatabase;
@@ -31,10 +31,10 @@ public class FrequentItemsetMiner {
 	public Map<Set<Variable>, Double> frequentItemsets(Double minimalSupport) {
 		Map<Set<Variable>, Double> frequentItemset = new HashMap<>();
 
-		List<Set<Variable>> subsetsList = new ArrayList<>();
+		List<Set<Variable>> subsetsList = null;
 
 		// For each transaction, we're focusing on the variable with a value of '1'
-		booleanDatabase.getTransactionList().forEach(map -> {
+		for (Map<Variable, String> map : booleanDatabase.getTransactionList()) {
 			List<Variable> trueVariableList = new ArrayList<>();
 
 			map.forEach((key, value) -> {
@@ -43,29 +43,21 @@ public class FrequentItemsetMiner {
 			});
 
 			// Generating every subsets
-			double subsetsNumber = Math.pow(2, trueVariableList.size());
-
-			for (int i = 1; i < subsetsNumber; i++) {
-				Set<Variable> subset = new HashSet<>();
-
-				for (int j = 0; j < trueVariableList.size(); j++)
-					if ((i & (1 << j)) != 0)
-						subset.add(trueVariableList.get(j));
-
-				subsetsList.add(subset);
-			}
-		});
+			subsetsList = Powerset.calcPowerSet(trueVariableList);
+		}
 
 		/*
 			For each subset we're checking if the frequency/support value is higher than the minimal value, if it is
 			we're putting it into the frequentItemset
 		 */
-		subsetsList.forEach(subset -> {
-			double support = (double) Collections.frequency(subsetsList, subset) / booleanDatabase.getTransactionList().size();
+		if (subsetsList != null) {
+			for (Set<Variable> subset : subsetsList) {
+				double support = (double) Collections.frequency(subsetsList, subset) / booleanDatabase.getTransactionList().size();
 
-			if (support >= minimalSupport)
-				frequentItemset.put(subset, support);
-		});
+				if (support >= minimalSupport)
+					frequentItemset.put(subset, support);
+			}
+		}
 
 		return frequentItemset;
 	}

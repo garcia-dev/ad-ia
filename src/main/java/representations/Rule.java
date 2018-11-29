@@ -5,13 +5,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-/**
- * @author Romain Garcia
- * @version 2018-09-26
- */
-
 public class Rule implements Constraint {
-
 	private Map<Variable, String> premise;
 	private Map<Variable, String> conclusion;
 

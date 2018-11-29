@@ -1,4 +1,4 @@
-import examples.Examples;
+import example.Examples;
 import ppc.Backtracking;
 import representations.Variable;
 

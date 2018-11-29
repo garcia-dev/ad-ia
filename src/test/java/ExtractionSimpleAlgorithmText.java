@@ -10,16 +10,16 @@ class ExtractionSimpleAlgorithmText {
 	/* Boolean domain */
 	private static final Set<String> BOOLEANS = new HashSet<>(Arrays.asList("0", "1"));
 
-	private static Variable JACKET = new Variable("Jacket", BOOLEANS);
-	private static Variable JEANS = new Variable("Jeans", BOOLEANS);
-	private static Variable SHIRT = new Variable("Shirt", BOOLEANS);
-	private static Variable SHOES = new Variable("Shoes", BOOLEANS);
-	private static Variable SWEAT_SHIRT = new Variable("Sweat-shirt", BOOLEANS);
+	private static final Variable JACKET = new Variable("Jacket", BOOLEANS);
+	private static final Variable JEANS = new Variable("Jeans", BOOLEANS);
+	private static final Variable SHIRT = new Variable("Shirt", BOOLEANS);
+	private static final Variable SHOES = new Variable("Shoes", BOOLEANS);
+	private static final Variable SWEAT_SHIRT = new Variable("Sweat-shirt", BOOLEANS);
 
 	public static void main(String[] args) {
 
 		/* Variables */
-		List<Variable> variables = new ArrayList<>(List.of(JACKET, JEANS, SHIRT, SHOES, SWEAT_SHIRT));
+		List<Variable> variables = new ArrayList<>(Arrays.asList(JACKET, JEANS, SHIRT, SHOES, SWEAT_SHIRT));
 
 		/* Assignments */
 		Map<Variable, String> item1 = new LinkedHashMap<>();
@@ -51,7 +51,7 @@ class ExtractionSimpleAlgorithmText {
 		item4.put(SWEAT_SHIRT, "1");
 
 		/* Transactions */
-		List<Map<Variable, String>> transactions = new ArrayList<>(List.of(item1, item2, item3, item4));
+		List<Map<Variable, String>> transactions = new ArrayList<>(Arrays.asList(item1, item2, item3, item4));
 
 		AssociationRuleMiner associationRuleMiner =
 				new AssociationRuleMiner(new FrequentItemsetMiner(

@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * Database's class
  * <p>
- * The Database's class is a class representing a database.
+ * The class Database represents a database.
  * </p>
  *
  * @author DORANGE Martin, GARCIA Romain, QUERRÉ Maël, WILLIAMSON Christina
@@ -16,12 +16,20 @@ import java.util.*;
  */
 
 public class Database {
-	private List<Variable> variableList;
-	private List<Map<Variable, String>> transactionList;
+	private final List<Variable> variableList;
+	private final List<Map<Variable, String>> transactionList;
 
 	Database(List<Variable> variableList, List<Map<Variable, String>> transactionList) {
 		this.variableList = variableList;
 		this.transactionList = transactionList;
+	}
+
+	public List<Variable> getVariableList() {
+		return variableList;
+	}
+
+	List<Map<Variable, String>> getTransactionList() {
+		return transactionList;
 	}
 
 	/**
@@ -35,7 +43,7 @@ public class Database {
 
 		// Creating the boolean variables based on the variable + their value
 		variableList.forEach(variable -> variable.getDomain().forEach(value -> booleanVariableList.add(
-				new Variable(variable.getName() + "_" + value, Set.of("0", "1")))));
+				new Variable(variable.getName() + "_" + value, new HashSet<>(Arrays.asList("0", "1"))))));
 
 		// Creating the booleanTransactionList
 		transactionList.forEach(transaction -> {
