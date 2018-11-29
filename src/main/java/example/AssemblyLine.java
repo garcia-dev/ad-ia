@@ -53,31 +53,6 @@ public class AssemblyLine {
 
 	/* Roof painting action */
 	private static final Map<String, Action[]> PAINTING_ACTIONS;
-	private static final List<Action> ACTION_LIST = new ArrayList<>(Arrays.asList(
-			INSTALL_CHASSIS,
-			INSTALL_BODY,
-			INSTALL_FRONT_WHEELS,
-			INSTALL_REAR_WHEELS
-	));
-	private static final List<Variable> PART_VARIABLE_LIST = new ArrayList<>(Arrays.asList(
-			HAS_CHASSIS,
-			HAS_BODY,
-			HAS_FRONT_LEFT_WHEEL,
-			HAS_FRONT_RIGHT_WHEEL,
-			HAS_REAR_LEFT_WHEEL,
-			HAS_REAR_RIGHT_WHEEL
-	));
-	private static final List<Variable> COLOR_VARIABLE_LIST = new ArrayList<>(Arrays.asList(
-			FRONT_LEFT_WHEEL_COLOR,
-			FRONT_RIGHT_WHEEL_COLOR,
-			REAR_LEFT_WHEEL_COLOR,
-			REAR_RIGHT_WHEEL_COLOR,
-			FRONT_COLOR,
-			LEFT_COLOR,
-			REAR_COLOR,
-			RIGHT_COLOR,
-			ROOF_COLOR
-	));
 
 	static {
 		/* UNIQUE PARTS INSTALLATION */
@@ -156,6 +131,32 @@ public class AssemblyLine {
 			PAINTING_ACTIONS.put(color, actions);
 		});
 	}
+
+	private static final List<Action> ACTION_LIST = new ArrayList<>(Arrays.asList(
+			INSTALL_CHASSIS,
+			INSTALL_BODY,
+			INSTALL_FRONT_WHEELS,
+			INSTALL_REAR_WHEELS
+	));
+	private static final List<Variable> PART_VARIABLE_LIST = new ArrayList<>(Arrays.asList(
+			HAS_CHASSIS,
+			HAS_BODY,
+			HAS_FRONT_LEFT_WHEEL,
+			HAS_FRONT_RIGHT_WHEEL,
+			HAS_REAR_LEFT_WHEEL,
+			HAS_REAR_RIGHT_WHEEL
+	));
+	private static final List<Variable> COLOR_VARIABLE_LIST = new ArrayList<>(Arrays.asList(
+			FRONT_LEFT_WHEEL_COLOR,
+			FRONT_RIGHT_WHEEL_COLOR,
+			REAR_LEFT_WHEEL_COLOR,
+			REAR_RIGHT_WHEEL_COLOR,
+			FRONT_COLOR,
+			LEFT_COLOR,
+			REAR_COLOR,
+			RIGHT_COLOR,
+			ROOF_COLOR
+	));
 
 	private State initialState;
 
