@@ -18,7 +18,7 @@ import java.util.*;
  * @see BooleanDBReader
  * @see Database
  */
-public class Executable {
+class Executable {
 	// BOOLEAN DOMAIN
 	private static final Set<String> BOOLEANS = new HashSet<>(Arrays.asList("0", "1"));
 
