@@ -14,10 +14,10 @@ class AssemblyLineTest {
 
 		PlanningProblem planningProblem = new PlanningProblem(new State(), goalState, AssemblyLine.getActionList());
 		System.out.println(planningProblem.depthFirstSearch(new State(), new Stack<>(), new ArrayList<>()));
-//		System.out.println(planningProblem.breathFirstSearch());
+		System.out.println(planningProblem.breathFirstSearch());
 
 		PlanningProblemWithCost planningProblemWithCost = new PlanningProblemWithCost(new State(), goalState, AssemblyLine.getActionList());
-//		System.out.println(planningProblemWithCost.dijkstra());
+		System.out.println(planningProblemWithCost.dijkstra());
 		System.out.println(planningProblemWithCost.aStar());
 	}
 }

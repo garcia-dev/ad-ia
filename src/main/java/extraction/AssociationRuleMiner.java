@@ -23,6 +23,10 @@ public class AssociationRuleMiner {
 		this.frequentItemsets = frequentItemsets;
 	}
 
+	public Map<Set<Variable>, Double> getFrequentItemsets() {
+		return frequentItemsets;
+	}
+
 	/**
 	 * Method calculating every association rules possible.
 	 *
@@ -43,6 +47,14 @@ public class AssociationRuleMiner {
 			// Generating every subsets
 			List<Set<Variable>> subSetList = Powerset.calcPowerSet(key);
 
+			// Removing useless subsets
+			List<Set<Variable>> subSetToRemove = new ArrayList<>();
+			subSetList.forEach(subset -> {
+				if (subset.size() > key.size())
+					subSetToRemove.add(subset);
+			});
+			subSetToRemove.forEach(subSetList::remove);
+
 			// Generating pairs, calculating the Trust value and putting it into the map
 			for (int i = 0; i < subSetList.size(); i++)
 				for (int j = i + 1; j < subSetList.size(); j++)
@@ -61,7 +73,7 @@ public class AssociationRuleMiner {
 							Adding the pair into the map, with its Frequency and Trust value if Trust value is higher
 						    than minimalTrust
 						 */
-						double trust = frequentItemsets.get(test) / frequentItemsets.get(subSetList.get(j));
+						double trust = frequentItemsets.get(test) / frequentItemsets.get(subSetList.get(i));
 						if (trust >= minimalTrust)
 							associationRuleMap.put(variableSetList, Arrays.asList(frequentItemsets.get(test), trust));
 

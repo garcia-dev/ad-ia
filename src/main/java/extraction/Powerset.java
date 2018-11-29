@@ -31,8 +31,7 @@ abstract class Powerset {
 				if ((i & 1 << j) != 0)
 					subset.add(variableList.get(j));
 
-			if (subset.size() < variableList.size())
-				subSetList.add(subset);
+			subSetList.add(subset);
 		}
 
 		return subSetList;

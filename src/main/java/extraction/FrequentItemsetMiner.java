@@ -30,7 +30,7 @@ public class FrequentItemsetMiner {
 	public Map<Set<Variable>, Double> frequentItemsets(Double minimalSupport) {
 		Map<Set<Variable>, Double> frequentItemset = new HashMap<>();
 
-		List<Set<Variable>> subsetsList = null;
+		List<Set<Variable>> subsetsList = new ArrayList<>();
 
 		// For each transaction, we're focusing on the variable with a value of '1'
 		for (Map<Variable, String> map : booleanDatabase.getTransactionList()) {
@@ -42,20 +42,18 @@ public class FrequentItemsetMiner {
 			});
 
 			// Generating every subsets
-			subsetsList = Powerset.calcPowerSet(trueVariableList);
+			subsetsList.addAll(Powerset.calcPowerSet(trueVariableList));
 		}
 
 		/*
 			For each subset we're checking if the frequency/support value is higher than the minimal value, if it is
 			we're putting it into the frequentItemset
 		 */
-		if (subsetsList != null) {
-			for (Set<Variable> subset : subsetsList) {
-				double support = (double) Collections.frequency(subsetsList, subset) / booleanDatabase.getTransactionList().size();
+		for (Set<Variable> subset : subsetsList) {
+			double support = (double) Collections.frequency(subsetsList, subset) / booleanDatabase.getTransactionList().size();
 
-				if (support >= minimalSupport)
-					frequentItemset.put(subset, support);
-			}
+			if (support >= minimalSupport)
+				frequentItemset.put(subset, support);
 		}
 
 		return frequentItemset;

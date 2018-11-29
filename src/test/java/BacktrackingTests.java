@@ -6,9 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BacktrackingTests {
-
 	public static void main(String[] args) {
-
 		/* Cars */
 
 		/* Car whose roof, hood and tailgate are the same color */
@@ -70,7 +68,7 @@ public class BacktrackingTests {
 		long startTime = System.currentTimeMillis();
 
 		Backtracking backtracking = new Backtracking(Examples.getVariables(),
-													 Examples.getConstraints());
+				Examples.getConstraints());
 
 		Map<Variable, String> car = backtracking.solution();
 		while (car != null) {

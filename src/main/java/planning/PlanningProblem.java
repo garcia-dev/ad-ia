@@ -83,8 +83,6 @@ public class PlanningProblem {
 			State state = open.poll();
 			closed.add(state);
 
-			System.out.println("loop");
-
 			for (Action action : actionsList)
 				if (action.isApplicable(state)) {
 					State next = action.apply(state);

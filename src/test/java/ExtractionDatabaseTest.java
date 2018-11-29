@@ -42,33 +42,6 @@ class ExtractionDatabaseTest {
 	private static final Variable RIGHT_COLOR_WHITE = new Variable("couleur_droite_blanc", BOOLEANS);
 
 	public static void main(String[] args) {
-//		List<Variable> variableList = new ArrayList<>(List.of(LEFT_COLOR, ROOF_COLOR, OPENING_ROOF, HOOD_COLOR, SONO,
-//				TAILGATE_COLOR, RIGHT_COLOR));
-//
-//		Database database = null;
-//
-//		try {
-//			database = new DBReader(new HashSet<>(variableList)).importDB("src/main/resources/db_example.csv");
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//
-//		System.out.println(database.toString());
-//
-//		BooleanDatabase booleanDatabase = Objects.requireNonNull(database).translateToBoolean();
-//
-//		AssociationRuleMiner associationRuleMiner =
-//				new AssociationRuleMiner(new FrequentItemsetMiner(booleanDatabase).frequentItemsets(0.5));
-//
-//		Map<List<?>, List<Double>> associationRuleMap = associationRuleMiner.calcAssociationRule();
-//
-//		associationRuleMap.forEach((key, value) -> System.out.println(key.get(0) + " -> " + key.get(1) +
-//				" - Frequency: " + value.get(0) + " - Trust: " + value.get(1)));
-//
-//		long endTime = System.currentTimeMillis();
-//
-//		System.out.println("Execution time : " + (endTime - startTime) + "ms");
-
 		List<Variable> booleanVariableList = new ArrayList<>(Arrays.asList(LEFT_COLOR_BLACK, LEFT_COLOR_RED,
 				LEFT_COLOR_WHITE, ROOF_COLOR_BLACK, ROOF_COLOR_RED, ROOF_COLOR_WHITE, OPENING_ROOF_0, OPENING_ROOF_1,
 				HOOD_COLOR_BLACK, HOOD_COLOR_RED, HOOD_COLOR_WHITE, SONO_0, SONO_1, TAILGATE_COLOR_BLACK,
@@ -78,7 +51,7 @@ class ExtractionDatabaseTest {
 				.readDB("test_db.csv");
 
 		AssociationRuleMiner associationRuleMiner =
-				new AssociationRuleMiner(new FrequentItemsetMiner(booleanDatabase1).frequentItemsets(0.5));
+				new AssociationRuleMiner(new FrequentItemsetMiner(booleanDatabase1).frequentItemsets(0.0));
 		Map<List<?>, List<Double>> associationRuleMap = associationRuleMiner.calcAssociationRule(0);
 
 		associationRuleMap.forEach((key, value) -> System.out.println(key.get(0) + " -> " + key.get(1) +
