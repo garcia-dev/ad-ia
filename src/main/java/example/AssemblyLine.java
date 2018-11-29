@@ -35,7 +35,7 @@ public class AssemblyLine {
 	private static final Variable LEFT_COLOR = new Variable("leftColor", ALL_COLORS);
 	private static final Variable REAR_COLOR = new Variable("rearColor", ALL_COLORS);
 	private static final Variable RIGHT_COLOR = new Variable("rightColor", ALL_COLORS);
-	private static final Variable ROOF_COLOR = new Variable("roofColor", ALL_COLORS);
+	private static final Variable ROOF_COLOR = new Variable("ROOF_COLOR", ALL_COLORS);
 
 	/* Unique parts actions */
 	private static final Action INSTALL_CHASSIS;

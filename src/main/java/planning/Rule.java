@@ -20,11 +20,11 @@ public class Rule {
 		this.effects = effects;
 	}
 
-	public State getPreconditions() {
+	State getPreconditions() {
 		return preconditions;
 	}
 
-	public State getEffects() {
+	State getEffects() {
 		return effects;
 	}
 }

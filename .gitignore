@@ -5,7 +5,8 @@
 .idea
 
 # Compiled files
-*.class
 out/
 bin/
 build/
+*.class
+
