@@ -30,6 +30,7 @@ public class AssociationRuleMiner {
 	/**
 	 * Method calculating every association rules possible.
 	 *
+	 * @param minimalTrust the minimalTrust value that must have the association rules
 	 * @return a map of association rules
 	 */
 	public Map<List<?>, List<Double>> calcAssociationRule(double minimalTrust) {
